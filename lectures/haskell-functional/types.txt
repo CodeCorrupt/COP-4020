@@ -1,0 +1,437 @@
+Lecture -*- Outline -*-
+
+* types in Haskell (Ch 13 in Thompson, Ch 4 in Davie)
+
+    Static type systems like can catch program errors
+	before the program is run.
+
+** terminology
+------------------------------------------
+    STATIC VS. DYNAMIC TYPE CHECKING
+
+def: a *static* property is one that
+     can be checked 
+
+def: a *dynamic* property must be checked
+     (in general) at runtime
+
+def: a *type error* is a successful use 
+     a function outside of its domain
+
+def: a program is *type safe* if it cannot
+     have a type error at runtime
+
+------------------------------------------
+       ... before runtime
+
+      Q: When is static type safety checked?
+          before runtime
+      Q: What languages have static type checking?
+          Haskell, Java, C++
+      Q: What languages have dynamic type checking?
+         Smalltalk, Ruby, Python, Erlang, ...
+
+** type operators (Davie 4.1)
+    Haskell's type system has several interesting features...
+
+------------------------------------------
+	TYPE NOTATION
+
+Type declarations
+
+	x :: Integer
+	f :: Integer -> Integer
+
+Type operators
+
+	operator	meaning
+	=============================
+	_ -> _		function type
+	(_ , _)		product type
+	[ _ ]		list type
+
+Associativity of functions and types:
+
+	b f g x     means  (((b f) g) x)
+
+       s -> t -> u  means  s -> (t -> u)
+
+       s->t->u->v   means  s->(t->(u->v))
+------------------------------------------
+
+	Q: Why do you think the associtivity is different for applications
+		and for function types?
+
+	Might mention connection to logic...
+
+** polymorphic types (Thompson 9.2, Davie 4.2)
+------------------------------------------
+	POLYMORPHIC TYPES
+
+Monomorphic examples:
+
+	Integer
+	[Bool] -> Bool
+	[(Integer, Integer) -> Bool]
+
+Polymorphic examples:
+
+	[i]
+	[b] -> b
+	[(i,i) -> Bool]
+
+
+
+------------------------------------------
+        Can use any variable id for a type name (lower case: a, b, ..., z)
+
+	Q: What are some expressions that have these types?
+
+	Explain in terms of universal quantifiers.
+
+	Q: What are some other instances of these types?
+
+** type synonyms (Davie 4.3.1)
+------------------------------------------
+	TYPE SYNONYMS
+
+Examples
+
+> type Nat = Int
+> type TextString = [(Nat, String)]
+
+> type Stack a = [a]
+> type Queue a = [a]
+> type MyQueue a = Queue a
+> type Predicate a = (a -> Bool)
+
+------------------------------------------
+	The semantics is that these are just abbreviations.
+
+	Q: Do these declaratiosn allow us to pass a (Stack Int)
+		to a function of type [Int] -> Int?
+
+** algebraic types (Thompson 14, Davie 4.4) (just mention)
+
+------------------------------------------
+   ALGEBRAIC DATATYPES (GRAMMARS)
+
+Can simulate enumerations
+
+> data Font = Roman | Italic | Bold
+
+  data Color = 
+
+  data Boolean = 
+
+
+Can also be used to define recursive
+types, including
+
+
+  data HaskellType = 
+
+
+
+
+   
+------------------------------------------
+	... Red | Blue | Yellow
+	... True | False
+
+	Note that the constructor names must start with upper case letter!
+
+	... including grammars
+
+        ... Unit | BuiltIn String
+            | Synonym String
+            | List HaskellType
+            | HaskellType `Arrow` HaskellType
+            | Tuple [HaskellType]
+            | Data String
+
+** abstract data types (Thompson 15, Davie 4.5, 4.9)
+
+------------------------------------------
+	ABSTRACT DATA TYPES
+
+-- file Fraction.hs
+
+module Fraction (Fraction, mkFraction,
+                 num, denom, add, sub)
+where
+data Fraction = Integer :/ Integer
+mkFraction _ 0 = error "undefined"
+mkFraction n d = n :/ d
+num (n :/ d) = n
+denom (n :/ d) = d
+add (n1 :/ d1) (n2 :/ d2) =
+     mkFraction (n1 * d2 + n2 * d1)
+                (d1 * d2)
+sub (n1 :/ d1) (n2 :/ d2) =
+     mkFraction (n1 * d2 - n2 * d1)
+                (d1 * d2)
+
+------------------------------------------
+
+	If we had written
+
+		module Fraction (Fraction(:/), ...)
+
+	then the constructor :/ would have been exported.
+
+        Note: to show that :/ is hidden from clients, 
+        you have to work from a client module,
+        like FractionTests, not from the Fraction module itself
+
+------------------------------------------
+      FREE TYPES VS. TYPES MODULO LAWS
+
+def: a data type is *free* (*algebraic)
+     if
+
+
+
+Examples:
+
+
+
+
+
+def: a data type is *not free* (abstract)
+    if
+
+
+
+Examples:
+
+
+
+------------------------------------------
+
+	... any value manufactured using the constructor functions is legal
+		(according to your idea of what the type should be)
+
+		e.g., Stack, [a], ...
+
+	... some values manufactured using the constructor functions
+		are not legal
+		(according to your idea of what the type should be)
+	
+		e.g. Fraction, Set, PrimeNumber
+
+	Usually, you have to define your own notion of equality if the
+		type is not free.
+                But for free types can use "deriving Eq" in Haskell.
+
+	sometimes you have a choice of how to define the type
+
+		e.g., NonEmptyList
+
+	Q: Is it ever worthwhile to hide the representation of a free type?
+                only if there is a good possibility it will change
+
+
+** overview of type inference (Thompson 13, Davie 4.7)
+
+------------------------------------------
+	OVERVIEW OF TYPE INFERENCE
+
+Type checking: you declare type,
+	       compiler infers type,
+	       compiler compares
+
+Type inference: compiler infers type
+                compiler checks consistency
+
+In Haskell don't need to declare types
+	(usually)
+
+Example
+
+> mymap f [] = []
+> mymap f (x:xs) = (f x):(mymap f xs)
+
+
+
+------------------------------------------
+	do the inference (quickly, we'll see more later)
+
+		mymap :: a = d -> b -> c, used with b = [e], c=[i]
+		f :: d = e -> i 
+                x :: e 
+                xs :: g = [e]
+                (:) :: h -> [h] -> [h], used with h = e
+		etc.
+                   so get mymap :: (e->i) -> [e] -> [i]
+
+	since the variables are unconstrained, this is polymorphic
+
+** ad hoc polymorphism and type classes (Thompson 12, Davie 4.8)
+
+	See paper by Wadler and Blott (POPL 89)
+
+------------------------------------------
+	AD HOC POLYMORPHISM
+
+parametric polymorphism:
+
+   map ::       (a -> b) -> [a] -> [b]
+
+
+ad hoc polymorphism
+
+> square :: Num a => a -> a
+> square x = x * x
+
+
+------------------------------------------
+
+	the point is that square x only works on those x for which * is defined
+
+	it's illuminating to make a parametric version of this:
+
+		squareP :: (a -> a -> a) -> a -> a
+		squareP mult x = x `mult` x 
+		
+	So what square needs to be polymorphic, is an additional "capability",
+		the appropriate multiplication routine.
+
+	Q: Why not require that you actually pass the multiplication yourself?
+                painful -- these requirements tend to accumulate
+
+	Q: What's done in OO programming?
+		lookup the method, based on the run-time type
+		this isn't the run-time type, but the static type
+			(note that there's no subtyping in Haskell,
+			we know exact type of everything)
+
+	But the idea is similar, we group types with related sets of
+		operations into type classes,
+		the type context (Num a =>) gives the name of the type class
+		required
+
+*** type classes (Thompson 13.2 and 13.4)
+------------------------------------------
+       TYPE CLASSES IN HASKELL
+
+-- abbreviated Eq type class
+
+class Eq a where
+    (==), (/=) :: a -> a -> Bool
+    x /= y      = not (x==y)
+
+
+-- abbreviated Ord type class
+
+class (Eq a) => Ord a where
+    compare       :: a -> a -> Ordering
+    (<), (<=), (>=), (>) :: a -> a -> Bool
+    max, min             :: a -> a -> a
+
+------------------------------------------
+	there is a "default method" provided for /=, and the ordering stuff
+	This is similar to an "abstract class" in OOP,
+		but remember it's *static* overloading
+
+        data Ordering = LT | EQ | GT
+		deriving (Eq, Ord, Ix, Enum, Read, Show, Bounded)
+
+	The Ord type class is a *subclass* of Eq, it inherits defs from Eq,
+		really if you think of these as requirements,
+		it's a refinement (stronger requirement) on clients.
+
+	There are also various ways to declare that a type you make up
+		is an instance of a type class.
+
+*** type class instances (Thompson 13.3)
+------------------------------------------
+      DECLARING TYPE CLASS INSTANCES
+
+> data Prod a b = a :* b
+
+> instance (Eq a, Eq b)
+>                  => Eq (Prod a b) where
+>    (x :* y) == (x' :* y') =
+>      (x == x' && y == y')
+
+
+or you can write:
+
+> data Cartesian a b = a :** b deriving Eq
+
+------------------------------------------
+
+	pitfall: apparently the "where" can't be at the same indentation level
+		as "instance" for the layout rules to work properly
+
+*** higher-order type classes
+------------------------------------------
+    HIGHER-ORDER TYPE CLASSES
+
+-- from the Prelude
+
+class Functor f where
+    fmap :: (a -> b) -> (f a -> f b)
+
+instance Functor [] where
+    fmap g []     = []
+    fmap g (x:xs) = g x : fmap g xs
+
+data Maybe a = Nothing | Just a
+            deriving (Eq, Ord, Read, Show)
+
+instance Functor Maybe where
+    fmap g Nothing  = Nothing
+    fmap g (Just x) = Just (g x)
+------------------------------------------
+
+        Thus fmap has the type (a -> b) -> ([a] -> [b])
+
+        The type Maybe a is often used with functions that would otherwise
+                have errors
+
+        Other instances of Functor from the Prelude
+                
+        instance Functor ((->) a) where
+            fmap f g x = f (g x)
+
+        (in the Prelude this is
+             instance Functor ((->) a) where
+                 fmap = (.)
+
+         these are equivalent due to the definition of (.))
+
+        How this works in practice:
+
+        Prelude> fmap not not
+        not . not :: Bool -> Bool
+        Prelude> fmap not not True
+        Bool_True :: Bool
+        Prelude> fmap (3+) ((-)4) 10
+        -3 :: Integer
+        
+        Note that we have
+        
+        Prelude> 3 + (4 - 10)
+        -3 :: Integer
+        
+        How does it type check?
+        We must have
+           fmap :: (c -> d) -> (((->) a) c) -> (((->) a) d)
+        or rather (changing to infix)
+           fmap :: (c -> d) -> (a -> c) -> (a -> d)
+        
+        But this is just the type of the composition operator (.); so it type
+        checks immediately.
+
+        Another example:
+
+> inc :: (Functor f, Num a) => f a -> f a
+> inc xs = fmap (+1) xs
+
+  With this, try the following:
+
+  inc (Just 3)
+
+  inc [3, 4]

@@ -1,0 +1,71 @@
+GHCi, version 7.4.2: http://www.haskell.org/ghc/  :? for help
+Loading package ghc-prim ... linking ... done.
+Loading package integer-gmp ... linking ... done.
+Loading package base ... linking ... done.
+Prelude> :load "c:/cygwin/home/leavens/classes/cop4020/lectures/haskell-functional/Eval.hs"
+[1 of 1] Compiling Main             ( C:\cygwin\home\leavens\classes\cop4020\lectures\haskell-functional\Eval.hs, interpreted )
+Ok, modules loaded: Main.
+*Main> eval (BoolLit True)
+
+<interactive>:3:1:
+    No instance for (Show Value)
+      arising from a use of `print'
+    Possible fix: add an instance declaration for (Show Value)
+    In a stmt of an interactive GHCi command: print it
+*Main> :load "c:/cygwin/home/leavens/classes/cop4020/lectures/haskell-functional/Eval.hs"
+[1 of 1] Compiling Main             ( C:\cygwin\home\leavens\classes\cop4020\lectures\haskell-functional\Eval.hs, interpreted )
+Ok, modules loaded: Main.
+*Main> eval (BoolLit True)
+BV True
+*Main> eval (If (BoolLit True) (IntLit 5) (IntLit 4))
+IV 5
+*Main> eval (If (IntLit 3) (IntLit 5) (IntLit 4))
+Wrong
+*Main> eval (If (IntLit True) (IntLit 5) (IntLit 4))
+
+<interactive>:8:18:
+    Couldn't match expected type `Integer' with actual type `Bool'
+    In the first argument of `IntLit', namely `True'
+    In the first argument of `If', namely `(IntLit True)'
+    In the first argument of `eval', namely
+      `(If (IntLit True) (IntLit 5) (IntLit 4))'
+*Main> :load "c:/cygwin/home/leavens/classes/cop4020/lectures/haskell-functional/Eval.hs"
+[1 of 1] Compiling Main             ( C:\cygwin\home\leavens\classes\cop4020\lectures\haskell-functional\Eval.hs, interpreted )
+Ok, modules loaded: Main.
+*Main> eval (If (BoolLit True) (IntLit 5) (IntLit 4))
+5
+*Main> eval (Equal (IntLit 5) (IntLit 4))
+false
+*Main> if True then 4 else 'c'
+
+<interactive>:12:14:
+    No instance for (Num Char)
+      arising from the literal `4'
+    Possible fix: add an instance declaration for (Num Char)
+    In the expression: 4
+    In the expression: if True then 4 else 'c'
+    In an equation for `it': it = if True then 4 else 'c'
+*Main> :load "c:/cygwin/home/leavens/classes/cop4020/lectures/haskell-functional/Eval.hs"
+[1 of 1] Compiling Main             ( C:\cygwin\home\leavens\classes\cop4020\lectures\haskell-functional\Eval.hs, interpreted )
+Ok, modules loaded: Main.
+*Main> typeOf (Equal (IntLit 3) (BoolLit True))
+OWrong
+*Main> let we = (Equal (IntLit 3) (BoolLit True))
+*Main> we
+
+<interactive>:16:1:
+    No instance for (Show Exp)
+      arising from a use of `print'
+    Possible fix: add an instance declaration for (Show Exp)
+    In a stmt of an interactive GHCi command: print it
+*Main> typeOf (If we we we)
+OWrong
+*Main> typeOf (If (BoolLit True) we we)
+OWrong
+*Main> typeOf (If (BoolLit True) (IntLit 7) (IntLit 5))
+OInteger
+*Main> :q
+Leaving GHCi.
+
+Process haskell finished
+

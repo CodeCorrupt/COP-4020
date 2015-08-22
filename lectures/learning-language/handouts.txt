@@ -1,0 +1,440 @@
+I. Overall Tips for Learning Programming Languages
+ A. implementation
+------------------------------------------
+          WHAT TO SEARCH FOR?
+
+ - implementation (compiler, interpreter)
+    - possibly a programming environment
+ - documentation
+
+Minimal environment:
+ - A text editor (Emacs)
+
+------------------------------------------
+ B. documentation
+  1. what to find
+------------------------------------------
+    WHAT DOCUMENTATION?
+
+- Language Reference Manual
+   - syntax
+   - types and type checking
+   - semantics
+
+- Tutorial with examples
+
+When you read:
+  - think about (check) examples
+  - run examples
+  - try things out on your own
+  - learn strategy + tactics
+
+
+
+------------------------------------------
+  2. syntax
+------------------------------------------
+          HOW COMPILERS WORK
+
+                        
+  character stream
+        |
+        |"public static void ..."
+ _______v____________ 
+ | Lexical Analysis |
+ |__________________| 
+        |        "void"                      
+   token stream  "static"
+        |        "public"
+ _______v___________
+|     Parser        |
+|___________________|
+        |             CompilationUnit
+   abstract syntax        |     \
+       tree           ClassDecl InterfaceDecl
+        |                 |         |
+ _______v___________  MethodDecl   ...
+|  Static Checker   |     |
+|___________________|    ...
+        |
+   annotated AST
+        |
+ _______v___________ 
+|  Code Generation  |
+|___________________|
+        |
+        v
+    object code
+------------------------------------------
+   a. lexical grammar
+------------------------------------------
+       LEXICAL (REGULAR) GRAMMAR EXAMPLE
+
+<Id> ::= <NonUpper_Letter> { <NameChar> }
+<VIdent> ::= <UpperLetter_> { <NameChar> }
+<NonUpper_Letter> ::= a | b | c | d | ... | z
+<UpperLetter_> ::= _ | A | B | C | D | ... | Z
+<NameChar> ::= <NonUpper_Letter> | <UpperLetter_>
+            |  <Digit> | + | - 
+<Digit> ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+
+
+
+------------------------------------------
+     What are examples of <Id>s?
+     What are examples of <VIdent>s?
+------------------------------------------
+      CONVENTIONS AND EXTENSIONS (EBNF)
+
+{ <X> } ::= <Empty> | <X> { <X> }
+<X>*    ::= <Empty> | <X> <X>*
+
+<X>+    ::= <X> | <X> <X>+
+[ <X> ] ::= <Empty> | <X>
+
+[ <X> ]... ::= <Empty> | <X> [ <X> ]...
+
+<Empty> ::=
+------------------------------------------
+   b. syntax and context-free grammars
+------------------------------------------
+   BNF (CONTEXT-FREE GRAMMAR) EXAMPLE
+
+<Term> ::=  <Term> <TypedCIdent>          
+        |   <TypedCIdent> <Term>          
+        |   <Term> <Term>
+        |   <TypedId> \ <Term>
+        |   '[' ']'         
+        |   '[' TermList ']' 
+        |   '[' TermList '|' Term ']'
+        |   <TypedCIdent>
+        |   <TypedVar> 
+        |   <TypedId>
+        |   ( <Term> )
+
+<TermList> ::=  <Term>
+            |   <Term> , <TermList>
+
+<TypedCIdent> ::=  <Id>
+               |   <Id> : <Type>
+               |   ( <TypedCIdent> )
+
+<TypedId> ::=  <Id>
+           |   <Id> : <Type>
+           |   ( <TypedId> )
+
+<TypedVar> ::=  <VIdent>
+            |   <VIdent> : <Type>
+            |   ( <TypedVar> )
+
+<Type> ::= <CType> '->' <Type>
+        |  <CType>
+
+<CType> ::= <NameToken>
+         | <TyCIdent> <CTypes>
+         | '(' <Type> ')'
+
+<TyCIdent> ::= <Id>
+
+<CTypes> ::=   <CType>
+          | <CType> <CTypes>
+
+
+
+
+------------------------------------------
+   What are examples of <Term>s?
+II. Example: learning lambda Prolog
+ A. motivation
+------------------------------------------
+   MOTIVATIONS FOR LOGIC PROGRAMMING
+
+ 1. write programs efficiently
+ 2. execute specifications
+ 3. separate directions about control
+       and data structures
+
+How would you specify a sort routine?
+
+
+
+
+
+
+------------------------------------------
+        How can we then use this specification to sort some list L?
+        How could such a theorem be proved?
+ B. programming model
+------------------------------------------
+     ABSTRACTING FROM THE EXAMPLE
+
+Model: programs are modeled as
+
+
+Specification of a problem:
+ a problem to be solved is
+
+
+
+
+
+
+
+Answer to a problem:
+
+
+------------------------------------------
+        Why is the programming model important?
+ C. Basic elements of a language
+  1. Data (means of computation)
+------------------------------------------
+           WHAT DATA?
+
+For logic programming use:
+
+      data                 syntax
+  - named entities
+  - unknown entities
+  - relationships
+
+
+------------------------------------------
+ D. means of combination
+------------------------------------------
+  CONNECTIVES FOR EFFECTIVE SPECIFICATION
+
+Effectively describe L2?
+
+ - (ordered L2) and (permutation L1 L2)
+
+
+ - (ordered L2) or (empty L2)
+
+
+
+Effectively describe a relationship?
+
+ - (sorted L1 L2) if
+    ((ordered L2) and (permutation L1 L2))
+
+
+
+ - (less X Y) if not (greater X Y)
+
+
+------------------------------------------
+        Does "not" give an effective computation?
+	What about universal quantification?  Existential quantification?
+------------------------------------------
+  CONNECTIVES FOR EFFECTIVE QUERYING
+
+Effectively ask for L2?
+
+ - (ordered L2) and (permutation L1 L2)
+
+
+ - (ordered L2) or (empty L2)
+
+
+------------------------------------------
+ E. means of abstraction (usually naming)
+  1. facts and rules
+------------------------------------------
+         FACTS AND RULES
+
+% file facts_rules.sig
+sig facts_rules.
+
+  kind entity type.
+
+  type flower entity.
+  type spock  entity.
+
+  type good entity -> o.
+  type logical entity -> o.
+
+
+% file facts_rules.mod
+% fact
+good flower.
+logical spock.
+
+% rule
+good X :- logical X.
+------------------------------------------
+   a. compound terms in LambdaProlog
+------------------------------------------
+	 COMPOUND TERMS
+
+(tree Subtree1 Root Subtree2)
+(((tree Subtree1) Root) Subtree2)
+
+%lists:
+ a::b::nil
+
+(sentence (np (n ron))
+          (vp (v gave)
+              (np (art a) (n paper))
+              (compls (prep to)
+                      (np (n sue)))))
+------------------------------------------
+   b. scope of variables
+------------------------------------------
+	SCOPE OF VARIABLES
+
+(understand L X) :- (know terms L X),
+	            (know syntax L X),
+		    (know semantics L X).
+
+(grandparent K L) :-
+	(parent K P), (parent P L).
+
+
+------------------------------------------
+        Which L's should mean the same person?
+        So what does that mean the scope of a variable is in lambda Prolog?
+  2. kinds and types
+------------------------------------------
+        KINDS AND TYPES
+
+% declaration of a type
+kind event type.
+kind person type.
+
+% declaration of type of a name
+type actor	event -> person -> o.
+
+------------------------------------------
+  3. Examples
+   a. assertions
+------------------------------------------
+        % A SEMANTIC NETWORK
+
+sig semantic_net.
+
+  kind event type.
+  kind person type.
+  kind thing type.
+  kind verb type.
+  
+  type event1	event.
+  type paper	thing.
+  type sue	person.
+  type ron	person.
+  type gave 	verb.
+  type event2	event.
+  type football	thing.
+  type swen	person.
+  
+  type object	event -> thing -> o.
+  type recipient event -> person -> o.
+  type actor	event -> person -> o.
+  type action 	event -> verb -> o.
+------------------------------------------
+------------------------------------------
+module semantic_net.
+
+  % a semantic network
+  
+  object event1 paper.
+  recipient event1 sue.
+  actor event1 ron.
+  action event1 gave.
+------------------------------------------
+   b. queries
+	what is the result of the query:
+                recipient event1 Who. ?
+	how would you add the fact that in event2,
+		sue gave the football to swen?
+  4. Lists
+------------------------------------------
+               % LISTS
+
+sig list.  
+
+% this is all built in to lambda Prolog
+% but this shows how it would be done.
+
+kind	list	type -> type.
+
+type 	nil	(list T).
+type 	'::'  	T -> (list T) -> (list T).
+infixr  '::'    5.
+------------------------------------------
+------------------------------------------
+        LIST NOTATION ISN'T SPECIAL
+
+% signature file
+sig lisp_lists.
+
+  kind lisp_list        type -> type.
+  
+  type the_empty_list   (lisp_list T).
+  type cons             T -> (lisp_list T) -> (lisp_list T).
+  
+  type to_list          (lisp_list T) -> (list T) -> o.
+end
+
+
+% the module
+module lisp_lists.
+
+  % an inductive definition
+  to_list the_empty_list nil.
+  to_list (cons Head Tail) (Head::PL) :- to_list Tail PL.
+end
+------------------------------------------
+	what are these type decls like in Haskell?
+   a. example using lists
+------------------------------------------
+sig addtoend1.
+
+  type addtoend
+           (list T) -> T -> (list T) -> o.
+
+
+module addtoend1.
+
+  addtoend 
+
+
+------------------------------------------
+        How would we write this?
+  5. Interpretations of clauses
+------------------------------------------
+   INTERPRETATIONS OF CLAUSES
+
+(h X) :- (b1 Y), (b2 Z), (b3 W).
+
+
+declarative interpretation:
+
+
+
+procedural interpretation:
+
+
+
+------------------------------------------
+   a. declarative
+   b. Procedural reading (programming language)
+  6. tracing queries
+  7. variation on addtoend
+------------------------------------------
+        % VARIATION ON ADDTOEND
+
+sig addtoend2.
+
+  type equals T -> T -> o.
+  type addtoend (list T) -> T -> (list T).
+
+module addtoend2.
+
+  equals (addtoend nil X) (X::nil).
+  equals (addtoend (Y::L) X) (Y::M)
+      :- equals (addtoend L X) M.
+------------------------------------------
+	can you trace this?
+  8. reverse
+	can you write append of type
+              (list T) -> (list T) -> (list T) -> o ?

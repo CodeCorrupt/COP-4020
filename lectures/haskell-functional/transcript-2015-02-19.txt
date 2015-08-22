@@ -1,0 +1,632 @@
+GHCi, version 7.8.3: http://www.haskell.org/ghc/  :? for help
+Loading package ghc-prim ... linking ... done.
+Loading package integer-gmp ... linking ... done.
+Loading package base ... linking ... done.
+Prelude> :load "MusicFunsInClass.hs"
+[1 of 2] Compiling MusicInClass     ( MusicInClass.hs, interpreted )
+[2 of 2] Compiling MusicFunsInClass ( MusicFunsInClass.hs, interpreted )
+Ok, modules loaded: MusicFunsInClass, MusicInClass.
+*MusicFunsInClass> :load MusicFundsInClassTests.hs
+
+<no location info>: can't find file: MusicFundsInClassTests.hs
+Failed, modules loaded: none.
+Prelude> :load "c:/cygwin64/home/leavens/classes/cop4020/lectures/haskell-functional/MusicFunsInClassTests.hs"
+[1 of 5] Compiling Testing          ( Testing.lhs, interpreted )
+[2 of 5] Compiling Music            ( Music.hs, interpreted )
+[3 of 5] Compiling MusicInClass     ( MusicInClass.hs, interpreted )
+[4 of 5] Compiling MusicFunsInClass ( MusicFunsInClass.hs, interpreted )
+[5 of 5] Compiling MusicFunsTests   ( C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs, interpreted )
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:23:19:
+    Not in scope: `range'
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:24:19:
+    Not in scope: `range'
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:25:19:
+    Not in scope: `range'
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:26:19:
+    Not in scope: `range'
+Failed, modules loaded: MusicFunsInClass, MusicInClass, Music, Testing.
+*MusicFunsInClass> :load "c:/cygwin64/home/leavens/classes/cop4020/lectures/haskell-functional/MusicFunsInClassTests.hs"
+[1 of 5] Compiling Testing          ( Testing.lhs, interpreted )
+[2 of 5] Compiling Music            ( Music.hs, interpreted )
+[3 of 5] Compiling MusicInClass     ( MusicInClass.hs, interpreted )
+[4 of 5] Compiling MusicFunsInClass ( MusicFunsInClass.hs, interpreted )
+[5 of 5] Compiling MusicFunsTests   ( C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs, interpreted )
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:11:14:
+    Couldn't match expected type `Music'
+                with actual type `MusicInClass.Music'
+    NB: `Music' is defined at Music.hs:(4,1)-(5,30)
+        `MusicInClass.Music' is defined at MusicInClass.hs:(3,1)-(6,32)
+    In the first argument of `eqTest', namely `(transpose 1 (Pitch 5))'
+    In the expression: eqTest (transpose 1 (Pitch 5)) "==" (Pitch 6)
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:11:27:
+    Couldn't match expected type `MusicInClass.Music'
+                with actual type `Music'
+    NB: `MusicInClass.Music' is defined at MusicInClass.hs:(3,1)-(6,32)
+        `Music' is defined at Music.hs:(4,1)-(5,30)
+    In the second argument of `transpose', namely `(Pitch 5)'
+    In the first argument of `eqTest', namely `(transpose 1 (Pitch 5))'
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:12:14:
+    Couldn't match expected type `Music'
+                with actual type `MusicInClass.Music'
+    NB: `Music' is defined at Music.hs:(4,1)-(5,30)
+        `MusicInClass.Music' is defined at MusicInClass.hs:(3,1)-(6,32)
+    In the first argument of `eqTest', namely
+      `(transpose 5 (Chord [Pitch 1, Pitch 3, Pitch 5]))'
+    In the expression:
+      eqTest
+        (transpose 5 (Chord [Pitch 1, Pitch 3, Pitch 5]))
+        "=="
+        (Chord [Pitch 6, Pitch 8, Pitch 10])
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:12:27:
+    Couldn't match expected type `MusicInClass.Music'
+                with actual type `Music'
+    NB: `MusicInClass.Music' is defined at MusicInClass.hs:(3,1)-(6,32)
+        `Music' is defined at Music.hs:(4,1)-(5,30)
+    In the second argument of `transpose', namely
+      `(Chord [Pitch 1, Pitch 3, Pitch 5])'
+    In the first argument of `eqTest', namely
+      `(transpose 5 (Chord [Pitch 1, Pitch 3, Pitch 5]))'
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:14:14:
+    Couldn't match expected type `Music'
+                with actual type `MusicInClass.Music'
+    NB: `Music' is defined at Music.hs:(4,1)-(5,30)
+        `MusicInClass.Music' is defined at MusicInClass.hs:(3,1)-(6,32)
+    In the first argument of `eqTest', namely
+      `(transpose 5 (Seq [Chord [Pitch 1, Pitch 3, ....]]))'
+    In the expression:
+      eqTest
+        (transpose 5 (Seq [Chord [Pitch 1, Pitch 3, ....]]))
+        "=="
+        (Seq [Chord [Pitch 6, Pitch 8, ....]])
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:14:27:
+    Couldn't match expected type `MusicInClass.Music'
+                with actual type `Music'
+    NB: `MusicInClass.Music' is defined at MusicInClass.hs:(3,1)-(6,32)
+        `Music' is defined at Music.hs:(4,1)-(5,30)
+    In the second argument of `transpose', namely
+      `(Seq [Chord [Pitch 1, Pitch 3, ....]])'
+    In the first argument of `eqTest', namely
+      `(transpose 5 (Seq [Chord [Pitch 1, Pitch 3, ....]]))'
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:16:14:
+    Couldn't match expected type `Music'
+                with actual type `MusicInClass.Music'
+    NB: `Music' is defined at Music.hs:(4,1)-(5,30)
+        `MusicInClass.Music' is defined at MusicInClass.hs:(3,1)-(6,32)
+    In the first argument of `eqTest', namely
+      `(transpose
+          10 (Chord [Seq [Chord [...]], Seq [Pitch 5, Pitch 1]]))'
+    In the expression:
+      eqTest
+        (transpose 10 (Chord [Seq [Chord [...]], Seq [Pitch 5, Pitch 1]]))
+        "=="
+        (Chord [Seq [Chord [...]], Seq [Pitch 15, Pitch 11]])
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:16:28:
+    Couldn't match expected type `MusicInClass.Music'
+                with actual type `Music'
+    NB: `MusicInClass.Music' is defined at MusicInClass.hs:(3,1)-(6,32)
+        `Music' is defined at Music.hs:(4,1)-(5,30)
+    In the second argument of `transpose', namely
+      `(Chord [Seq [Chord [...]], Seq [Pitch 5, Pitch 1]])'
+    In the first argument of `eqTest', namely
+      `(transpose
+          10 (Chord [Seq [Chord [...]], Seq [Pitch 5, Pitch 1]]))'
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:23:19:
+    Couldn't match expected type `(Int, Int)' with actual type `[Int]'
+    In the first argument of `eqTest', namely `(notes (Pitch 5))'
+    In the expression: eqTest (notes (Pitch 5)) "==" [5]
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:23:26:
+    Couldn't match expected type `MusicInClass.Music'
+                with actual type `Music'
+    NB: `MusicInClass.Music' is defined at MusicInClass.hs:(3,1)-(6,32)
+        `Music' is defined at Music.hs:(4,1)-(5,30)
+    In the first argument of `notes', namely `(Pitch 5)'
+    In the first argument of `eqTest', namely `(notes (Pitch 5))'
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:23:41:
+    Couldn't match expected type `(Int, Int)' with actual type `[t0]'
+    In the third argument of `eqTest', namely `[5]'
+    In the expression: eqTest (notes (Pitch 5)) "==" [5]
+    In the expression:
+      [eqTest (notes (Pitch 5)) "==" [5],
+       eqTest (notes (Chord [Pitch 1, Pitch 3, ....])) "==" [1, 3, ....],
+       eqTest (notes (Seq [Chord [...]])) "==" [1, 3, ....],
+       eqTest (notes (Chord [Seq [...], Seq [...]])) "==" [0, 3, ....]]
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:24:19:
+    Couldn't match expected type `(Int, Int)' with actual type `[Int]'
+    In the first argument of `eqTest', namely
+      `(notes (Chord [Pitch 1, Pitch 3, Pitch 5]))'
+    In the expression:
+      eqTest (notes (Chord [Pitch 1, Pitch 3, Pitch 5])) "==" [1, 3, 5]
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:24:26:
+    Couldn't match expected type `MusicInClass.Music'
+                with actual type `Music'
+    NB: `MusicInClass.Music' is defined at MusicInClass.hs:(3,1)-(6,32)
+        `Music' is defined at Music.hs:(4,1)-(5,30)
+    In the first argument of `notes', namely
+      `(Chord [Pitch 1, Pitch 3, Pitch 5])'
+    In the first argument of `eqTest', namely
+      `(notes (Chord [Pitch 1, Pitch 3, Pitch 5]))'
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:24:67:
+    Couldn't match expected type `(Int, Int)' with actual type `[t1]'
+    In the third argument of `eqTest', namely `[1, 3, 5]'
+    In the expression:
+      eqTest (notes (Chord [Pitch 1, Pitch 3, Pitch 5])) "==" [1, 3, 5]
+    In the expression:
+      [eqTest (notes (Pitch 5)) "==" [5],
+       eqTest (notes (Chord [Pitch 1, Pitch 3, ....])) "==" [1, 3, ....],
+       eqTest (notes (Seq [Chord [...]])) "==" [1, 3, ....],
+       eqTest (notes (Chord [Seq [...], Seq [...]])) "==" [0, 3, ....]]
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:25:19:
+    Couldn't match expected type `(Int, Int)' with actual type `[Int]'
+    In the first argument of `eqTest', namely
+      `(notes (Seq [Chord [Pitch 1, Pitch 3, ....]]))'
+    In the expression:
+      eqTest
+        (notes (Seq [Chord [Pitch 1, Pitch 3, ....]])) "==" [1, 3, 5]
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:25:26:
+    Couldn't match expected type `MusicInClass.Music'
+                with actual type `Music'
+    NB: `MusicInClass.Music' is defined at MusicInClass.hs:(3,1)-(6,32)
+        `Music' is defined at Music.hs:(4,1)-(5,30)
+    In the first argument of `notes', namely
+      `(Seq [Chord [Pitch 1, Pitch 3, ....]])'
+    In the first argument of `eqTest', namely
+      `(notes (Seq [Chord [Pitch 1, Pitch 3, ....]]))'
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:25:73:
+    Couldn't match expected type `(Int, Int)' with actual type `[t2]'
+    In the third argument of `eqTest', namely `[1, 3, 5]'
+    In the expression:
+      eqTest
+        (notes (Seq [Chord [Pitch 1, Pitch 3, ....]])) "==" [1, 3, 5]
+    In the expression:
+      [eqTest (notes (Pitch 5)) "==" [5],
+       eqTest (notes (Chord [Pitch 1, Pitch 3, ....])) "==" [1, 3, ....],
+       eqTest (notes (Seq [Chord [...]])) "==" [1, 3, ....],
+       eqTest (notes (Chord [Seq [...], Seq [...]])) "==" [0, 3, ....]]
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:26:19:
+    Couldn't match expected type `(Int, Int)' with actual type `[Int]'
+    In the first argument of `eqTest', namely
+      `(notes (Chord [Seq [Chord [...]], Seq [Pitch 10, Pitch 1]]))'
+    In the expression:
+      eqTest
+        (notes (Chord [Seq [Chord [...]], Seq [Pitch 10, Pitch 1]]))
+        "=="
+        [0, 3, 5, 10, ....]
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:26:26:
+    Couldn't match expected type `MusicInClass.Music'
+                with actual type `Music'
+    NB: `MusicInClass.Music' is defined at MusicInClass.hs:(3,1)-(6,32)
+        `Music' is defined at Music.hs:(4,1)-(5,30)
+    In the first argument of `notes', namely
+      `(Chord [Seq [Chord [...]], Seq [Pitch 10, Pitch 1]])'
+    In the first argument of `eqTest', namely
+      `(notes (Chord [Seq [Chord [...]], Seq [Pitch 10, Pitch 1]]))'
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:27:67:
+    Couldn't match expected type `(Int, Int)' with actual type `[t3]'
+    In the third argument of `eqTest', namely `[0, 3, 5, 10, ....]'
+    In the expression:
+      eqTest
+        (notes (Chord [Seq [Chord [...]], Seq [Pitch 10, Pitch 1]]))
+        "=="
+        [0, 3, 5, 10, ....]
+    In the expression:
+      [eqTest (notes (Pitch 5)) "==" [5],
+       eqTest (notes (Chord [Pitch 1, Pitch 3, ....])) "==" [1, 3, ....],
+       eqTest (notes (Seq [Chord [...]])) "==" [1, 3, ....],
+       eqTest (notes (Chord [Seq [...], Seq [...]])) "==" [0, 3, ....]]
+Failed, modules loaded: MusicFunsInClass, MusicInClass, Music, Testing.
+*MusicFunsInClass> main
+
+<interactive>:6:1:
+    Not in scope: `main'
+    Perhaps you meant `min' (imported from Prelude)
+*MusicFunsInClass> :load "c:/cygwin64/home/leavens/classes/cop4020/lectures/haskell-functional/MusicFunsInClassTests.hs"
+[1 of 5] Compiling Testing          ( Testing.lhs, interpreted )
+[2 of 5] Compiling Music            ( Music.hs, interpreted )
+[3 of 5] Compiling MusicInClass     ( MusicInClass.hs, interpreted )
+[4 of 5] Compiling MusicFunsInClass ( MusicFunsInClass.hs, interpreted )
+[5 of 5] Compiling MusicFunsTests   ( C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs, interpreted )
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:11:14:
+    Couldn't match expected type `Music'
+                with actual type `MusicInClass.Music'
+    NB: `Music' is defined at Music.hs:(4,1)-(5,30)
+        `MusicInClass.Music' is defined at MusicInClass.hs:(3,1)-(6,32)
+    In the first argument of `eqTest', namely `(transpose 1 (Pitch 5))'
+    In the expression: eqTest (transpose 1 (Pitch 5)) "==" (Pitch 6)
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:11:27:
+    Couldn't match expected type `MusicInClass.Music'
+                with actual type `Music'
+    NB: `MusicInClass.Music' is defined at MusicInClass.hs:(3,1)-(6,32)
+        `Music' is defined at Music.hs:(4,1)-(5,30)
+    In the second argument of `transpose', namely `(Pitch 5)'
+    In the first argument of `eqTest', namely `(transpose 1 (Pitch 5))'
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:12:14:
+    Couldn't match expected type `Music'
+                with actual type `MusicInClass.Music'
+    NB: `Music' is defined at Music.hs:(4,1)-(5,30)
+        `MusicInClass.Music' is defined at MusicInClass.hs:(3,1)-(6,32)
+    In the first argument of `eqTest', namely
+      `(transpose 5 (Chord [Pitch 1, Pitch 3, Pitch 5]))'
+    In the expression:
+      eqTest
+        (transpose 5 (Chord [Pitch 1, Pitch 3, Pitch 5]))
+        "=="
+        (Chord [Pitch 6, Pitch 8, Pitch 10])
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:12:27:
+    Couldn't match expected type `MusicInClass.Music'
+                with actual type `Music'
+    NB: `MusicInClass.Music' is defined at MusicInClass.hs:(3,1)-(6,32)
+        `Music' is defined at Music.hs:(4,1)-(5,30)
+    In the second argument of `transpose', namely
+      `(Chord [Pitch 1, Pitch 3, Pitch 5])'
+    In the first argument of `eqTest', namely
+      `(transpose 5 (Chord [Pitch 1, Pitch 3, Pitch 5]))'
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:14:14:
+    Couldn't match expected type `Music'
+                with actual type `MusicInClass.Music'
+    NB: `Music' is defined at Music.hs:(4,1)-(5,30)
+        `MusicInClass.Music' is defined at MusicInClass.hs:(3,1)-(6,32)
+    In the first argument of `eqTest', namely
+      `(transpose 5 (Seq [Chord [Pitch 1, Pitch 3, ....]]))'
+    In the expression:
+      eqTest
+        (transpose 5 (Seq [Chord [Pitch 1, Pitch 3, ....]]))
+        "=="
+        (Seq [Chord [Pitch 6, Pitch 8, ....]])
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:14:27:
+    Couldn't match expected type `MusicInClass.Music'
+                with actual type `Music'
+    NB: `MusicInClass.Music' is defined at MusicInClass.hs:(3,1)-(6,32)
+        `Music' is defined at Music.hs:(4,1)-(5,30)
+    In the second argument of `transpose', namely
+      `(Seq [Chord [Pitch 1, Pitch 3, ....]])'
+    In the first argument of `eqTest', namely
+      `(transpose 5 (Seq [Chord [Pitch 1, Pitch 3, ....]]))'
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:16:14:
+    Couldn't match expected type `Music'
+                with actual type `MusicInClass.Music'
+    NB: `Music' is defined at Music.hs:(4,1)-(5,30)
+        `MusicInClass.Music' is defined at MusicInClass.hs:(3,1)-(6,32)
+    In the first argument of `eqTest', namely
+      `(transpose
+          10 (Chord [Seq [Chord [...]], Seq [Pitch 5, Pitch 1]]))'
+    In the expression:
+      eqTest
+        (transpose 10 (Chord [Seq [Chord [...]], Seq [Pitch 5, Pitch 1]]))
+        "=="
+        (Chord [Seq [Chord [...]], Seq [Pitch 15, Pitch 11]])
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:16:28:
+    Couldn't match expected type `MusicInClass.Music'
+                with actual type `Music'
+    NB: `MusicInClass.Music' is defined at MusicInClass.hs:(3,1)-(6,32)
+        `Music' is defined at Music.hs:(4,1)-(5,30)
+    In the second argument of `transpose', namely
+      `(Chord [Seq [Chord [...]], Seq [Pitch 5, Pitch 1]])'
+    In the first argument of `eqTest', namely
+      `(transpose
+          10 (Chord [Seq [Chord [...]], Seq [Pitch 5, Pitch 1]]))'
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:23:19:
+    Couldn't match expected type `(Int, Int)' with actual type `[Int]'
+    In the first argument of `eqTest', namely `(notes (Pitch 5))'
+    In the expression: eqTest (notes (Pitch 5)) "==" [5]
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:23:26:
+    Couldn't match expected type `MusicInClass.Music'
+                with actual type `Music'
+    NB: `MusicInClass.Music' is defined at MusicInClass.hs:(3,1)-(6,32)
+        `Music' is defined at Music.hs:(4,1)-(5,30)
+    In the first argument of `notes', namely `(Pitch 5)'
+    In the first argument of `eqTest', namely `(notes (Pitch 5))'
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:23:41:
+    Couldn't match expected type `(Int, Int)' with actual type `[t0]'
+    In the third argument of `eqTest', namely `[5]'
+    In the expression: eqTest (notes (Pitch 5)) "==" [5]
+    In the expression:
+      [eqTest (notes (Pitch 5)) "==" [5],
+       eqTest (notes (Chord [Pitch 1, Pitch 3, ....])) "==" [1, 3, ....],
+       eqTest (notes (Seq [Chord [...]])) "==" [1, 3, ....],
+       eqTest (notes (Chord [Seq [...], Seq [...]])) "==" [0, 3, ....]]
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:24:19:
+    Couldn't match expected type `(Int, Int)' with actual type `[Int]'
+    In the first argument of `eqTest', namely
+      `(notes (Chord [Pitch 1, Pitch 3, Pitch 5]))'
+    In the expression:
+      eqTest (notes (Chord [Pitch 1, Pitch 3, Pitch 5])) "==" [1, 3, 5]
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:24:26:
+    Couldn't match expected type `MusicInClass.Music'
+                with actual type `Music'
+    NB: `MusicInClass.Music' is defined at MusicInClass.hs:(3,1)-(6,32)
+        `Music' is defined at Music.hs:(4,1)-(5,30)
+    In the first argument of `notes', namely
+      `(Chord [Pitch 1, Pitch 3, Pitch 5])'
+    In the first argument of `eqTest', namely
+      `(notes (Chord [Pitch 1, Pitch 3, Pitch 5]))'
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:24:67:
+    Couldn't match expected type `(Int, Int)' with actual type `[t1]'
+    In the third argument of `eqTest', namely `[1, 3, 5]'
+    In the expression:
+      eqTest (notes (Chord [Pitch 1, Pitch 3, Pitch 5])) "==" [1, 3, 5]
+    In the expression:
+      [eqTest (notes (Pitch 5)) "==" [5],
+       eqTest (notes (Chord [Pitch 1, Pitch 3, ....])) "==" [1, 3, ....],
+       eqTest (notes (Seq [Chord [...]])) "==" [1, 3, ....],
+       eqTest (notes (Chord [Seq [...], Seq [...]])) "==" [0, 3, ....]]
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:25:19:
+    Couldn't match expected type `(Int, Int)' with actual type `[Int]'
+    In the first argument of `eqTest', namely
+      `(notes (Seq [Chord [Pitch 1, Pitch 3, ....]]))'
+    In the expression:
+      eqTest
+        (notes (Seq [Chord [Pitch 1, Pitch 3, ....]])) "==" [1, 3, 5]
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:25:26:
+    Couldn't match expected type `MusicInClass.Music'
+                with actual type `Music'
+    NB: `MusicInClass.Music' is defined at MusicInClass.hs:(3,1)-(6,32)
+        `Music' is defined at Music.hs:(4,1)-(5,30)
+    In the first argument of `notes', namely
+      `(Seq [Chord [Pitch 1, Pitch 3, ....]])'
+    In the first argument of `eqTest', namely
+      `(notes (Seq [Chord [Pitch 1, Pitch 3, ....]]))'
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:25:73:
+    Couldn't match expected type `(Int, Int)' with actual type `[t2]'
+    In the third argument of `eqTest', namely `[1, 3, 5]'
+    In the expression:
+      eqTest
+        (notes (Seq [Chord [Pitch 1, Pitch 3, ....]])) "==" [1, 3, 5]
+    In the expression:
+      [eqTest (notes (Pitch 5)) "==" [5],
+       eqTest (notes (Chord [Pitch 1, Pitch 3, ....])) "==" [1, 3, ....],
+       eqTest (notes (Seq [Chord [...]])) "==" [1, 3, ....],
+       eqTest (notes (Chord [Seq [...], Seq [...]])) "==" [0, 3, ....]]
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:26:19:
+    Couldn't match expected type `(Int, Int)' with actual type `[Int]'
+    In the first argument of `eqTest', namely
+      `(notes (Chord [Seq [Chord [...]], Seq [Pitch 10, Pitch 1]]))'
+    In the expression:
+      eqTest
+        (notes (Chord [Seq [Chord [...]], Seq [Pitch 10, Pitch 1]]))
+        "=="
+        [0, 3, 5, 10, ....]
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:26:26:
+    Couldn't match expected type `MusicInClass.Music'
+                with actual type `Music'
+    NB: `MusicInClass.Music' is defined at MusicInClass.hs:(3,1)-(6,32)
+        `Music' is defined at Music.hs:(4,1)-(5,30)
+    In the first argument of `notes', namely
+      `(Chord [Seq [Chord [...]], Seq [Pitch 10, Pitch 1]])'
+    In the first argument of `eqTest', namely
+      `(notes (Chord [Seq [Chord [...]], Seq [Pitch 10, Pitch 1]]))'
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:27:67:
+    Couldn't match expected type `(Int, Int)' with actual type `[t3]'
+    In the third argument of `eqTest', namely `[0, 3, 5, 10, ....]'
+    In the expression:
+      eqTest
+        (notes (Chord [Seq [Chord [...]], Seq [Pitch 10, Pitch 1]]))
+        "=="
+        [0, 3, 5, 10, ....]
+    In the expression:
+      [eqTest (notes (Pitch 5)) "==" [5],
+       eqTest (notes (Chord [Pitch 1, Pitch 3, ....])) "==" [1, 3, ....],
+       eqTest (notes (Seq [Chord [...]])) "==" [1, 3, ....],
+       eqTest (notes (Chord [Seq [...], Seq [...]])) "==" [0, 3, ....]]
+Failed, modules loaded: MusicFunsInClass, MusicInClass, Music, Testing.
+*MusicFunsInClass> :load "c:/cygwin64/home/leavens/classes/cop4020/lectures/haskell-functional/MusicFunsInClassTests.hs"
+[1 of 5] Compiling Testing          ( Testing.lhs, interpreted )
+[2 of 5] Compiling Music            ( Music.hs, interpreted )
+[3 of 5] Compiling MusicInClass     ( MusicInClass.hs, interpreted )
+[4 of 5] Compiling MusicFunsInClass ( MusicFunsInClass.hs, interpreted )
+[5 of 5] Compiling MusicFunsTests   ( C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs, interpreted )
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:11:14:
+    Couldn't match expected type `Music'
+                with actual type `MusicInClass.Music'
+    NB: `Music' is defined at Music.hs:(4,1)-(5,30)
+        `MusicInClass.Music' is defined at MusicInClass.hs:(3,1)-(6,32)
+    In the first argument of `eqTest', namely `(transpose 1 (Pitch 5))'
+    In the expression: eqTest (transpose 1 (Pitch 5)) "==" (Pitch 6)
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:11:27:
+    Couldn't match expected type `MusicInClass.Music'
+                with actual type `Music'
+    NB: `MusicInClass.Music' is defined at MusicInClass.hs:(3,1)-(6,32)
+        `Music' is defined at Music.hs:(4,1)-(5,30)
+    In the second argument of `transpose', namely `(Pitch 5)'
+    In the first argument of `eqTest', namely `(transpose 1 (Pitch 5))'
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:12:14:
+    Couldn't match expected type `Music'
+                with actual type `MusicInClass.Music'
+    NB: `Music' is defined at Music.hs:(4,1)-(5,30)
+        `MusicInClass.Music' is defined at MusicInClass.hs:(3,1)-(6,32)
+    In the first argument of `eqTest', namely
+      `(transpose 5 (Chord [Pitch 1, Pitch 3, Pitch 5]))'
+    In the expression:
+      eqTest
+        (transpose 5 (Chord [Pitch 1, Pitch 3, Pitch 5]))
+        "=="
+        (Chord [Pitch 6, Pitch 8, Pitch 10])
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:12:27:
+    Couldn't match expected type `MusicInClass.Music'
+                with actual type `Music'
+    NB: `MusicInClass.Music' is defined at MusicInClass.hs:(3,1)-(6,32)
+        `Music' is defined at Music.hs:(4,1)-(5,30)
+    In the second argument of `transpose', namely
+      `(Chord [Pitch 1, Pitch 3, Pitch 5])'
+    In the first argument of `eqTest', namely
+      `(transpose 5 (Chord [Pitch 1, Pitch 3, Pitch 5]))'
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:14:14:
+    Couldn't match expected type `Music'
+                with actual type `MusicInClass.Music'
+    NB: `Music' is defined at Music.hs:(4,1)-(5,30)
+        `MusicInClass.Music' is defined at MusicInClass.hs:(3,1)-(6,32)
+    In the first argument of `eqTest', namely
+      `(transpose 5 (Seq [Chord [Pitch 1, Pitch 3, ....]]))'
+    In the expression:
+      eqTest
+        (transpose 5 (Seq [Chord [Pitch 1, Pitch 3, ....]]))
+        "=="
+        (Seq [Chord [Pitch 6, Pitch 8, ....]])
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:14:27:
+    Couldn't match expected type `MusicInClass.Music'
+                with actual type `Music'
+    NB: `MusicInClass.Music' is defined at MusicInClass.hs:(3,1)-(6,32)
+        `Music' is defined at Music.hs:(4,1)-(5,30)
+    In the second argument of `transpose', namely
+      `(Seq [Chord [Pitch 1, Pitch 3, ....]])'
+    In the first argument of `eqTest', namely
+      `(transpose 5 (Seq [Chord [Pitch 1, Pitch 3, ....]]))'
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:16:14:
+    Couldn't match expected type `Music'
+                with actual type `MusicInClass.Music'
+    NB: `Music' is defined at Music.hs:(4,1)-(5,30)
+        `MusicInClass.Music' is defined at MusicInClass.hs:(3,1)-(6,32)
+    In the first argument of `eqTest', namely
+      `(transpose
+          10 (Chord [Seq [Chord [...]], Seq [Pitch 5, Pitch 1]]))'
+    In the expression:
+      eqTest
+        (transpose 10 (Chord [Seq [Chord [...]], Seq [Pitch 5, Pitch 1]]))
+        "=="
+        (Chord [Seq [Chord [...]], Seq [Pitch 15, Pitch 11]])
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:16:28:
+    Couldn't match expected type `MusicInClass.Music'
+                with actual type `Music'
+    NB: `MusicInClass.Music' is defined at MusicInClass.hs:(3,1)-(6,32)
+        `Music' is defined at Music.hs:(4,1)-(5,30)
+    In the second argument of `transpose', namely
+      `(Chord [Seq [Chord [...]], Seq [Pitch 5, Pitch 1]])'
+    In the first argument of `eqTest', namely
+      `(transpose
+          10 (Chord [Seq [Chord [...]], Seq [Pitch 5, Pitch 1]]))'
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:23:26:
+    Couldn't match expected type `MusicInClass.Music'
+                with actual type `Music'
+    NB: `MusicInClass.Music' is defined at MusicInClass.hs:(3,1)-(6,32)
+        `Music' is defined at Music.hs:(4,1)-(5,30)
+    In the first argument of `notes', namely `(Pitch 5)'
+    In the first argument of `eqTest', namely `(notes (Pitch 5))'
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:24:26:
+    Couldn't match expected type `MusicInClass.Music'
+                with actual type `Music'
+    NB: `MusicInClass.Music' is defined at MusicInClass.hs:(3,1)-(6,32)
+        `Music' is defined at Music.hs:(4,1)-(5,30)
+    In the first argument of `notes', namely
+      `(Chord [Pitch 1, Pitch 3, Pitch 5])'
+    In the first argument of `eqTest', namely
+      `(notes (Chord [Pitch 1, Pitch 3, Pitch 5]))'
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:25:26:
+    Couldn't match expected type `MusicInClass.Music'
+                with actual type `Music'
+    NB: `MusicInClass.Music' is defined at MusicInClass.hs:(3,1)-(6,32)
+        `Music' is defined at Music.hs:(4,1)-(5,30)
+    In the first argument of `notes', namely
+      `(Seq [Chord [Pitch 1, Pitch 3, ....]])'
+    In the first argument of `eqTest', namely
+      `(notes (Seq [Chord [Pitch 1, Pitch 3, ....]]))'
+
+C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs:26:26:
+    Couldn't match expected type `MusicInClass.Music'
+                with actual type `Music'
+    NB: `MusicInClass.Music' is defined at MusicInClass.hs:(3,1)-(6,32)
+        `Music' is defined at Music.hs:(4,1)-(5,30)
+    In the first argument of `notes', namely
+      `(Chord [Seq [Chord [...]], Seq [Pitch 10, Pitch 1]])'
+    In the first argument of `eqTest', namely
+      `(notes (Chord [Seq [Chord [...]], Seq [Pitch 10, Pitch 1]]))'
+Failed, modules loaded: MusicFunsInClass, MusicInClass, Music, Testing.
+*MusicFunsInClass> :load "c:/cygwin64/home/leavens/classes/cop4020/lectures/haskell-functional/MusicFunsInClassTests.hs"
+[1 of 4] Compiling Testing          ( Testing.lhs, interpreted )
+[2 of 4] Compiling MusicInClass     ( MusicInClass.hs, interpreted )
+[3 of 4] Compiling MusicFunsInClass ( MusicFunsInClass.hs, interpreted )
+[4 of 4] Compiling MusicFunsTests   ( C:\cygwin64\home\leavens\classes\cop4020\lectures\haskell-functional\MusicFunsInClassTests.hs, interpreted )
+Ok, modules loaded: MusicFunsInClass, MusicInClass, MusicFunsTests, Testing.
+*MusicFunsTests> :cd c:/cygwin64/home/leavens/classes/cop4020/lectures/haskell-functional/
+Warning: changing directory causes all loaded modules to be unloaded,
+because the search path has changed.
+Prelude> :load "MusicFunsInClassTests.hs"
+[1 of 4] Compiling Testing          ( Testing.lhs, interpreted )
+[2 of 4] Compiling MusicInClass     ( MusicInClass.hs, interpreted )
+[3 of 4] Compiling MusicFunsInClass ( MusicFunsInClass.hs, interpreted )
+[4 of 4] Compiling MusicFunsInClassTests ( MusicFunsInClassTests.hs, interpreted )
+Ok, modules loaded: MusicFunsInClass, MusicInClass, Testing, MusicFunsInClassTests.
+*MusicFunsInClassTests> main
+
+Testing MusicFunsTests $Revision: 1.2 $...
+Pitch 6
+      == Pitch 6
+Simul [Pitch 6,Pitch 8,Pitch 10]
+      == Simul [Pitch 6,Pitch 8,Pitch 10]
+Seq [Simul [Pitch 6,Pitch 8,Pitch 10]]
+      == Seq [Simul [Pitch 6,Pitch 8,Pitch 10]]
+Simul [Seq [Simul [Pitch 11,Pitch 13,Pitch 15]],Seq [Pitch 15,Pitch 11]]
+      == Simul [Seq [Simul [Pitch 11,Pitch 13,Pitch 15]],Seq [Pitch 15,Pitch 11]]
+[5]
+      == [5]
+[1,3,5]
+      == [1,3,5]
+[1,3,5]
+      == [1,3,5]
+[0,3,5,10,1]
+      == [0,3,5,10,1]
+Finished with 0 failures!
+*MusicFunsInClassTests> :load "FoldMusicInClass.hs"
+[1 of 2] Compiling MusicInClass     ( MusicInClass.hs, interpreted )
+[2 of 2] Compiling FoldMusicInClass ( FoldMusicInClass.hs, interpreted )
+Ok, modules loaded: MusicInClass, FoldMusicInClass.
+*FoldMusicInClass> :type notes
+notes :: Music -> [Int]
+*FoldMusicInClass> :type transpose
+transpose :: Int -> Music -> Music
+*FoldMusicInClass> :type foldMusic
+foldMusic :: (Int -> b) -> ([b] -> b) -> ([b] -> b) -> Music -> b
+*FoldMusicInClass> 

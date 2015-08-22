@@ -1,0 +1,48 @@
+Lecture -*- Outline -*- for Haskell and Functional Programming
+
+        Remember to
+                - make the lectures interactive
+                - give pointers to the book/literature on where to find more
+
+        for help sessions, see the file "recursion-discussion.txt"
+
+	lecture 1
+* introduction
+
+	lecture 1
+** lexical-matters
+
+        lecture 1
+** programs
+
+        lecture 1-2
+* built-in-types
+       see BuiltIntypes.lhs
+
+       lecture 2-3
+** lists
+       see ListLecture.lhs
+       
+	lecture 3-6
+* data-driven-recursion
+        see DataDriven.lhs
+
+	lecture 7
+* types
+
+	lecture 8-9
+* functional
+        see Functionals.lhs
+
+** quiz
+        see CombinatorsQuiz.lhs
+
+** higher-order
+        see HigherOrder.lhs
+
+	lecture 10
+* naming
+        see Naming.lhs
+
+* monads
+        see Monads.lhs

@@ -1,0 +1,111 @@
+GHCi, version 7.4.2: http://www.haskell.org/ghc/  :? for help
+Loading package ghc-prim ... linking ... done.
+Loading package integer-gmp ... linking ... done.
+Loading package base ... linking ... done.
+Prelude> :load Naturals.hs
+[1 of 1] Compiling Main             ( Naturals.hs, interpreted )
+
+Naturals.hs:6:27:
+    Ambiguous occurrence `toInteger'
+    It could refer to either `Main.toInteger',
+                             defined at Naturals.hs:5:1
+                          or `Prelude.toInteger',
+                             imported from `Prelude' at Naturals.hs:1:1
+                             (and originally defined in `GHC.Real')
+Failed, modules loaded: none.
+Prelude> :load "c:/cygwin/home/leavens/classes/cop4020/lectures/haskell-functional/Naturals.hs"
+[1 of 1] Compiling Main             ( C:\cygwin\home\leavens\classes\cop4020\lectures\haskell-functional\Naturals.hs, interpreted )
+
+C:\cygwin\home\leavens\classes\cop4020\lectures\haskell-functional\Naturals.hs:6:28:
+    No instance for (Integral Nat)
+      arising from a use of `toInteger'
+    Possible fix: add an instance declaration for (Integral Nat)
+    In the second argument of `(+)', namely `(toInteger n)'
+    In the expression: 1 + (toInteger n)
+    In an equation for toInteger':
+        toInteger' (Succ n) = 1 + (toInteger n)
+Failed, modules loaded: none.
+Prelude> :load
+Ok, modules loaded: none.
+Prelude> :load Naturals.hs
+[1 of 1] Compiling Main             ( Naturals.hs, interpreted )
+Ok, modules loaded: Main.
+*Main> Zero
+Zero
+*Main> Succ Zero
+Succ Zero
+*Main> :type it
+it :: Nat
+*Main> :set +t
+*Main> Succ (Succ Nat)
+
+<interactive>:10:12: Not in scope: data constructor `Nat'
+*Main> Succ (Succ Zero)
+Succ (Succ Zero)
+it :: Nat
+*Main> toInteger' (Succ (Succ Zero))
+2
+it :: Integer
+*Main> Succ Zero
+Succ Zero
+it :: Nat
+*Main> plus (Succ (Succ (Succ Zero))) (Succ (Succ Zero))
+
+<interactive>:14:1: Not in scope: `plus'
+*Main> :load
+Ok, modules loaded: none.
+Prelude> plus (Succ (Succ (Succ Zero))) (Succ (Succ Zero))
+
+<interactive>:16:1: Not in scope: `plus'
+
+<interactive>:16:7: Not in scope: data constructor `Succ'
+
+<interactive>:16:13: Not in scope: data constructor `Succ'
+
+<interactive>:16:19: Not in scope: data constructor `Succ'
+
+<interactive>:16:24: Not in scope: data constructor `Zero'
+
+<interactive>:16:33: Not in scope: data constructor `Succ'
+
+<interactive>:16:39: Not in scope: data constructor `Succ'
+
+<interactive>:16:44: Not in scope: data constructor `Zero'
+Prelude> :load Naturals.hs
+[1 of 1] Compiling Main             ( Naturals.hs, interpreted )
+Ok, modules loaded: Main.
+*Main> plus (Succ (Succ (Succ Zero))) (Succ (Succ Zero))
+Succ (Succ (Succ (Succ (Succ Zero))))
+it :: Nat
+*Main> :load Naturals.hs
+[1 of 1] Compiling Main             ( Naturals.hs, interpreted )
+
+Naturals.hs:14:38:
+    No instance for (Num Nat)
+      arising from a use of `-'
+    Possible fix: add an instance declaration for (Num Nat)
+    In the first argument of `Succ', namely `(fromInteger' n - 1)'
+    In the expression: Succ (fromInteger' n - 1)
+    In an equation for fromInteger':
+        fromInteger' n = Succ (fromInteger' n - 1)
+Failed, modules loaded: none.
+Prelude> :load Naturals.hs
+[1 of 1] Compiling Main             ( Naturals.hs, interpreted )
+Ok, modules loaded: Main.
+*Main> fromInteger' 7
+Succ (Succ (Succ (Succ (Succ (Succ (Succ Zero))))))
+it :: Nat
+*Main> fromInteger' 0
+Zero
+it :: Nat
+*Main> fromInteger' 22
+Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Zero)))))))))))))))))))))
+it :: Nat
+*Main> (plus (fromInteger' 7) (fromInteger' 2))
+Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ (Succ Zero))))))))
+it :: Nat
+*Main> :q
+Leaving GHCi.
+
+Process haskell finished
+

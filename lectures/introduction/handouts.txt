@@ -1,0 +1,178 @@
+I. Preliminaries for the first meeting
+ A. staff introductions
+------------------------------------------
+                WELCOME TO
+                COP 4020
+         PROGRAMMING LANGUAGES I
+
+Professor Gary T. Leavens
+          437D Harris Center (Bldg. 116)
+
+Phone:  (407)823-4758
+Email:  Leavens@ucf.edu
+
+Office Hours:
+
+URL: http://www.eecs.ucf.edu/~leavens/COP4020
+
+Pick up handouts: (  of them)
+------------------------------------------
+ B. staff introductions
+ C. student introductions (HW0)
+        How is a programming language like a religion?
+II. the course itself
+ A. What is a programming language?
+------------------------------------------
+        PROGRAMMING LANGUAGE
+
+def: a *programming language* is
+a language that is
+
+def: a *general-purpose language*
+is one that is not tailored to some
+particular application area.
+
+Examples: 
+
+
+
+
+def: a *special-purpose language*
+is a language that is designed to
+support some particular application.
+
+Examples:
+
+
+
+-----------------------------------------
+	Others?
+	Others?
+ B. objectives
+   What are your objectives for this course?
+   How do you want this course to help you in 5 years?
+------------------------------------------
+           COURSE OBJECTIVES
+
+Quickly Learn
+
+
+
+Master
+
+
+
+Evaluate
+
+
+
+------------------------------------------
+ C. outcomes
+------------------------------------------
+           LEARNING OUTCOMES
+
+Concepts
+
+
+Use Models
+
+
+Evaluate Models
+
+
+Map To Languages
+
+
+
+
+------------------------------------------
+ D. plan for the course
+------------------------------------------
+           PLAN FOR THE COURSE
+
+Broad outline:
+  - overview 
+  - functional programming
+  - parallel programming
+  - actor-based concurrent programming
+
+We will use "real" languages to help you
+evaluate them and learn about learning them
+ 
+------------------------------------------
+  1. computational models
+------------------------------------------
+             COMPUTATION MODELS
+
+def: A *computational model* is a very
+small programming language that provides
+primitives necessary for computation.
+
+Properties of computation models (Abelson et al)
+
+ data (operations, means of computation),
+ structuring mechanisms (means of combination),
+ abstraction mechanisms (means of abstraction)
+
+Examples:
+
+
+
+
+
+
+------------------------------------------
+  2. programming models
+------------------------------------------
+         PROGRAMMING MODELS
+
+def: A *programming model* (or *paradigm*)
+is a programming language together with:
+
+
+
+
+
+
+
+Examples:
+
+
+
+
+
+------------------------------------------
+  3. grading
+------------------------------------------
+    GRADING
+
++ No curve grading
+
++ Your grade is
+     65% based on tests
+     35% on homework
+------------------------------------------
+  4. cooperation and cheating
+------------------------------------------
+        COOPERATION
+
+Can talk with others about homework
+   - but must cite them
+
+Can cooperatively do homework
+   - but must use a "group" in webcourses2
+     (see grading policy for details)
+
+         CHEATING
+
+Exchange of finished answers
+  - without cooperation in solving them
+  - without certification
+
+Using ideas of others
+  - without citation
+
+Copying answers from the web
+  - without citation
+------------------------------------------
+  5. ask for questions/concerns

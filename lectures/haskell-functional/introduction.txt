@@ -1,0 +1,185 @@
+Lecture -*- Outline -*-
+
+* Introduction to Haskell
+
+  These lectures are partly based on the following books
+
+  Simon Thompson,
+  "Haskell: The Craft of Functional Programming", Addison-Wesley,
+  1996 and the Third edition, 2011.
+
+  Anthony J. T. Davie,
+  "An Introduction to Functional Programming Systems Using Haskell",
+  Cambridge, 1992.
+
+  They also use material from haskell.org
+
+** What's interesting about Haskell?
+------------------------------------------
+     FUNCTIONAL PROGRAMMING
+
+- Models computations as expressions
+- All changing arguments passed explicitly
+  (no implicit global state)
+- Functions as data allows better abstraction
+
+
+ FEATURES FOUND IN OTHER FUNCTIONAL LANGUAGES
+  
+- Data is treated abstractly (as terms)
+- Powerful pattern matching 
+- All functions take just one argument
+  (use tuples to group multiple arguments as one)
+- Powerful library 
+- Order of definition doesn't matter
+
+
+       UNIQUE FEATURES OF HASKELL
+
+- Type-based separation of 
+   computations with effects from 
+   pure expressions
+- I/O actions are data
+- Type classes for static overloading
+- Lazy evaluation is the default
+- Type expressions resemble values
+
+
+------------------------------------------
+
+  We will start by using Haskell just to do computations of values,
+  and not worry about I/O very much to start
+
+  Q: What's the difference between an expression and a statement?
+
+
+
+** Haskell platform mechanics
+*** getting in and out        
+------------------------------------------
+     HASKELL PLATFORM BASICS
+
+Get GHC from www.haskell.org/platform
+
+$ ghcii
+GHCi, version 7.4.2: http://www.haskell.org/ghc/  :? for help
+Loading package ghc-prim ... linking ... done.
+Loading package integer-gmp ... linking ... done.
+Loading package base ... linking ... done.
+Prelude>
+
+
+------------------------------------------
+	... :quit
+
+*** working with files
+------------------------------------------
+	WORKING WITH FILES
+
+ Prelude> :load "Fact.hs"
+ [1 of 1] Compiling Fact             ( Fact.hs, interpreted )
+ Ok, modules loaded: Fact.
+ *Fact> fact
+ 
+*Fact> fact
+
+<interactive>:3:1:
+    No instance for (Show (Integer -> Integer))
+      arising from a use of `print'
+    Possible fix:
+      add an instance declaration for (Show (Integer -> Integer))
+    In a stmt of an interactive GHCi command: print it
+ *Fact>
+ *Fact> :type fact
+ fact :: fact :: (Enum a, Num a) => a -> a
+ *Fact> :set +t
+ *Fact> fact 4
+ 24 
+ it :: Integer
+ *Fact> fact 100
+ 93326215443944152681699238856266700490715968264381621468592963895217599993229915
+608941463976156518286253697920827223758251185210916864000000000000000000000000
+ it :: Integer
+ *Fact> :edit Fact.hs
+ *Fact> :reload
+                   
+ *Fact> :type fact
+ fact :: Integer -> Integer
+ *Fact> fact 100
+ 9332621544394415268169923885626670049...
+ Fact> 
+ Fact> :q
+ Leaving GHCi
+------------------------------------------
+
+        for the first version of Fact.hs, use
+
+> fact n = product [1 .. n]
+
+        it works to say fact 100,
+                when used in the interpreter,
+
+	the :reload command reloads the file you're working on,
+		if you don't want to invoke the editor from inside Hugs.
+
+	use
+		setenv EDITOR vi
+	to change the default editor to vi
+
+------------------------------------------
+
+ $ ghci Fact.hs
+   [...]
+ [1 of 1] Compiling Fact             ( Fact.hs, interpreted )
+ Ok, modules loaded: Fact.
+ *Fact> fact 8
+ 40320
+------------------------------------------
+
+        Q: How do we get out of the interpreter again?
+            type :quit  (or just :q)
+
+*** literate programs
+    Why? So can develop a discussion/article/program with extensive
+    documentation, and have the code in the same file!
+
+------------------------------------------
+		LITERATE SCRIPTS
+
+file Hello.lhs:
+     ==============================
+                HELLO WORLD
+
+     This is the hello world program
+
+     > -- part of a Haskell prog
+     > main = putStrLn "Hello, world!"
+     
+     The blank lines surrounding
+     the program are mandatory.
+
+     This file should have a .lhs
+     suffix.
+     ==============================
+
+$ ghc Hello.lhs
+[1 of 1] Compiling Main             ( Hello.lhs, Hello.o )
+Linking Hello.exe ...
+$ ./Hello
+Hello, world!
+
+$ ghcii Hello.lhs
+...
+Ok, modules loaded: Main.
+Prelude Main> :type main
+main :: IO ()
+Prelude Main> main
+Hello, world!
+Prelude Main> :quit
+------------------------------------------
+
+	program parts have > as first character on line,
+		so even this very file can be processed as a program!
+
+        programs have a main function of type IO() in the module Main,
+        which is run when the program starts

@@ -1,0 +1,52 @@
+GHCi, version 7.4.2: http://www.haskell.org/ghc/  :? for help
+Loading package ghc-prim ... linking ... done.
+Loading package integer-gmp ... linking ... done.
+Loading package base ... linking ... done.
+Prelude> let recres = ["Queen","Victoria","Station"]
+Prelude> recres
+["Queen","Victoria","Station"]
+Prelude> let a = "Victoria"
+Prelude> let toAdd = "Queen"
+Prelude> a:recres
+["Victoria","Queen","Victoria","Station"]
+Prelude> toAdd:a:recres
+["Queen","Victoria","Queen","Victoria","Station"]
+Prelude> :load "insertWhen.hs"
+[1 of 1] Compiling Main             ( insertWhen.hs, interpreted )
+Ok, modules loaded: Main.
+*Main> insertWhen (== "Victoria") "Queen" ["Victoria","Victoria","Station"]
+["Queen","Victoria","Queen","Victoria","Station"]
+*Main> insertWhen (== "Victoria") "Queen" ["Station"]
+["Station"]
+*Main> insertWhen (== "Victoria") "Queen" []
+[]
+*Main> insertWhen (== "Fred") "Mr." ["robin","Redbreast","Fred","Follies"]
+["robin","Redbreast","Mr.","Fred","Follies"]
+*Main> insertWhen (== "Victoria") "Queen" ["Queen","Victoria","Station"]
+["Queen","Queen","Victoria","Station"]
+*Main> insertWhen (== "Victoria") "Queen2" ["Queen","Victoria","Station"]
+["Queen","Queen2","Victoria","Station"]
+*Main> insertWhen (< "Victoria") "Queen2" ["Queen","Victoria","Station"]
+["Queen2","Queen","Victoria","Queen2","Station"]
+*Main> :load "InsertWhenTests.hs"
+[1 of 3] Compiling InsertWhen       ( InsertWhen.hs, interpreted )
+[3 of 3] Compiling InsertWhenTests  ( InsertWhenTests.hs, interpreted )
+Ok, modules loaded: InsertWhenTests, Testing, InsertWhen.
+*InsertWhenTests> main
+
+Testing InsertWhenTests...
+["Robin","Redbreast","Mr.","Fred","Follies"]
+      == ["Robin","Redbreast","Mr.","Fred","Follies"]
+["Queen","Queen","Victoria","Station"]
+      == ["Queen","Queen","Victoria","Station"]
+Finished with 0 failures!
+*InsertWhenTests>:type even 
+*InsertWhenTests>let even x = x `mod` 2 == 0
+*InsertWhenTests> even 3
+False
+*InsertWhenTests> let (a:as) = [1,2,3]
+*InsertWhenTests> a
+1
+*InsertWhenTests> as
+[2,3]
+*InsertWhenTests> 

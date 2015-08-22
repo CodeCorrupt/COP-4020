@@ -1,0 +1,20 @@
+COP 4020 meeting -*- Outline -*-
+
+* picking languages
+
+** group presentations
+   ask for volunteers to present
+   if none, choose (paradigms, then within that)
+
+** votes
+------------------------------------------
+         VOTING ON WHAT TO STUDY
+
+We can do 3, possibly 4 languages,
+each from a different programming model.
+
+First: pick programming models to study
+
+Second: pick languages to study in those
+
+------------------------------------------

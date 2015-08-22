@@ -1,0 +1,10 @@
+COP 4020 meeting -*- Outline -*-
+
+	lecture 1
+
+* overall-tips
+
+* example
+     lambdaProlog
+
+

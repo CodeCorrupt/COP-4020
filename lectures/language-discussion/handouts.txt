@@ -1,0 +1,19 @@
+I. Group Work for Homework 1
+ A. announcements: 
+ B. Questions about HW 1?
+   What questions do you have about homework 1?
+   Who doesn't have a group?
+II. picking languages
+ A. group presentations
+ B. votes
+------------------------------------------
+         VOTING ON WHAT TO STUDY
+
+We can do 3, possibly 4 languages,
+each from a different programming model.
+
+First: pick programming models to study
+
+Second: pick languages to study in those
+
+------------------------------------------
