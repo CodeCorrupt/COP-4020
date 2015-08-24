@@ -2,8 +2,8 @@ COP 4020 meeting -*- Outline -*-
 
 	lecture 1
 
-* preliminaries
+* syllabus
 
-* the-course
+* definitions
 
 
