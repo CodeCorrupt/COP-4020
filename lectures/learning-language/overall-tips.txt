@@ -1,26 +1,26 @@
 COP 4020 meeting -*- Outline -*-
 
-* Overall Tips for Learning Programming Languages
+Overall Tips for Learning Programming Languages
 
-** implementation
 ------------------------------------------
-          WHAT TO SEARCH FOR?
 
- - implementation (compiler, interpreter)
-    - possibly a programming environment
- - documentation
+* What to search for?
+
+- Implementation (compiler, interpreter)
+  possibly also an integrated development environment (IDE)
+
+- Documentation
 
 Minimal environment:
- - A text editor (Emacs)
+- a text editor (Emacs) + compiler/interpreter
+
+Integrated development environment:
+  some students think getting too much help (eclipse, visual studio)
+  hampers learning.
 
 ------------------------------------------
-        Some students think getting too much help (eclipse, visual studio)
-           hampers learning.
 
-** documentation
-*** what to find
-------------------------------------------
-    WHAT DOCUMENTATION?
+* What documentation?
 
 - Language Reference Manual
    - syntax
@@ -35,17 +35,14 @@ When you read:
   - try things out on your own
   - learn strategy + tactics
 
-
+    strategy is big picture (overall design principles)
+  
+    tactics are smaller ideas (e.g., design patterns, code fragments)
 
 ------------------------------------------
-         ... strategy is big picture (overall design principles)
-             tactics are smaller ideas (e.g., design patterns, code fragments)
 
-*** syntax
-------------------------------------------
-          HOW COMPILERS WORK
-
-                        
+* How compilers work?
+   
   character stream
         |
         |"public static void ..."
@@ -74,115 +71,16 @@ When you read:
         |
         v
     object code
-------------------------------------------
-
-        ... each of these phases has a different grammar 
-              - lexer : regular
-              - parser : context-free
-              - static checker : attribute (or context-sensitive)
-
-**** lexical grammar
-     You don't need to pay attention to the details of this example,
-        but only to the way that syntax is described.
-
-     This is almost the grammar for lambda Prolog, 
-       but slightly simplified
-------------------------------------------
-       LEXICAL (REGULAR) GRAMMAR EXAMPLE
-
-<Id> ::= <NonUpper_Letter> { <NameChar> }
-<VIdent> ::= <UpperLetter_> { <NameChar> }
-<NonUpper_Letter> ::= a | b | c | d | ... | z
-<UpperLetter_> ::= _ | A | B | C | D | ... | Z
-<NameChar> ::= <NonUpper_Letter> | <UpperLetter_>
-            |  <Digit> | + | - 
-<Digit> ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
-
-
 
 ------------------------------------------
 
-        In a lexical grammar, spaces matter
+* Compiler phases and corresponding grammars
 
-        "::=" means "produces" or "can become", 
-              written "->" in modern grammar books
-         "|" means "or" separates alternatives
-        <X> is a non-terminal
-         A, B, etc. are a terminals
-
-     Q: What are examples of <Id>s?
-          dog, i
-     Q: What are examples of <VIdent>s?
-          X, Var
-
-------------------------------------------
-      CONVENTIONS AND EXTENSIONS (EBNF)
-
-{ <X> } ::= <Empty> | <X> { <X> }
-<X>*    ::= <Empty> | <X> <X>*
-
-<X>+    ::= <X> | <X> <X>+
-[ <X> ] ::= <Empty> | <X>
-
-[ <X> ]... ::= <Empty> | <X> [ <X> ]...
-
-<Empty> ::=
-------------------------------------------
-
-
-**** syntax and context-free grammars
-
-------------------------------------------
-   BNF (CONTEXT-FREE GRAMMAR) EXAMPLE
-
-<Term> ::=  <Term> <TypedCIdent>          
-        |   <TypedCIdent> <Term>          
-        |   <Term> <Term>
-        |   <TypedId> \ <Term>
-        |   '[' ']'         
-        |   '[' <TermList> ']' 
-        |   '[' <TermList> '|' <Term> ']'
-        |   <TypedCIdent>
-        |   <TypedVar> 
-        |   <TypedId>
-        |   ( <Term> )
-
-<TermList> ::=  <Term>
-            |   <Term> , <TermList>
-
-<TypedCIdent> ::=  <Id>
-               |   <Id> : <Type>
-               |   ( <TypedCIdent> )
-
-<TypedId> ::=  <Id>
-           |   <Id> : <Type>
-           |   ( <TypedId> )
-
-<TypedVar> ::=  <VIdent>
-            |   <VIdent> : <Type>
-            |   ( <TypedVar> )
-
-<Type> ::= <CType> '->' <Type>
-        |  <CType>
-
-<CType> ::= <NameToken>
-         | <TyCIdent> <CTypes>
-         | '(' <Type> ')'
-
-<TyCIdent> ::= <Id>
-
-<CTypes> ::=   <CType>
-          | <CType> <CTypes>
-
-
-
+Each of these phases has a different grammar 
+              
+- lexer          : regular
+- parser         : context-free
+- static checker : attribute (or context-sensitive)
 
 ------------------------------------------
 
-   Q: What are examples of <Term>s?
-          X, i, (X), (i), [i, j], (x : A  \ x), (f y), (f x y z)
-
-The Teyjus reference says:
-       <NameToken> ::= { Any Teyjus token distinct from keywords,
-                         pseudo-keywords, integer, string and real
-                         literals }
