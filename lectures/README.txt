@@ -1,3 +1,8 @@
+My lectures are based on Dr. Gary Leavens' lecture notes for COP4020.  I have made
+many changes.  
+
+Below is his orginal README.txt:
+-------------------------------------------------------------------
 These lecture notes are copyright (c) 2006-2007 by Gary T. Leavens.
 Permission is granted for you to make copies for educational and scholarly
 purposes, but not for direct commercial advantage, provided this notice
