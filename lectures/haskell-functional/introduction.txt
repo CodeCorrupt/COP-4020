@@ -1,8 +1,13 @@
 Lecture -*- Outline -*-
 
+------------------------------------------
+
 * Introduction to Haskell
 
-  These lectures are partly based on the following books
+  My lectures are based on Dr. Gary Leavens lectures.  
+  I have made some minor and major changes.
+
+  Dr. Leavens' orginal lectures are partly based on the following books:
 
   Simon Thompson,
   "Haskell: The Craft of Functional Programming", Addison-Wesley,
@@ -14,18 +19,15 @@ Lecture -*- Outline -*-
 
   They also use material from haskell.org
 
-** What's interesting about Haskell?
 ------------------------------------------
-     FUNCTIONAL PROGRAMMING
+
+* Functional programming
 
 - Models computations as expressions
 - All changing arguments passed explicitly
   (no implicit global state)
 - Functions as data allows better abstraction
 
-
- FEATURES FOUND IN OTHER FUNCTIONAL LANGUAGES
-  
 - Data is treated abstractly (as terms)
 - Powerful pattern matching 
 - All functions take just one argument
@@ -33,8 +35,9 @@ Lecture -*- Outline -*-
 - Powerful library 
 - Order of definition doesn't matter
 
+------------------------------------------
 
-       UNIQUE FEATURES OF HASKELL
+* Unique features of Haskell
 
 - Type-based separation of 
    computations with effects from 
@@ -44,142 +47,148 @@ Lecture -*- Outline -*-
 - Lazy evaluation is the default
 - Type expressions resemble values
 
-
 ------------------------------------------
 
+* Computation of values
+
   We will start by using Haskell just to do computations of values,
-  and not worry about I/O very much to start
+  and not worry about I/O very much
 
   Q: What's the difference between an expression and a statement?
 
-
-
-** Haskell platform mechanics
-*** getting in and out        
 ------------------------------------------
-     HASKELL PLATFORM BASICS
+ 
+* Haskell platform installation
 
-Get GHC from www.haskell.org/platform
+Download the Haskell platform from
+https://www.haskell.org/platform/
 
-$ ghcii
-GHCi, version 7.4.2: http://www.haskell.org/ghc/  :? for help
+Documentation (book, courses, tutorials, manuals and guides etc.)
+are available at
+https://www.haskell.org/documentation
+
+------------------------------------------
+    
+* Haskell platform basics: ghci (interpreter)
+
+$ ghci
+GHCi, version 7.6.3: http://www.haskell.org/ghc/  :? for help
 Loading package ghc-prim ... linking ... done.
 Loading package integer-gmp ... linking ... done.
 Loading package base ... linking ... done.
-Prelude>
-
-
-------------------------------------------
-	... :quit
-
-*** working with files
-------------------------------------------
-	WORKING WITH FILES
-
- Prelude> :load "Fact.hs"
- [1 of 1] Compiling Fact             ( Fact.hs, interpreted )
- Ok, modules loaded: Fact.
- *Fact> fact
- 
-*Fact> fact
-
-<interactive>:3:1:
-    No instance for (Show (Integer -> Integer))
-      arising from a use of `print'
-    Possible fix:
-      add an instance declaration for (Show (Integer -> Integer))
-    In a stmt of an interactive GHCi command: print it
- *Fact>
- *Fact> :type fact
- fact :: fact :: (Enum a, Num a) => a -> a
- *Fact> :set +t
- *Fact> fact 4
- 24 
- it :: Integer
- *Fact> fact 100
- 93326215443944152681699238856266700490715968264381621468592963895217599993229915
-608941463976156518286253697920827223758251185210916864000000000000000000000000
- it :: Integer
- *Fact> :edit Fact.hs
- *Fact> :reload
-                   
- *Fact> :type fact
- fact :: Integer -> Integer
- *Fact> fact 100
- 9332621544394415268169923885626670049...
- Fact> 
- Fact> :q
- Leaving GHCi
-------------------------------------------
-
-        for the first version of Fact.hs, use
-
-> fact n = product [1 .. n]
-
-        it works to say fact 100,
-                when used in the interpreter,
-
-	the :reload command reloads the file you're working on,
-		if you don't want to invoke the editor from inside Hugs.
-
-	use
-		setenv EDITOR vi
-	to change the default editor to vi
+Prelude> :quit
+Leaving GHCi.
+$
 
 ------------------------------------------
 
- $ ghci Fact.hs
-   [...]
- [1 of 1] Compiling Fact             ( Fact.hs, interpreted )
- Ok, modules loaded: Fact.
- *Fact> fact 8
- 40320
+* Loading and editing files (interpreter)
+
+$ ghci
+GHCi, version 7.6.3: http://www.haskell.org/ghc/  :? for help
+Loading package ghc-prim ... linking ... done.
+Loading package integer-gmp ... linking ... done.
+Loading package base ... linking ... done.
+Prelude> :load "Fact.hs"
+[1 of 1] Compiling Fact             ( Fact.hs, interpreted )
+Ok, modules loaded: Fact.
+Fact> :type fact
+fact :: Int -> Int
+Fact> fact 3
+6
+Fact> fact 100
+0
+Fact> :set editor "emacs"
+Fact> :edit "Fact.hs"
+[1 of 1] Compiling Fact             ( Fact.hs, interpreted )
+Ok, modules loaded: Fact.
+Fact> :reload
+Ok, modules loaded: Fact.
+Fact> :type fact
+fact :: Integer -> Integer
+Fact> fact 100
+93326215443944152681699238856266700490715968264381621468592963895217599993229915608941463976156518286253697920827223758251185210916864000000000000000000000000
+Fact> :quit
+Leaving GHCi.
+$
+
 ------------------------------------------
 
-        Q: How do we get out of the interpreter again?
-            type :quit  (or just :q)
+* Literate Haskell scripts
 
-*** literate programs
-    Why? So can develop a discussion/article/program with extensive
-    documentation, and have the code in the same file!
+Why? So can develop a discussion/article/program with extensive
+documentation, and have the code in the same file!
 
-------------------------------------------
-		LITERATE SCRIPTS
+program parts have > as first character on line,
+so even this very file can be processed as a program!
 
 file Hello.lhs:
-     ==============================
-                HELLO WORLD
 
-     This is the hello world program
+==============================
+         HELLO WORLD
 
-     > -- part of a Haskell prog
-     > main = putStrLn "Hello, world!"
+This is the hello world program
+
+> -- part of a Haskell prog
+> main = putStrLn "Hello, world!"
      
-     The blank lines surrounding
-     the program are mandatory.
+The blank lines surrounding
+the program are mandatory.
 
-     This file should have a .lhs
-     suffix.
-     ==============================
+This file should have a .lhs
+suffix.
+==============================
 
-$ ghc Hello.lhs
-[1 of 1] Compiling Main             ( Hello.lhs, Hello.o )
-Linking Hello.exe ...
-$ ./Hello
-Hello, world!
-
-$ ghcii Hello.lhs
-...
-Ok, modules loaded: Main.
-Prelude Main> :type main
-main :: IO ()
-Prelude Main> main
-Hello, world!
-Prelude Main> :quit
 ------------------------------------------
 
-	program parts have > as first character on line,
-		so even this very file can be processed as a program!
+* Interpreting Haskell scripts
 
-        programs have a main function of type IO() in the module Main,
-        which is run when the program starts
+$ ls Hello*
+Hello.lhs
+$ ghci
+GHCi, version 7.6.3: http://www.haskell.org/ghc/  :? for help
+Loading package ghc-prim ... linking ... done.
+Loading package integer-gmp ... linking ... done.
+Loading package base ... linking ... done.
+Prelude> :load Hello
+[1 of 1] Compiling Main             ( Hello.lhs, interpreted )
+Ok, modules loaded: Main.
+Preclude Main> :type main
+main :: IO ()
+Preclude Main> main
+Hello, world!
+Preclude Main> :quit
+Leaving GHCi.
+$ ls Hello*
+Hello.lhs
+$
+
+------------------------------------------
+
+* Compiling Haskell scripts
+
+$ ls Hello*
+Hello.lhs
+$ ghc Hello.lhs
+[1 of 1] Compiling Main             ( Hello.lhs, Hello.o )
+Linking Hello ...
+$ ls Hello*
+Hello  Hello.hi  Hello.lhs  Hello.o
+$ ./Hello
+Hello, world!
+$
+
+See https://downloads.haskell.org/~ghc/7.0.1/docs/html/users_guide/separate-compilation.html
+for more information about 
+the different file extensions
+------------------------------------------
+
+* main function of type IO()
+
+programs have a main function of type IO() in the module Main,
+which is run when the program starts
+
+Prelude Main> :type main
+main :: IO ()
+
+------------------------------------------

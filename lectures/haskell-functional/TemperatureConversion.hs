@@ -1,4 +1,3 @@
--- $Id$
 module TemperatureConversion where
 
 convert :: Double -> Double

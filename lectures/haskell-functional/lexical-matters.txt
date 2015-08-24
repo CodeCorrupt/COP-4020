@@ -1,81 +1,81 @@
 Lecture -*- Outline -*-
 
-* lexical matters in Haskell (Thompson 3.7, Davie 2.14, appendix C.2-3)
-
-** important and unusual lexical conventions
 ------------------------------------------
-IMPORTANT AND UNUSUAL LEXICAL CONVENTIONS
 
-<varid> ::= <small> { <idchar> }
-<conid> ::= <large> { <idchar> }
-<idchar> ::= <small> | <large> | <digit> | '
-<small> ::= <ascSmall> | _
-<digit> ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
-<large> ::= <ascLarge> 
+* Lexical matters in Haskell (Thompson 3.7, Davie 2.14, appendix C.2-3)
+
+------------------------------------------
+
+* Important and unusual lexical conventions
+
+<varid>    ::= <small> { <idchar> }
+<conid>    ::= <large> { <idchar> }
+<idchar>   ::= <small> | <large> | <digit> | '
+<small>    ::= <ascSmall> | _
+<digit>    ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+<large>    ::= <ascLarge> 
 <ascLarge> ::= A | B | C | D | ... | Z
 <ascSmall> ::= a | b | c | d | ... | z
 
 - Case matters
 
-     identifiers: fact, x y
-     constructors: Rational, Stack
+    identifiers : fact, x y
+    constructors: Rational, Stack
 
 - Layout (white space) matters:
-   (if omit braces and semicolons,
-   following "where", "let", "do", and "of")
+    (if omit braces and semicolons,
+    following "where", "let", "do", and "of")
   
-  Example:
+  Example (Layout.hs):
 
+        -- works, correct indentation
 	let x = 3
 	    y = 4
 	in x + y
 
-  ==>
+        -- leads to parsing error, wrong indentation
+        let x = 3
+        y = 4
+        in x + y
 
-	let {x = 3
-	    ;y = 4
-	}in x + y
+        -- uses the symbols: { ; } 
+	let { x = 3;
+	y = 4
+	} in x + y
 
-------------------------------------------
-        For identifiers, unicode characters are also allowed
-
-	simplified layout rules:
-             following token determines indentation level => {
-             same indentation as that token => ;
-             less indentation => }
+	Simplified layout rules:
+          following token determines indentation level => {
+          same indentation as that token => ;
+          less indentation => }
 
 	Watch out, you can get syntax errors from bad indentation!
 
-     see sections 2.7 and 10.3 of the Haskell report for details
+        See sections 2.7 and 10.3 of the Haskell report for details
 
-** identifiers and operators (Thompson 1.7, Davie 2.14.2)
 ------------------------------------------
-           IDENTIFIERS (NOT INFIX)
 
-can use letters, digits, primes and underscores (_)
+* Identifiers and operators (Thompson 1.7, Davie 2.14.2)
 
-CASE MATTERS
+- Identifiers (not infix) can use letters, 
+  digits, primes and underscores (_)
+
+- Case matters
 
 varids:
 
-    start with a-z
+  start with a-z
 
-    examples
-	_, pythag, fac, x, y', x3'n_, aGoodId
-
+  examples: _, pythag, fac, x, y', x3'n_, aGoodId
 
 conids:
 
-    start with A-Z
+  start with A-Z
 
-    Examples:
-       Stack, Rational, Typ'_3
-
-------------------------------------------
-        (unicode characters also allowed)
+  examples: Stack, Rational, Typ'_3
 
 ------------------------------------------
-		OPERATORS 
+
+* Operators 
 
 Examples:
   +, -, !!, ++, ==, /=
@@ -101,7 +101,8 @@ Notes:
      an identifier when put in parentheses
 
                (+) 3 4
-------------------------------------------
 
         Because operator strings are maximal length strings of
-        symbols, instead of 2*-3 you have to write 2*(-3) or 2 * -3.
+        symbols, instead of 2*-3 you have to write 2*(-3).
+
+------------------------------------------

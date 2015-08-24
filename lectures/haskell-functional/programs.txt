@@ -1,14 +1,16 @@
 Lecture -*- Outline -*-
 
-* programs in Haskell
+------------------------------------------
+
+* Programs in Haskell
 
    Based on material from Haskell.org
    See "Introduction to IO"
    on the Haskell Wiki (https://www.haskell.org/haskellwiki/Introduction_to_IO)
 
-** modules
 ------------------------------------------
-       PROGRAMS ARE MODULES WITH Main
+   
+* Programs are modules with Main
 
 One module, named Main, which exports main
 
@@ -18,99 +20,59 @@ main :: IO ()
 main = do ...
 
 
-------------------------------------------
-        The module declaration can be omitted, defaults to Main
+The module declaration can be omitted, defaults to Main
 
 ------------------------------------------
-            SIMPLE I/O EXAMPLE
+
+* Simple I/O example
 
 The type of a main program is an IO action
 
+file SimpleIO.lhs
+
+> import System.IO
+>
 > main :: IO()
-> main = do
->          putStr "Hello! What is your name? "
->          name <- getLine
->          putStrLn ("Hello, " ++ name ++ "!")
+> main = do putStr "Hello! What is your name? "
+>           hFlush stdout
+>           name <- getLine
+>           putStrLn ("Hello, " ++ name ++ "!")
 
 ------------------------------------------
-        in file SimpleIO.lhs
 
-** IO types
-------------------------------------------
-          IO TYPES
-
-I/O must happen in an action with type:
-
-       IO a
-
-meaning
-
-
-     CAN ONLY USE IN A IO TYPE CONTEXT
-
-The following are type errors:
-
-       3 + (do {read getLine} :: Integer)
-       3 + (log x) + 7
-          where
-           log x = do
-                     putStrLn x
-                     return x
-
-
-
-------------------------------------------
-           ... I/O actions that return a value of type a
-
-           ... Can't use an (IO Integer) as an Integer!
-
-** Normal program structure
-
-------------------------------------------
-          PROGRAM STRUCTURE
+* Program structure
 
 main :: IO ()
-main = do
+main = do 
          vals <- inputAct
          let res = compute vals
          outputAct res
 
 inputAction :: IO ValType
-...
 
 outputAction :: ResType -> IO ()
 
 ------------------------------------------
-        Note that can't use <- notation where the right hand side is
-        not an IO action (of type IO a for some a)
-        Can use "let" notation however to name intermediate results
 
-        Explain how the IO types work
+* Picture: inputAct, computation, outputAct
 
-------------------------------------------
-            A PICTURE
-
-            |-------------|
-            |             |   
-   ========>|             | =========>
-            |-------------|
+            +-------------+
+   inputAct |             | outputAct   
+   ========>| computation | =========>
+            |             |
+            +-------------+
             
 ------------------------------------------
-        ... label the arrows inputAct and outputAct
-            label the box compute
 
-        Point out which is the "main" program
-        Haskell can also handle interactive programs,
-        but the details are complex, we will cover later
+* Example of input, computation, and output
 
-*** example temperature conversion
-
-**** file TempConvertMain.lhs, the main program
-------------------------------------------
 A program is a set of modules, one of which must be called Main
 and export the name "main".
+
 If a file does not have a module declaration,
 then it is implicitly named "Main", so that is what is done with this file.
+
+file TempConvertMain.lhs, the main program
 
 > import TemperatureConversion
 > import Control.Exception.Base
@@ -131,8 +93,8 @@ The bye function takes an IOException, prints "bye!", and returns (),
 
 > bye :: IOException -> IO ()
 > bye _ = do
->            putStrLn "bye!"
->            return ()
+>           putStrLn "bye!"
+>           return ()
 
 The rcp function reads a Double, then prints its conversion
     
@@ -150,11 +112,8 @@ The ask function obtains a temperature in Farenheit from the user.
 >         f <- readIO temp
 >         return f
 
-------------------------------------------
+file TemperatureConversion.lhs 
 
-**** TemperatureConversion module (where the computations go)
-     This is the part we will focus on
-------------------------------------------
 module TemperatureConversion where
 
 convert :: Double -> Double

@@ -15,15 +15,15 @@ The loop function does an IO action forever,
 
 > loop :: IO () -> IO ()
 > loop act = do
->             act
->             loop act
+>              act
+>              loop act
 
 The bye function takes an IOException, prints "bye!", and returns (),
 
 > bye :: IOException -> IO ()
 > bye _ = do
->            putStrLn "bye!"
->            return ()
+>           putStrLn "bye!"
+>           return ()
 
 The rcp function reads a Double, then prints its conversion
     

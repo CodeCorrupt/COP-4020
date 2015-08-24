@@ -1,11 +1,5 @@
 Lecture -*- Outline -*- for Haskell and Functional Programming
 
-        Remember to
-                - make the lectures interactive
-                - give pointers to the book/literature on where to find more
-
-        for help sessions, see the file "recursion-discussion.txt"
-
 	lecture 1
 * introduction
 
