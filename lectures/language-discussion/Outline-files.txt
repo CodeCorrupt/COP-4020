@@ -1,9 +1,0 @@
-COP 4020 meeting -*- Outline -*-
-
-	lecture 1
-
-* group-work
-
-* picking-languages
-
-
