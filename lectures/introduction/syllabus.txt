@@ -2,13 +2,7 @@ COP 4020 meeting -*- Outline -*-
 
 ------------------------------------------
 
-* Staff
-
-                COP 4020
-         PROGRAMMING LANGUAGES I
-
-Time         : TuTh 4:30 - 5:45 PM
-Location     : CB2 0206
+* Contact information
 
 Instructor   : Dr. Pawel Wocjan
 Email        : wocjan@eecs.ucf.edu
@@ -21,6 +15,13 @@ Office       : TBA
 Office Hours : TBA
 
 URL: http://www.eecs.ucf.edu/~wocjan/COP4020
+
+------------------------------------------
+
+* Course time and location
+
+Time         : TuTh 4:30 - 5:45 PM
+Location     : CB2 0206
 
 ------------------------------------------
 
@@ -69,7 +70,7 @@ by using Haskell and Erlang.
  
 ------------------------------------------
 
-* Grading
+* Grading (homework assignments, exams)
 
 There will be two exams.  The midterm exam
 is worth 40 points.  The final exam is worth
@@ -80,7 +81,7 @@ Absolutely no late homework.  No exceptions.
 You will receive 0 points for the homework assignment 
 if you submit it after the deadline.
 
-The final grade will be computed as follows.
+The final grade will be computed as follows:
 
 points  grade
 
@@ -96,5 +97,11 @@ points  grade
 >= 90   D
 >= 80   D-
 less    F
+
+The first exam will be in the middle of the semester.
+(I will fix the final date by the end of the first week
+of the semester and update it here.) 
+The second (final) exam will take place during the 
+official UCF final examination period.
 
 ------------------------------------------

@@ -1,17 +1,10 @@
 COP 4020 unit -*- Outline -*-
 
-* Introductory
-        Material about the course.
+* introduction
+	syllabus, what the course is about
 
-** introduction
-	what the course is about
-
-** learning-language
-        tips for learning a language with an example
-
-** langauge-discussion
-        discussions about what languages and programming models to study
-        (only used in Spring 2013)
+* learning-language
+        tips for learning a language 
 
 * haskell-functional
         Functional programming model and the Haskell language
