@@ -2,7 +2,7 @@
 
 This is the hello world program
 
-> -- part of a Haskell prog
+> main :: IO ()
 > main = putStrLn "Hello, world!"
      
 The blank lines surrounding

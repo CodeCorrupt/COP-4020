@@ -4,37 +4,62 @@ Lecture -*- Outline -*-
 
 * Programs in Haskell
 
-   Based on material from Haskell.org
-   See "Introduction to IO"
-   on the Haskell Wiki (https://www.haskell.org/haskellwiki/Introduction_to_IO)
+   Based on 
+
+   -  on material from Haskell.org
+      See "Introduction to IO" on the Haskell Wiki 
+      (https://www.haskell.org/haskellwiki/Introduction_to_IO)
+     
+   - Chapter 8 Input and Output 
+     Learn You a Haskell for Great Good!
 
 ------------------------------------------
    
 * Programs are modules with Main
 
-One module, named Main, which exports main
+A program is a module, named Main, which exports main.
 
-module Main where   --
+The type of main is an I/O action.
 
-main :: IO ()
-main = do ...
+>module Main where   --
+>
+>main :: IO ()
+>main = ...
 
-
-The module declaration can be omitted, defaults to Main
+The module declaration can be omitted, defaults to Main.
 
 ------------------------------------------
 
-* Simple I/O example
+* Simple IO example: output to screen
 
-The type of a main program is an IO action
+file Hello.lhs
+
+             HELLO WORLD
+
+This is the hello world program
+
+> main :: IO ()
+> main = putStrLn "Hello, world!"
+     
+------------------------------------------
+
+* Simple I/O example: glueing I/O actions together
+
+file HelloTwice.lhs
+
+> main :: IO ()
+> main = do
+>          putStrLn "Hello, world!"
+>          putStrLn "Hello, world!"
+
+------------------------------------------
+
+* Simple I/O example: input from keyboard, output to screen
 
 file SimpleIO.lhs
 
-> import System.IO
->
 > main :: IO()
 > main = do putStr "Hello! What is your name? "
->           hFlush stdout
 >           name <- getLine
 >           putStrLn ("Hello, " ++ name ++ "!")
 
@@ -42,15 +67,58 @@ file SimpleIO.lhs
 
 * Program structure
 
-main :: IO ()
-main = do 
-         vals <- inputAct
-         let res = compute vals
-         outputAct res
+>main :: IO ()
+>main = do 
+>         vals <- inputAct
+>         let res = compute vals
+>         outputAct res
+
+In general, the type have the form:
 
 inputAction :: IO ValType
-
 outputAction :: ResType -> IO ()
+
+Examples:
+
+Main> :t getLine
+getLine :: IO String
+
+Main> :t getChar
+getChar :: IO Char
+
+Main> :t putStr
+putStr    putStrLn
+
+Main> :t putStrLn
+putStrLn :: String -> IO ()
+
+Main> :t put
+putChar   putStr    putStrLn
+
+Main> :t putChar
+putChar :: Char -> IO ()
+
+------------------------------------------
+
+* Simple I/0 example: input, compute, output
+
+file Greeting.lhs
+
+Example showing the structure
+input, computation, output
+
+> import Data.Char
+>
+> main = do
+>   putStrLn "What's you first name?"
+>   firstName <- getLine
+>   putStrLn "What's you last name?"
+>   lastName <- getLine
+>   let bigFirstName = map toUpper firstName
+>       bigLastName  = map toUpper lastName
+>   putStrLn $ "hey " ++ bigFirstName ++ " "
+>                     ++ bigLastName ++ " "
+>                     ++ ", how are you?"
 
 ------------------------------------------
 
@@ -64,7 +132,34 @@ outputAction :: ResType -> IO ()
             
 ------------------------------------------
 
-* Example of input, computation, and output
+* Example: reverse line
+
+file ReverseLine.lhs
+
+> main = do
+>   line <- getLine
+>   if null line
+>     then return ()
+>     else do
+>       putStrLn $ reverse line
+>       main
+
+------------------------------------------
+
+* Example: read double from keyboard
+
+file Age.lhs
+
+> main = do
+>   putStrLn "How old are you? "
+>   line <- getLine
+>   real_age <- readIO line :: IO Double
+>   let age = if real_age > 21 then 21 else real_age
+>   putStrLn ("You look like " ++ (show age))
+
+------------------------------------------
+
+* Example: temperature conversion
 
 A program is a set of modules, one of which must be called Main
 and export the name "main".
@@ -86,8 +181,8 @@ The loop function does an IO action forever,
 
 > loop :: IO () -> IO ()
 > loop act = do
->             act
->             loop act
+>              act
+>              loop act
 
 The bye function takes an IOException, prints "bye!", and returns (),
 

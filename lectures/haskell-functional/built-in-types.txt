@@ -1,5 +1,7 @@
 Lecture -*- Outline -*-
 
+!!!!! continue here
+
 > module BuiltInTypes where
 > import Prelude hiding (fst, snd, head, tail, filter, zip)
 
