@@ -21,40 +21,23 @@ Lecture -*- Outline -*-
 
 ------------------------------------------
 
-* Functional programming
+* Some features of Haskell
 
-- Models computations as expressions
-- All changing arguments passed explicitly
-  (no implicit global state)
 - Functions as data allows better abstraction
-
-- Data is treated abstractly (as terms)
-- Powerful pattern matching 
-- All functions take just one argument
-  (use tuples to group multiple arguments as one)
-- Powerful library 
-- Order of definition doesn't matter
-
-------------------------------------------
-
-* Unique features of Haskell
-
-- Type-based separation of 
-   computations with effects from 
-   pure expressions
-- I/O actions are data
-- Type classes for static overloading
+- All changing arguments passed explicitly
+  (no implicit global state, no side effects)
 - Lazy evaluation is the default
-- Type expressions resemble values
+- Powerful pattern matching 
+- Type-based separation of 
+  impure (those having side effects) and pure functions 
+- Type classes for static overloading
 
 ------------------------------------------
 
 * Computation of values
 
   We will start by using Haskell just to do computations of values,
-  and not worry about I/O very much
-
-  Q: What's the difference between an expression and a statement?
+  and not worry about I/O (impure functions) very much
 
 ------------------------------------------
  
@@ -91,7 +74,7 @@ Loading package integer-gmp ... linking ... done.
 Loading package base ... linking ... done.
 Prelude> :load "Fact.hs"
 [1 of 1] Compiling Fact             ( Fact.hs, interpreted )
-Ok, modules loaded: Fact.
+Ok, modules loaded: Fact.hs
 Fact> :type fact
 fact :: Int -> Int
 Fact> fact 3
