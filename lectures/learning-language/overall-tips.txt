@@ -12,7 +12,7 @@ Overall Tips for Learning Programming Languages
 - Documentation
 
 Minimal environment:
-- a text editor (Emacs) + compiler/interpreter
+- a text editor + compiler/interpreter
 
 Integrated development environment:
   some students think getting too much help (eclipse, visual studio)
@@ -46,7 +46,7 @@ When you read:
   character stream
         |
         |"public static void ..."
- _______v____________ 
+  ______v___________ 
  | Lexical Analysis |
  |__________________| 
         |        "void"                      
