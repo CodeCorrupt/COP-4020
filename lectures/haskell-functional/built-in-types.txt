@@ -231,7 +231,7 @@ a -> b
        + syntax:
            f x y = expression
                means roughly
-           f = (\x -> (\y -> expession))
+           f = (\x -> (\y -> expression))
        + functions: (.), flip,
           curry, uncurry
 
