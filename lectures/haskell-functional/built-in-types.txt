@@ -164,11 +164,13 @@ These are some of the means of combination
 * Tuples in Haskell
 
 (a,b), (a,b,c), ...,  and ()
+
    Values:
        + abstract values: pairs of a & b,
 		triples of a & b & c, ...
 		an empty tuple
        + printed: (1,True), (3, 4, 5), ()
+
    Operations:
         + constructor (,), (,,), ...
 	+ fst, snd
@@ -204,12 +206,12 @@ Examples:
    ()
    ("zero tuple:",())
 
-        Try these in the interpreter,
-           note the differences between (1,(2,3)) and (1,2,3)
+   Try these in the interpreter,
+   note the differences between (1,(2,3)) and (1,2,3)
 
-        Note that (1) is NOT a tuple
+   Note that (1) is NOT a tuple
 
-	Q: What is the type of each?
+   Q: What is the type of each?
 
 	so ( , ) makes pairs, (,,) makes triples, etc.
 
@@ -223,17 +225,22 @@ Examples:
 * Functions (Thompson 10)
 
 a -> b
-   Values:
-       + abstract values:
-             partial functions from a to b
-   Operations:
-       + constructor: \ var -> expression
-       + syntax:
-           f x y = expression
-               means roughly
-           f = (\x -> (\y -> expression))
-       + functions: (.), flip,
-          curry, uncurry
+   
+Values:
+
++ abstract values: partial functions from a to b
+   
+Operations:
+
++ constructor: \var -> expression
+
++ syntax: f x y = expression
+               
+            means roughly
+
+          f = (\x -> (\y -> expression))
+
++ special functions: (.), flip, curry, uncurry
 
 Examples:
 
@@ -260,26 +267,27 @@ Generally, use pattern matching to extract parts of (algebraic) types
 
 Examples:
 
- let (x,y,z) = (1,2,3) in x
+- pattern matching and binding in tuples:
 
+    let (x,y,z) = (1,2,3) in x
 
- let (x,y,z) = (1,2,3) in z
+    let (x,y,z) = (1,2,3) in z
 
+    let (_,y,_) = (1,2,3) in y
 
- let (_,y,_) = (1,2,3) in y
+- pattern matching and binding in list:
 
+    let (a:as) = 1:2:3:[] in a
 
- let (a:as) = 1:2:3:[] in a
+    let (a:as) = [1,2,3] in as
 
- let (a:as) = [1,2,3] in as
-
- try these in the interpreter
+Try these in the interpreter
 
 ------------------------------------------
 
 * Patterns in function definition
 
-Suppose we define
+see file Yodaize.hs
 
 > yodaize (subject, verb, adjective) =
 >     (adjective, subject, verb)
@@ -295,15 +303,28 @@ Examples:
 
 * For you to do
 
-Write the functions
+Problems: 
 
-- max3 :: Ord a => (a, a, a) -> a
+- Write average :: (Float, Float) -> Float
+
+  such that, for example
+
+  average (1.0, 3.0) = 2.0
+  average (3.0, 50.0) = 26.5
+
+  (see file Average.hs)
+
+- Write max3 :: Ord a => (a, a, a) -> a
   to take the maximum of 3 arguments
 
-- listMax :: Ord a => [a] -> a
-  to determine the maximum of list
+  (see file Max3.hs)
 
-- fst3 :: (a, b, c) -> a
+- Write listMax :: Ord a => [a] -> a
+  to determine the maximum of list
+  (see file ListMax.hs)
+
+- Write the three functions
+  fst3 :: (a, b, c) -> a
   snd3 :: (a, b, c) -> b
   thd3 :: (a, b, c) -> c
 
@@ -311,11 +332,6 @@ Write the functions
 
   t = (fst3 t, snd3 t, thd3 t)
 
-- average :: (Float, Float) -> Float
-
-  such that, for example
-
-  average (1.0, 3.0) = 2.0
-  average (3.0, 50.0) = 26.5
+  (see file Triples.hs)
 
 ------------------------------------------

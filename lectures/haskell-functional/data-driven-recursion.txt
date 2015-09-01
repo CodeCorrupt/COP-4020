@@ -1,31 +1,29 @@
 Lecture -*- Outline -*-
 
+------------------------------------------
+
 * data-driven recursion (Thompson 14, Davie sections 3.2, 4.4)
 
-> module DataDriven where
-> import Prelude hiding (toInteger)
+We won't always be working with lists, need to be able to write
+recursions over any type of data.
 
-   We won't always be working with lists, need to be able to write
-	recursions over any type of data
+Key idea: recursion is based on the structure (grammar) of a type.
 
-   Key idea: recursion is based on the structure (grammar) of a type.
-
-** data declaration in Haskell
-
-   data Color = Red | Yellow | Green
-   data [] a = [] | a : [a]
-
-*** example: the natural numbers
 ------------------------------------------
-	DATA-DRIVEN RECURSION or
-         FOLLOW THE GRAMMAR!
 
-Definition of natural numbers:
+* data declaration in Haskell
+
+> data Color = Red | Yellow | Green
+
+------------------------------------------
+
+* definition of natural numbers
 
 > data Nat = Zero | Succ Nat deriving (Eq, Show)
 
 To define a function f :: Nat -> t
 define recursively by:
+
 	f Zero =   ...   -- basis
 	f (Succ n) = ... -- inductive case
 
@@ -37,10 +35,6 @@ Examples:
   toInteger (Succ Zero) == 1
   toInteger Zero == 0
 
-
-
-
-
 > plus :: Nat -> Nat -> Nat
 
   plus Zero (Succ Zero) == Succ Zero
@@ -48,79 +42,59 @@ Examples:
   plus (Succ (Succ (Succ Zero))) (Succ (Succ Zero))
     == (Succ (Succ (Succ (Succ (Succ Zero)))))
 
-
-
-
-
-------------------------------------------
-	Explain the data notation (section 4.4, algebraic types)
-		the deriving Eq is not important here
-
-	develop these using examples:
-	base case: toInteger Zero = 0
-	inductive case:
-	  want     toInteger (Succ (Succ (Succ Zero))) = 3
-	  given    toInteger       (Succ (Succ Zero)) = 2
-	how do we get 3 from 2?
-	generalizing from this example,
-	           toInteger (Succ n) = 1 + (toInteger n)
-
 > toInteger Zero = 0
 > toInteger (Succ n) = 1 + (toInteger n)
 
-	base case: plus Zero n = n
-	inductive case:
-	  want     plus (Succ (Succ Zero)) Zero = (Succ (Succ Zero))
-	  given    plus       (Succ Zero)  Zero =       (Succ Zero)
-	how do we get 2 from 1?
-	generalizing from this example,
-	           plus (Succ m) n = plus m (Succ n)
+------------------------------------------
+
+* Plus for natural numbers
+
+Base case: 
+
+  plus Zero n = n
+
+Inductive case:
+
+  want     plus (Succ (Succ Zero)) Zero = (Succ (Succ Zero))
+  given    plus       (Succ Zero)  Zero =       (Succ Zero)
+	
+  How do we get 2 from 1?
+  Generalizing from this example,
+
+	   plus (Succ m) n = plus m (Succ n)
 
 > plus Zero n = n
 > plus (Succ m) n = plus m (Succ n)
 
-	Q: How does the structure of the program resemble the data declaration?
-		note the recursion occurs where the grammar is recursive.
+Q: How does the structure of the program resemble the data declaration?
+   note the recursion occurs where the grammar is recursive.
 
-	Q: How does the data declaration resemble a grammar?
+Q: How does the data declaration resemble a grammar?
 
-	Pitfalls: need to parenthesize the patterns
+Pitfalls: need to parenthesize the patterns
 
 ------------------------------------------
-	FOR YOU TO DO
 
- -- data Nat = Zero | Succ Nat deriving Eq
+* For you to do
 
-  mult :: Nat -> Nat -> Nat
-   such that
+-- data Nat = Zero | Succ Nat deriving Eq
+
+Problems: 
+
+- Write mult :: Nat -> Nat -> Nat
+  such that
     mult Zero (Succ Zero) == Zero
     mult (Succ (Succ Zero)) (Succ (Succ (Succ Zero)))
          == (Succ (Succ (Succ (Succ (Succ (Succ Zero))))))
 
-
-
-
-
-  
-  
-  equal :: Nat -> Nat -> Bool
-    without using (==), but such that (equal n1 n2) == (n1 == n2)
-
-
-
-
-
-
-
+- Write equal :: Nat -> Nat -> Bool
+  without using (==), but such that (equal n1 n2) == (n1 == n2)
 
 ------------------------------------------
 
-	Q: What would isZero :: Nat -> Bool be like?
+* Generalizing how to write recusions
 
-** structure of data determines structure of code
-
-------------------------------------------
-    GENERALIZING HOW TO WRITE RECUSIONS
+!!! TO DO: Improve presentation !!! 
 
  data NonEmptyList a =
 
@@ -129,24 +103,9 @@ Write
    maxl :: (Ord a) => NonEmptyList a -> a
 such that
 
-
-
-
-
-
 Write 
    nth :: NonEmptyList a -> Nat -> a
 such that
-
-
-
-
-
-
-
-
-
-
 
 ------------------------------------------
 

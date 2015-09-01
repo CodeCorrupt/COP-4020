@@ -5,38 +5,42 @@ Lecture -*- Outline -*-
 
 * Lists (Thompson 5, Davie 2.8, 3.11)
 
-    Lists are another built in type,
-    useful in many situations and 
-       for explaining recursion
+Lists are another built in type,
+useful in many situations and 
+for explaining recursion
 
 ------------------------------------------
 
 * List in Haskell
 
-[a] *homogeneous* lists of a
+[a] denotes *homogeneous* lists of a
 
-   Values:
-       + abstract values: sequences of a's
-       + printed: [], [True], [1,2,3,...]
+Values:
 
-   Operations:
-       + constructors: :, []
-              (:) :: a -> [a] -> [a]
-              [] :: [a]
-       + functions: head, tail,
-	  last, init, null, ++,
-	  length, !!, map, take,
-	  drop, reverse, all, any, ...
-       + syntax:
-          [1,2,3] = 1:(2:(3:[])) = 1:2:3:[]
-	  [1 ..] = enumFrom 1
-          [1,3 ..] = enumFromThen 1 3
-          [1 .. 8] = enumFromTo 1 8
-          [1,3 ..8] = enumFromThenTo 1 3 8
-	  [e | e <- [1 ..], even e]
-                  = do e <- [1 ..]
-                       guard (even e)
-                       return e
++ abstract values: sequences of a's
+
++ printed: [], [True], [1,2,3,...]
+
+Operations:
+
++ constructors: :, []
+  (:) :: a -> [a] -> [a]
+  [] :: [a]
+
++ functions: 
+    head, tail,
+    last, init, null, ++,
+    length, !!, map, take,
+    drop, reverse, all, any, ...
+
++ syntax:
+    [1,2,3] = 1:(2:(3:[])) = 1:2:3:[]
+    [1 ..] = enumFrom 1
+    [1,3 ..] = enumFromThen 1 3
+    [1 .. 8] = enumFromTo 1 8
+    [1,3 ..8] = enumFromThenTo 1 3 8
+    [e | e <- [1 ..], even e]
+
 ------------------------------------------
 
 * Examples of lists
@@ -68,19 +72,19 @@ is
 
 Consequences:
 
-  - in pattern matching, 
-    can only get at head and rest easily
-        let (a:as) = lst
+- in pattern matching, 
+  can only get at head and rest easily
+    let (a:as) = lst
 
-  - when building a list, 
-    can only add elements at the head
-        0:lst
+- when building a list, 
+  can only add elements at the head
+    0:lst
 
 Pragmatics:
 
-  - (:) executes in constant time and space
+- (:) executes in constant time and space
 
-  - pattern matching using (:) is fast
+- pattern matching using (:) is fast
 
 ------------------------------------------
 
@@ -90,9 +94,9 @@ Pragmatics:
 
 Definition:
 
-(++) :: [a] -> [a] -> [a]
-[] ++ bs = bs
-(a:as) ++ bs = a:(as ++ bs)
+  (++) :: [a] -> [a] -> [a]
+  [] ++ bs = bs
+  (a:as) ++ bs = a:(as ++ bs)
 
 Haskell has to walk throught the entire first list!
 
@@ -106,16 +110,16 @@ Q: Which is more efficient: 0:[1,2,3] or [0]++[1,2,3]?
 
 Examples:
 
--  [1] desugars to 1:[]
+- [1] desugars to 1:[]
 
--  [1,2] desugars to 1:2:[] = (1:(2:[])) = 1:[2]
+- [1,2] desugars to 1:2:[] = (1:(2:[])) = 1:[2]
 
--  [4,0,2,0] desugars to 4:0:2:0:[]
+- [4,0,2,0] desugars to 4:0:2:0:[]
 
 Note: lists are NOT sets:
--  can have repeats [1,2,1,3]
+- can have repeats [1,2,1,3]
  
--   order matters [1,1,2,3] /= [1,2,1,3]
+- order matters [1,1,2,3] /= [1,2,1,3]
 
 We generally use the sugared form in examples, 
 but it's helpful for programming to know the desugaring
@@ -176,7 +180,7 @@ Rich and Richard Waters.
 
 * Mapping with list comprehensions
 
-As with sets in math: {2*n | n <- ex}
+As with sets in math: { 2*n | n <- ex }
 
 > ex = [2, 4, 7, 3, 2]
 > integers = [ 1 .. ]
@@ -185,28 +189,38 @@ Q: What does [ 2 * n | n <- ex] yield?
 
 A: [4, 8, 14, 6, 4]
 
-Q: What are the differences from set comprehensions in math?
+Q: What are the differences Haskell list comprehensions 
+   between set comprehensions in math?
 
 A: Order matters in lists, and duplicates are allowed
 
-Problems: 
+------------------------------------------
 
-  Write the functions
+* For you to do
 
-  - product_by:: [Int] -> Int -> [Int]
+Problems: Write the functions
 
-  - map :: (a -> b) -> [a] -> [b]
+- multBy:: [Int] -> Int -> [Int]
 
-  using list comprehensions.
+  (see MultBy.hs)
 
-Solution: see file MapInClass.hs
+- map :: (a -> b) -> [a] -> [b]
+
+  using list comprehensions
+
+  (see file Map.hs)
 
 ------------------------------------------
 
 * Filtering
 
 -- recall ex = [2, 4, 7, 3, 2]
+
 [ n | n <- ex, odd n ] = [7, 3]
+
+------------------------------------------
+
+* For you to do
 
 Problems: Write expressions for
 
@@ -227,19 +241,28 @@ Problems: Write expressions for
  
 - [n| n <- [0 .. 100], n `mod` 7 == 0]
 
-Problem: 
+------------------------------------------
 
-   Write the function filter:: (a -> Bool) -> [a] -> [a]
+* For you to do
+
+Problem:
+ 
+- Write the function myFilter:: (a -> Bool) -> [a] -> [a]
+  using list comprehensions.
+
+  see MyFilter.hs  
 
 ------------------------------------------
 
-* Using patterns
+* For you to do
 
 Problem: 
 
-  Write addPairs :: [(Integer, Integer)] -> [Integer]
+- Write addPairs :: [(Integer, Integer)] -> [Integer]
   which takes a list of pairs
   and produces a list of their sums
+
+  see AddPairs.hs
 
 ------------------------------------------
 
@@ -269,19 +292,28 @@ Prelude> unzip [(1,'a'),(2,'b'),(3,'c'),(4,'d')]
 ([1,2,3,4],"abcd")
 Prelude>
 
-Problem:
-  - use zip and a comprehension to write
-      addLists :: [Integer] -> [Integer] -> [Integer]
+------------------------------------------
 
-  - use zip and a comprehension to write
-      findIndices :: (a->Bool) -> [a] -> [Int]
+* For you to do
 
-    such that
-      findIndices even [4..9] = [0,2,4]
-      findIndices odd [] = []
-      findIndices odd [3,5,2,0,3] = [0,1,4]
+Problems:
+
+- use zip and a comprehension to write
+    addLists :: [Integer] -> [Integer] -> [Integer]
+
+  see AddLists.hs
+
+- use zip and a comprehension to write
+    findIndices :: (a->Bool) -> [a] -> [Int]
+
+  such that
+    findIndices even [4..9] = [0,2,4]
+    findIndices odd [] = []
+    findIndices odd [3,5,2,0,3] = [0,1,4]
 
     and test your function using FIndIndiciesTests.hs file
+
+  see FindIndices.hs
 
 ------------------------------------------
 
@@ -308,7 +340,7 @@ in the interpreter and check out some examples
 
 * Explicit recursions
 
-Can't always use a comprehension (e.g., when have to reorder to sort)
+Can't always use a list comprehension (e.g., when have to reorder to sort)
 
 => Use the "one step and rest of the journey" idea
 
@@ -317,12 +349,13 @@ Can't always use a comprehension (e.g., when have to reorder to sort)
 * Steps for writing explicit recursions
 
 1. Understand the problem
- a. What does it do?
- b. What's the type?
- c. What are the grammars for the arguments?
- d. What are examples for each case 
-    in the interesting grammars?
- e. What are related simpler examples?
+
+  a. What does it do?
+  b. What's the type?
+  c. What are the grammars for the arguments?
+  d. What are examples for each case 
+     in the interesting grammars?
+  e. What are related simpler examples?
 
 2. Write an outline that follows the grammar
 
@@ -339,7 +372,7 @@ Can't always use a comprehension (e.g., when have to reorder to sort)
 
 * Recursion over flat lists
 
-Example:
+Problem: Write
 
   insertWhen :: (a -> Bool) -> a -> [a] -> [a]
 
@@ -364,33 +397,24 @@ such that
 
 ------------------------------------------
 
-
-  lists are generated inductively by [] and :
-  as if we could write
-
-         data [] a = [] | a : [a]
-
-  this definition is the actual definition from the Prelude
-
    Q: So what will the cases be?
+ 
+   Base case: insertWhen p title [] = []
+     
+   Inductive case:
+	
+   - want     "Queen":"Victoria":"Station":[]
+     given    insertWhen (== "Victoria") "Queen" "Victoria":"Station":[]
 
-     develop this:
-     base case: insertWhen p title [] = []
-     inductive case:
-	want     insertWhen (== "Victoria") "Victoria":"Victoria":"Station":[]
-	given    insertWhen (== "Victoria") "Victoria":"Station":[]
-                     == "Queen":"Victoria":"Station":[]
-	Q: how do we get "Queen":"Victoria":"Queen":"Victoria":"Station":[]
-                                       from "Queen":"Victoria":"Station":[]?
-	generalizing from this example,
-	           insertWhen p title (x:xs) =
-                        if (p x) then title:x: insertWhen p title xs
-                                 else x:insertWhen p title xs
+   - generalizing from this example, we obtain
+	           
+       insertWhen p title (x:xs) = if (p x) then title:x: insertWhen p title xs
+                                            else x:insertWhen p title xs
 
-	this pattern is called recursion over flat lists
-		(or flat recursion over lists, or over types like [a])
+     This pattern is called recursion over flat lists
+     (or flat recursion over lists, or over types like [a])
 
-see file InsertWhen.hs
+   see file InsertWhen.hs
 
 ------------------------------------------
 
@@ -399,37 +423,54 @@ see file InsertWhen.hs
 Problems:
 
 - Write a function
+
     len :: [a] -> Integer
-  so that:
+
+  such that:
 
     len [1,2,3] == 3
     len [] == 0
 
+  and test your implementation using LenAllTests.hs
+
+  Solution: Len.hs
+
 - Write a function
+
     all :: (a -> Bool) -> [a] -> Bool
-  so that:
+
+  such that:
 
     all even [] = True
     all even [1,2,3] = False
     all odd [5,3,1,1,7,13] = True
 
+  and test your implementation using LenAllTests.hs
+
+  Solution: All.hs
+
 ------------------------------------------
 
-* Notes 
-        do induction on the first argument.
-	      Why? because can put stuff on front easily with :
-	Q: what is the base case?
-	Q: take the above example for the inductive case.
-	   what do we want?  what are we given?  how do you get that?
-	Q: so what are the equations?
-	    equations: len [] = 0
-	    	       len (x:xs) = 1 + len xs
+* Notes
+ 
+Do induction on the first argument.
 
-        Can also consider this tail recursively (see below)
+Why? because can put stuff on front easily with :
 
-	note: can't compare lists of different types
+Q: What is the base case?
 
-        Note: "all" is in the Prelude, as is "any"
+Q: Take the above example for the inductive case.
+   what do we want?  what are we given?  how do you get that?
+
+Q: So what are the equations?
+   equations: len [] = 0
+    	      len (x:xs) = 1 + len xs
+
+   Can also consider this tail recursively (see below)
+
+Note: can't compare lists of different types
+
+Note: "all" is in the Prelude, as is "any"
 
 ------------------------------------------
 
@@ -488,14 +529,13 @@ look: it's our friend the while loop!
 	> len_iter(x:lst,count) = len_iter(lst,1+count);
 
 	Tail-recursive function can be run
-		using only constant amount of space.
+	using only constant amount of space.
 
 ------------------------------------------
 
 * Tail recursion
 
-def: code for a function f is *tail recursive*
-     (or *iterative*)
+def: code for a function f is *tail recursive* (or *iterative*)
      if on each branch, the last action 
      has no pending computations
      (i.e., is a value or a recursive call)
@@ -510,8 +550,7 @@ def: a *pending computation* is
 
 * For you to do
 
-Problem: 
-  Write
+Problem: Write
 
     > reverse :: [a] -> [a]
     > reverse [] = []
@@ -523,39 +562,51 @@ Problem:
 
 * How to implement reverse in a tail recursive way?
 
-	to make a tail-recursive version,
-	postulate the iterator
-		reverse x = reverse_iter(x,y)
-			what's the right value for y?
-	will want to build up the answer in the extra variable
-	so that reverse_iter([],y) = y
-	so to figure value of y, use
+- To make a tail-recursive version,
+  postulate the iterator
+
+  reverse x = reverse_iter(x,y)
+			
+- What's the right value for y?
+	
+- We want to build up the answer in the extra variable y
+  so that reverse_iter([],y) = y
+
+  so to figure value of y, use
+
 		reverse [] = [] 
 		= <by def>
 		reverse_iter([],y) = y
-	so y = []
+  so y = []
 
-	so now the definition is
+  so now the definition is
+
 		reverse x = reverse_iter(x,[])
 		reverse_iter([],y) = y
 
-	What is the inductive case?
-	That is, what should be the value of reverse_iter(x:xs,y)?
+------------------------------------------
 
-	Key is to design the sequence of iterates:
+* How to implement reverse in a tail recursive way?
+
+- What is the inductive case?
+  That is, what should be the value of reverse_iter(x:xs,y)?
+
+- Key is to design the sequence of iterates:
+
 	     reverse([1,2,3]) = reverse_iter([1,2,3], [])
 	                      = reverse_iter([2,3], [1])
 	                      = reverse_iter([3], [2,1])
 	                      = reverse_iter([], [3,2,1])
 	                      = [3,2,1]
-	Q: so what is reverse_iter(x:xs,y)?
-		reverse_iter(xs,x:y)
 
-	The importance of this is
-        for efficiency
-	to be able to return directly to caller,
-	without having to pass a value back through
-        pending computations
+- So what is reverse_iter(x:xs,y)?
+
+	     reverse_iter(xs,x:y)
+
+- The importance of this is for efficiency 
+  to be able to return directly to caller,
+  without having to pass a value back through
+  pending computations
 
 ------------------------------------------
 
@@ -568,7 +619,9 @@ Problem:
 - when need to return directly to the caller,
   without going through pending computations
 
-Q: What are some examples we have seen of need to use tail recursion?
+------------------------------------------
+
+* Example of a tail recursive implementation
 
 > index_of :: Eq a => a -> [a] -> Integer
 > index_of x ys = index_iter ys 0
@@ -576,7 +629,6 @@ Q: What are some examples we have seen of need to use tail recursion?
 >           index_iter (y:ys) i
 >                   | x == y    = i
 >                   | otherwise = index_iter ys (i+1)
-
 
 Note: It's not always best to try to use tail recursion,
 e.g., when working with binary trees.
@@ -609,47 +661,47 @@ Q: How do we represent the environment and the store in a single
             |   (heap)      |   ~ Store
             +---------------+
 
-        Conventions: low address (0) at top, high at bottom of drawing
+Conventions: low address (0) at top, high at bottom of drawing
 
-                        stacks grow down (to bottom)
-
-!!! Continue making changes here
+             stacks grow down (to bottom)
 
 ------------------------------------------
 
 * Activation records (stack organization)
 
-        AR = activation record, one for each procedure (& function) call
+AR = activation record, one for each procedure (& function) call
 
-        Q: Why is an activation record needed for every *call* of a procedure,
-           instead of one for each procedure?
-             So local identifiers, in particular the formals,
-                denote values for each call
+Q: Why is an activation record needed for every *call* of a procedure,
+   instead of one for each procedure?
 
-     Q: How to access the values of local identifiers in the environment?
+   So local identifiers, in particular the formals,
+   denote values for each call
 
-        Use a 2-coordinate system: (lexical depth, offset)
+Q: How to access the values of local identifiers in the environment?
 
-        The depth is how many surrounding scope boundaries you have to
-        cross to find the identifier's denotation,
-        the offset is a local numbering within a scope
+   Use a 2-coordinate system: (lexical depth, offset)
 
-       How to access the locations when you know the (depth, offset)?
+   The depth is how many surrounding scope boundaries you have to
+   cross to find the identifier's denotation,
+   the offset is a local numbering within a scope
 
-        (a) have a pointer (EP) to the current procedure's locals (an AR)
-        (b) use offsets from EP to address named locals for the current call
-        (c) use a pointer (static link, SL) to 
-            the AR for the surrounding environment
-        (d) use offsets for the locals in surrounding environment
-        (e) follow the right number of static links to 
-            get out to the right AR, and then use an offset
+Q: How to access the locations when you know the (depth, offset)?
 
-	info needed for a single execution of a procedure
+   (a) have a pointer (EP) to the current procedure's locals (an AR)
+   (b) use offsets from EP to address named locals for the current call
+   (c) use a pointer (static link, SL) to 
+       the AR for the surrounding environment
+   (d) use offsets for the locals in surrounding environment
+   (e) follow the right number of static links to 
+       get out to the right AR, and then use an offset
 
----------------------
-	Aho and Ullman's design for Activation Record (using static links):
+   info needed for a single execution of a procedure
 
-		     __________________________
+------------------------------------------
+
+* Aho and Ullman's design for Activation Record (using static links):
+
+		     +------------------------+
 	        RET: |    returned value      |
        	       	     |    (for functions)     |
 		     |________________________|
@@ -673,54 +725,54 @@ fields |        IP:  |   saved machine status |	<_________ EP (env pointer)
 		     |                        |
                      |\\\\\\\\\\\\\\\\\\\\\\\\\	 <____ SP (stack pointer)
 
+------------------------------------------
 
----------------------
+* Comments on calls
 
-	dynamic link (DL): pointer to AR of caller,
-                (also used in dynamic scoping)
-	optimization: 
-           parameters and results may be passed in machine registers
+dynamic link (DL): pointer to AR of caller,
+                   (also used in dynamic scoping)
+	
+optimization: parameters and results may be passed in machine registers
 
-        Q: does saved part save information about caller or callee?
-	      usually (Sebesta, Aho, et al): stores information for caller
-		less code
-		why?
-		-caller can access it on return, with less indirection
-		-want to put as much in caller as possible,
-			since callee's code is executed for all calls
+Q: does saved part save information about caller or callee?
+   usually (Sebesta, Aho, et al): stores information for caller
+   less code
+   why?
+   - caller can access it on return, with less indirection
+   - want to put as much in caller as possible,
+     since callee's code is executed for all calls
 
-        Q: How would this be used in making a call?
-	1.  caller allocates space for return value
-	    and evaluates actuals
-	2.  Caller saves status
-	  a. Caller stores return address, registers in IP
-	  b.  Caller stores value of EP in callee's AR (in DL field)
-	3.  Making the call
-           a. The caller fills in the new value of the static link (or display)
-	   b. The caller allocates rest of fixed part of callee's AR
-	   c. The caller sets EP to new value
-	   d. jump to start of callee's code
+Q: How would this be used in making a call?
 
-	4. Callee allocates space for local data
+   1. caller allocates space for return value and evaluates actuals
+   2. Caller saves status
+     a. Caller stores return address, registers in IP
+     b.  Caller stores value of EP in callee's AR (in DL field)
+   3.  Making the call
+     a. The caller fills in the new value of the static link (or display)
+     b. The caller allocates rest of fixed part of callee's AR
+     c. The caller sets EP to new value
+     d. jump to start of callee's code
 
-        Q: How would this be used in a return?
-	1.  Callee copies return value into allocated space
-	2.  Callee deallocates its AR (by setting SP)
-	3.  Restore caller's context
-	   a.  Callee loads EP from its DL
- 	   b. jump to resumption address (saved IP in caller's AR)
-	   c. caller restores saved state from IP field (registers)
+   4. Callee allocates space for local data
 
-*** Last call optimization
+Q: How would this be used in a return?
+
+   1.  Callee copies return value into allocated space
+   2.  Callee deallocates its AR (by setting SP)
+   3.  Restore caller's context
+     a.  Callee loads EP from its DL
+     b. jump to resumption address (saved IP in caller's AR)
+     c. caller restores saved state from IP field (registers)
 
 ------------------------------------------
-        LAST CALL OPTIMIZATION
+
+* Last call optimization
 
 def: a language implements the
      *last call optimization* if
      it reuses the current AR for the last
      call made during a function's execution.
-
 
 length' ls = length'iter ls 0
 length'iter [] acc = acc
@@ -730,26 +782,18 @@ Tracing this:
 
 length' 1:2:3:[]
   = length'iter (1:2:3:[]) 0
+  = length'iter (2:3:[]) 1
+  = length'iter (3:[]) 2
+  = length'iter [] 3
+  = 3
 
+Q: What is it useful for?
+   recursions, especially those that are tail recursive
 
+Q: Do C, C++, and Java require this optimization?
+   no
 
-
-
-
-
+Q: What does that say about using recursion in these languages?
+   it may be less space/time efficient
 
 ------------------------------------------
-
-  ... = length'iter (2:3:[]) 1
-      = length'iter (3:[]) 2
-      = length'iter [] 3
-      = 3
-
-   Q: What is it useful for?
-       recursions, especially those that are tail recursive
-   Q: Does the semantics already to this?
-      yes
-   Q: Do C, C++, and Java require this optimization?
-      no
-   Q: What does that say about using recursion in these languages?
-      it may be less space/time efficient

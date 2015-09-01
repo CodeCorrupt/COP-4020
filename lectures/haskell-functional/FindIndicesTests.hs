@@ -1,9 +1,9 @@
--- $Id: FindIndiciesTests.hs,v 1.1 2013/02/21 22:14:53 leavens Exp leavens $
+
 module FindIndicesTests where
-import FindIndicesInClass
+import FindIndices
 import Testing
 
-main = dotests "FindIndiciesTests $Revision: 1.1 $" tests
+main = dotests "FindIndiciesTests v 1.0 2015/09/01 11:30am" tests
 
 tests :: [TestCase [Int]]
 tests = [(eqTest (findIndices even [4..9]) "==" [0,2,4])

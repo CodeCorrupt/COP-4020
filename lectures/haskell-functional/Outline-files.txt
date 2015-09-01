@@ -4,17 +4,17 @@ Lecture -*- Outline -*- for Haskell and Functional Programming
 * introduction
 
 	lecture 1
-** lexical-matters
+* lexical-matters
 
         lecture 1
-** programs
+* programs
 
         lecture 1-2
 * built-in-types
        see BuiltIntypes.lhs
 
        lecture 2-3
-** lists
+* lists
        see ListLecture.lhs
        
 	lecture 3-6
