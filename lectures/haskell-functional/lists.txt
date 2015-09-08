@@ -201,7 +201,7 @@ A: Order matters in lists, and duplicates are allowed
 
 Problems: Write the functions
 
-- multBy:: [Int] -> Int -> [Int]
+- multBy:: Int -> [Int] -> [Int]
 
   (see MultBy.hs)
 

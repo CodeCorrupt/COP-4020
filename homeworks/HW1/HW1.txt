@@ -17,7 +17,7 @@ the average (i.e., the arithmetic mean) of x, y, and z.
 Save your solution inside the file Average3.hs and 
 make sure that your file starts with the module declaration:
 
-module Average3 
+module Average3 where 
 
 You can test your solution with Average3Tests.hs.
 
@@ -75,7 +75,7 @@ Problem 4:
 
 Write the function
 
-  unique :: [a] -> [a]
+  unique :: (Eq a) => [a] -> [a]
 
 that takes a list and removes all but the 
 first occurrence of every duplicated element
