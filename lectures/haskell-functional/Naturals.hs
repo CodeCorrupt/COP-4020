@@ -1,4 +1,4 @@
--- $Id: Naturals.hs,v 1.2 2013/09/15 13:57:56 leavens Exp leavens $
+
 module Naturals where
 
 import Nat

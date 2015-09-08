@@ -1,5 +1,5 @@
 module InsertWhenTests where
-import InsertWhenInClass
+import InsertWhen
 import Testing
 
 main = dotests "InsertWhenTests" tests

@@ -1,8 +1,10 @@
 module NonEmptyList where
+
+import Nat
 import Naturals
 
 data NonEmptyList a = One a | a :# (NonEmptyList a)
-                    deriving (Show, Eq)
+                        deriving (Show, Eq)
 
 -- the following makes :# right associative (and same precedence as colon)
 infixr 5 :#
@@ -10,6 +12,7 @@ infixr 5 :#
 maxl :: (Ord a) => (NonEmptyList a) -> a
 maxl (One x) = x
 maxl (x :# xs) = max x (maxl xs)
+
 -- an alternative second clause:
 -- maxl (x :# xs) = if x > mxs then x else mxs
 --                 where mxs = maxl xs

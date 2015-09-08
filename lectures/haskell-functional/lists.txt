@@ -11,7 +11,7 @@ for explaining recursion
 
 ------------------------------------------
 
-* List in Haskell
+* Lists in Haskell
 
 [a] denotes *homogeneous* lists of a
 
@@ -55,7 +55,7 @@ Lists are *homogeneous*, and not necessarily finite.
 
 ------------------------------------------
 
-* Pragmatics of list
+* Pragmatics of lists
 
 Lists are represented as Haskell terms
 
@@ -189,8 +189,9 @@ Q: What does [ 2 * n | n <- ex] yield?
 
 A: [4, 8, 14, 6, 4]
 
-Q: What are the differences Haskell list comprehensions 
-   between set comprehensions in math?
+Q: What are the differences between 
+   Haskell list comprehensions and 
+   set comprehensions in math?
 
 A: Order matters in lists, and duplicates are allowed
 
@@ -237,9 +238,9 @@ Problems: Write expressions for
 
 - [y | y <- [1 ..], y > 2, odd y]
 
-- [n| n <- [0 ..], n `mod` 3 == 0]
+- [n | n <- [0 ..], n `mod` 3 == 0]
  
-- [n| n <- [0 .. 100], n `mod` 7 == 0]
+- [n^2 | n <- [0 .. 100], n `mod` 7 == 0]
 
 ------------------------------------------
 
@@ -247,7 +248,10 @@ Problems: Write expressions for
 
 Problem:
  
-- Write the function myFilter:: (a -> Bool) -> [a] -> [a]
+- Write the function 
+  
+    myFilter :: (a -> Bool) -> [a] -> [a]
+  
   using list comprehensions.
 
   see MyFilter.hs  
@@ -258,9 +262,12 @@ Problem:
 
 Problem: 
 
-- Write addPairs :: [(Integer, Integer)] -> [Integer]
-  which takes a list of pairs
-  and produces a list of their sums
+- Write the function 
+
+    addPairs :: [(Integer, Integer)] -> [Integer]
+  
+  which takes a list of pairs and 
+  produces a list of their sums
 
   see AddPairs.hs
 
@@ -269,8 +276,13 @@ Problem:
 * Nested maps
 
 [(a,b) | a <- ex, b <- [1,2]] =
-    [(2,1), (2,2), (4,1), (4,2), (7,1), (7,2),
-     (3,1), (3,2), (2,1), (2,2)]
+    [
+      (2,1), (2,2), 
+      (4,1), (4,2), 
+      (7,1), (7,2),
+      (3,1), (3,2), 
+      (2,1), (2,2)
+    ]
 
 ------------------------------------------
 
@@ -299,11 +311,13 @@ Prelude>
 Problems:
 
 - use zip and a comprehension to write
+
     addLists :: [Integer] -> [Integer] -> [Integer]
 
   see AddLists.hs
 
 - use zip and a comprehension to write
+
     findIndices :: (a->Bool) -> [a] -> [Int]
 
   such that
@@ -336,6 +350,28 @@ in the interpreter and check out some examples
 Use :info lookup 
 in the interpreter and check out some examples
 
+Prelude> let pairs = zip [1..] ['a'..'z']
+Prelude> pairs
+[(1,'a'),(2,'b'),(3,'c'),(4,'d'),(5,'e'),(6,'f'),(7,'g'),(8,'h'),(9,'i'),(10,'j'),(11,'k'),(12,'l'),(13,'m'),(14,'n'),(15,'o'),(16,'p'),(17,'q'),(18,'r'),(19,'s'),(20,'t'),(21,'u'),(22,'v'),(23,'w'),(24,'x'),(25,'y'),(26,'z')]
+Prelude> lookup 23 pairs
+Just 'w'
+Prelude> lookup 24 pairs
+Just 'x'
+Prelude> lookup 50 pairs
+Nothing
+
+Prelude> :t (lookup 50 pairs)
+(lookup 50 pairs) :: Maybe Char
+Prelude> :info Maybe
+data Maybe a = Nothing | Just a         -- Defined in `Data.Maybe'
+instance Eq a => Eq (Maybe a) -- Defined in `Data.Maybe'
+instance Monad Maybe -- Defined in `Data.Maybe'
+instance Functor Maybe -- Defined in `Data.Maybe'
+instance Ord a => Ord (Maybe a) -- Defined in `Data.Maybe'
+instance Read a => Read (Maybe a) -- Defined in `GHC.Read'
+instance Show a => Show (Maybe a) -- Defined in `GHC.Show'
+Prelude>
+
 ------------------------------------------
 
 * Explicit recursions
@@ -351,7 +387,7 @@ Can't always use a list comprehension (e.g., when have to reorder to sort)
 1. Understand the problem
 
   a. What does it do?
-  b. What's the type?
+  b. What is the type?
   c. What are the grammars for the arguments?
   d. What are examples for each case 
      in the interesting grammars?
@@ -408,13 +444,14 @@ such that
 
    - generalizing from this example, we obtain
 	           
-       insertWhen p title (x:xs) = if (p x) then title:x: insertWhen p title xs
+       insertWhen p title (x:xs) = if (p x) then title:x:insertWhen p title xs
                                             else x:insertWhen p title xs
 
      This pattern is called recursion over flat lists
      (or flat recursion over lists, or over types like [a])
 
-   see file InsertWhen.hs
+   see file InsertWhen.hs and 
+   use InsertWhenTests.hs to test implementation
 
 ------------------------------------------
 
@@ -422,7 +459,7 @@ such that
 
 Problems:
 
-- Write a function
+- Write the function
 
     len :: [a] -> Integer
 
@@ -435,7 +472,7 @@ Problems:
 
   Solution: Len.hs
 
-- Write a function
+- Write the function
 
     all :: (a -> Bool) -> [a] -> Bool
 
@@ -483,7 +520,7 @@ Note: "all" is in the Prelude, as is "any"
 Fully recursive
 
 > len [] = 0
-> len (x:xs) = 1 + (len xs)
+> len (_:xs) = 1 + (len xs)
 
 len [5,7,9] == 1 + (len [7,9])
             == 1 + (1 + (len [9]))
@@ -544,7 +581,7 @@ def: a *pending computation* is
      a computation that
      must be executed after a recursive call returns
 
-     Not iterative if has pending computations
+     Not iterative <=> has pending computations
 
 ------------------------------------------
 
@@ -642,7 +679,7 @@ Q: How do we represent the environment and the store in a single
 
 ------------------------------------------
 
-* Overall memeory layout
+* Overall memory layout
 
             +---------------+
             |    Code       |

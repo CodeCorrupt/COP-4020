@@ -2,7 +2,7 @@ Lecture -*- Outline -*-
 
 ------------------------------------------
 
-* data-driven recursion (Thompson 14, Davie sections 3.2, 4.4)
+* Data-driven recursion (Thompson 14, Davie sections 3.2, 4.4)
 
 We won't always be working with lists, need to be able to write
 recursions over any type of data.
@@ -11,25 +11,51 @@ Key idea: recursion is based on the structure (grammar) of a type.
 
 ------------------------------------------
 
-* data declaration in Haskell
+* Data declaration in Haskell
+
+Check out http://learnyouahaskell.com/making-our-own-types-and-typeclasses
 
 > data Color = Red | Yellow | Green
 
+> data Color = Red | Yellow | Green deriving (Eq, Show)
+
+What is the difference between the above two definitions?
+
 ------------------------------------------
 
-* definition of natural numbers
+* Data declaration in Haskell
+
+>data Shape = Circle Float |
+>             Rectangle Float Float
+>               deriving (Eq, Show)
+
+>area :: Shape -> Float
+>area (Circle r)      = pi * r * r
+>area (Rectangle h w) = h * w
+
+------------------------------------------
+
+* Definition of natural numbers
 
 > data Nat = Zero | Succ Nat deriving (Eq, Show)
 
-To define a function f :: Nat -> t
-define recursively by:
+To define a function 
+
+  f :: Nat -> t
+
+define it recursively by:
 
 	f Zero =   ...   -- basis
 	f (Succ n) = ... -- inductive case
 
-Examples:
+------------------------------------------
+
+* Examples of functions defined over natural numbers
 
 > toInteger :: Nat -> Integer
+
+> toInteger Zero = 0
+> toInteger (Succ n) = 1 + (toInteger n)
 
   toInteger (Succ (Succ Zero)) == 2
   toInteger (Succ Zero) == 1
@@ -42,12 +68,9 @@ Examples:
   plus (Succ (Succ (Succ Zero))) (Succ (Succ Zero))
     == (Succ (Succ (Succ (Succ (Succ Zero)))))
 
-> toInteger Zero = 0
-> toInteger (Succ n) = 1 + (toInteger n)
-
 ------------------------------------------
 
-* Plus for natural numbers
+* Implementation of plus for natural numbers
 
 Base case: 
 
@@ -77,65 +100,82 @@ Pitfalls: need to parenthesize the patterns
 
 * For you to do
 
--- data Nat = Zero | Succ Nat deriving Eq
+-- data Nat = Zero | Succ Nat deriving (Eq, Show)
 
 Problems: 
 
-- Write mult :: Nat -> Nat -> Nat
+- Write the function 
+
+    mult :: Nat -> Nat -> Nat
+
   such that
+
     mult Zero (Succ Zero) == Zero
     mult (Succ (Succ Zero)) (Succ (Succ (Succ Zero)))
          == (Succ (Succ (Succ (Succ (Succ (Succ Zero))))))
 
-- Write equal :: Nat -> Nat -> Bool
+- Write the function 
+
+    equal :: Nat -> Nat -> Bool
+  
   without using (==), but such that (equal n1 n2) == (n1 == n2)
 
+  see Naturals.hs for the implementation of these and other functions
 ------------------------------------------
 
 * Generalizing how to write recusions
 
-!!! TO DO: Improve presentation !!! 
+- Define a non-empty list in Haskell
 
- data NonEmptyList a =
+   a non-empty list is either [x],
+                       or     y:lst, where lst is a non-empty list
 
+- Write the function
 
-Write
-   maxl :: (Ord a) => NonEmptyList a -> a
-such that
+    maxl :: (Ord a) => NonEmptyList a -> a
 
-Write 
-   nth :: NonEmptyList a -> Nat -> a
-such that
+  such that
+
+    maxl (One 3) == 3
+    maxl (1 :# (Sing 3)) == 3
+    maxl (7 :# (1 :# (Sing 2))) == 7
+
+- Write the function
+ 
+    nth :: NonEmptyList a -> Nat -> a
+
+  such that
+
+    nth (One 1) Zero = 1
+    nth (0 :# (1 :# (2 :# (Sing 3)))) (Succ (Succ Zero)) = 2
 
 ------------------------------------------
 
-	Q: How would you define a non-empty list in English?
-		a non-empty list is either [x],
-			or y:lst, where lst is a non-empty list
+* Implementation of non-empty list
 
-	in Haskell
-		data NonEmptyList a = Sing a | a :# (NonEmptyList a)
-                infixr :# 5
+>data NonEmptyList a = One a | a :# (NonEmptyList a)
 
-	pitfall: can't use : as a constructor, as already used for lists
-			(kind of irregular that can't overload that...)
+>infixr :# 5
+
+Pitfalls: 
+
+- can't use : as a constructor, as already used for lists
+  (kind of irregular that can't overload that...)
    
-        maxl (Sing 3) == 3
-        maxl (1 :# (Sing 3)) == 3
-        maxl (7 :# (1 :# (Sing 2))) == 7
+- the infixr declaraction avoids having to parenthesize examples
 
-	nth (Sing 1) Zero = 1
-	nth (0 :# (1 :# (2 :# (Sing 3)))) (Succ (Succ Zero)) = 2
+- also constructors need to be parenthesized
+  Sing(1) isn't the same as (Sing 1), and Sing(1) doesn't work.
 
-	pitfall: the infixr declaraction avoids having to parenthesize examples
-	pitfall: also constructors need to be parenthesized
-		Sing(1) isn't the same as (Sing 1), and Sing(1) doesn't work.
+  see NonEmptyList.hs for for solution
 
-	Q: can you write this?
-
+Read the paragraph containing 
+"It's a very strong convention in Haskell to *never add types in data declarations*"
+http://learnyouahaskell.com/making-our-own-types-and-typeclasses
 
 ------------------------------------------
-     RECURSION OVER GRAMMARS
+
+* Recursion over grammars
 
 > data Exp = BoolLit Bool 
 >            | IntLit Integer
@@ -147,7 +187,7 @@ such that
 > data Value = BV Bool | IV Int | Wrong
 >           deriving (Show, Eq)
 
-Write the following
+Problem: Write the function
 
   eval :: Exp -> Value
 
@@ -155,35 +195,17 @@ such that
 
   eval (BoolLit True) == (BV True)
   eval (IntLit 5) == (IV 5)
-  eval (Sub (IntLit 5) (IntLit 4)) == 
+  eval (Sub (IntLit 5) (IntLit 4)) == (IV 1)  
   eval (Equal (BoolLit True) (BoolLit False))
-       == 
+       == (BV False)
   eval (If (BoolLit True) (IntLit 4) (IntLit 5))
-       ==
+       == (IV 4)
 
+Q: What are the base cases?
+Q: Where should there be a recursion?
+Q: Examples for each recursive case?
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+Moral: in general can think of all recursions
+       as recursions over grammars
 
 ------------------------------------------
-              ... (IV 1)
-              ... (BV False)
-              ... (IV 4)
-
-	Q: What are the base cases?
-	Q: Where should there be a recursion?
-	Q: Examples for each recursive case?
-
-	Moral: in general can think of all recursions
-		as recursions over grammars

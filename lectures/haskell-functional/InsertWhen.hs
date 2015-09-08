@@ -1,3 +1,5 @@
+module InsertWhen where
+
 insertWhen _ _ [] = []
 
 insertWhen pred element (x:xs) = if pred x 

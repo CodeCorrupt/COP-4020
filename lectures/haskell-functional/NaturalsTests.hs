@@ -1,11 +1,12 @@
--- $Id: NaturalsTests.hs,v 1.2 2013/09/15 13:57:56 leavens Exp leavens $
-module NaturalsInClassTests where
+
+module NaturalsTests where
+
 import Nat
-import NaturalsInClass
+import Naturals
 import Testing
 
 main :: IO()
-main = dotests "$Revision: 1.2 $" tests
+main = dotests "NaturalTests $" tests
 
 tests :: [TestCase Bool]
 tests =
