@@ -89,11 +89,8 @@ UPLOAD INSTRUCTIONS:
 You have to zip the four files
 
 - Average3.hs
-
 - AddList.hs
-
 - DeleteNthElement.hs
-
 - Unique.hs
 
 with your solutions and upload the zip archive to webcourses.
