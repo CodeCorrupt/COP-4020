@@ -82,3 +82,20 @@ first occurrence of every duplicated element
 of the list.  
 
 You can test your solution with UniqueTests.hs.
+
+
+UPLOAD INSTRUCTIONS:
+
+You have to zip the four files
+
+- Average3.hs
+
+- AddList.hs
+
+- DeleteNthElement.hs
+
+- Unique.hs
+
+with your solutions and upload the zip archive to webcourses.
+
+(Note: It is also OK to use literate Haskell files with the extension lhs instead of hs.)
