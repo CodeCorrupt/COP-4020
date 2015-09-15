@@ -13,4 +13,4 @@
 
 module DeleteNthElement where
 -- deleteNthElement :: Int -> [a] -> [a]
-deleteNthElement a xs = (take (a - 1) xs) ++ (drop a xs)
+deleteNthElement a xs = (take (a) xs) ++ (drop (a+1) xs)
