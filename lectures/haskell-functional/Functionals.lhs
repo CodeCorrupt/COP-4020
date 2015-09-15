@@ -1,5 +1,11 @@
 Lecture -*- Outline -*-
 
+* Pawel's additional notes on fold
+pearl
+https://wiki.haskell.org/Fold
+
+copy pictures showing foldl and foldr
+
 * Closures and Functions (Thompson 9 and 10, Davie 5)
 
 > module Functionals where
