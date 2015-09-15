@@ -5,18 +5,19 @@ Lecture -*- Outline -*-
 > module Functionals where
 > import Prelude hiding (sum, product, curry, foldr)
 
-** \ makes functions
-        this is called lambda in Scheme and LISP
-        fn in SML
-        a block, [ .. | ... ], in Smalltalk and { ... | ... } in Ruby
+------------------------------------------
 
-        Used for avoiding redundancy in code (functional abstraction)
-                and for tool building
+* \ makes functions
 
-*** examples:
+This is called lambda in Scheme and LISP
+fn in SML
+a block, [ .. | ... ], in Smalltalk and { ... | ... } in Ruby
+
+Used for avoiding redundancy in code (functional abstraction)
+and for tool building
 
 ------------------------------------------
-   \ MAKES FUNCTIONS (CLOSURES)
+* \ makes functions (closures)
 
 Prelude> (\ x -> x) "y"
 
