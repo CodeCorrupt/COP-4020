@@ -1,3 +1,23 @@
+--Problem 3:
+------------
+--
+--Given the data structure
+--
+--  data Tree a = Nil | Node a (Tree a) (Tree a) 
+--                  deriving (Eq, Show)
+--
+--                  implement the function
+--
+--                    stratify :: Tree a -> [a]
+--
+--                    that lists the elements of the tree in the following order:
+--                    - first, all elements at depth 1 from left to right,
+--                    - second, all elements at depth 2 from left to right,
+--                    - etc.
+--
+--                    Put your solution in the file Tree.hs and test
+--                    it with TreeTests.hs.
+
 module Tree where
 
 data Tree a = Nil | Node a (Tree a) (Tree a) 
