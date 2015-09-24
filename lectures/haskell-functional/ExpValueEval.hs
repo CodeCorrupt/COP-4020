@@ -23,20 +23,20 @@ eval (Sub (IntLit x) (IntLit y)) = (IV (x - y))
  
 -- inductive cases
 
-eval (Sub e1 e2) = do
-     let e = (eval e1, eval e2)
+eval (Sub e1 e2) = 
+     let e = (eval e1, eval e2) in
      case e of 
      	  ((IV a), (IV b)) -> eval (Sub (IntLit a) (IntLit b))
 	  _                -> Wrong
 
-eval (Equal e1 e2) = do 
-     let e = (eval e1, eval e2)
+eval (Equal e1 e2) = 
+     let e = (eval e1, eval e2) in
      case e of 
      	  ((BV b1), (BV b2)) -> BV (b1 == b2)
 	  ((IV i1), (IV i2)) -> BV (i1 == i2)
 	  _                  -> Wrong
           	  	  
-eval (If c e1 e2) = do 
+eval (If c e1 e2) = 
      case (eval c) of 
      	  (BV True)  -> eval e1
 	  (BV False) -> eval e2
