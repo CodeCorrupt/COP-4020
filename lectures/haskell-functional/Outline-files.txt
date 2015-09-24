@@ -14,8 +14,6 @@ Lecture -*- Outline -*- for Haskell and Functional Programming
 
 * functional
 
-!!! Work on the stuff below
-
 * higher-order
 
 * types

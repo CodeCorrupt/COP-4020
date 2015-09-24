@@ -360,7 +360,7 @@ ShowFolds> showFold foldl 5
 
 ------------------------------------------
  
-* Comparision of right and left folds
+* Comparision of right and left folds - I
 
 Here is again the definition of foldr and foldl:
 
@@ -388,9 +388,32 @@ until it reaches the end of the list.  This tail recursion can be
 efficiently compiled as a loop, but can't deal with infinite lists 
 at all. It will recurse forever in an infinite loop. 
 
+See MinMaxFold.hs for an example showing that foldr1 can
+operate on infinite lists.
+
 ------------------------------------------
 
-* Comparison of right and left folds
+* Comparison of right and left folds - II
+
+Another technical point to be aware of in the case of left folds in 
+a normal-order evaluation language is that the new initial parameter 
+is not being evaluated before the recursive call is made. 
+
+This can lead to stack overflows when one reaches the end of the list and 
+tries to evaluate the resulting gigantic expression. For this reason, 
+such languages often provide a stricter variant of left folding 
+which forces the evaluation of the initial parameter before making 
+the recursive call. 
+
+In Haskell, this is the foldl' (note the apostrophe) function in the 
+Data.List library. 
+
+Combined with the speed of tail recursion, such folds are very efficient 
+when lazy evaluation of the final result is impossible or undesirable. 
+
+------------------------------------------
+
+* Comparison of right and left folds - III
 
 The above diagrams motivate the names left and right fold visually. 
 
