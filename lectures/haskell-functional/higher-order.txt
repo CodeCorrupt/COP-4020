@@ -5,7 +5,7 @@ COP 4020 Lecture -*- Outline -*-
 * Higher-order programming
 
 Much of this is based on van Roy and Haridi's book 
-"Concepts, Techniques and Methods of Computer Programming", chapter 3
+"Concepts, Techniques and Models of Computer Programming", chapter 3
 
 ------------------------------------------
 
@@ -108,28 +108,23 @@ See AbstractionTailRecursion.hs
 
 ------------------------------------------
 
-!!! TO DO: work on the rest
-
 * Instantiation (currying)
 
 Aka: factories, generators, curried functions
 
-Examples:
+qsort :: Ord a => (a -> a -> Bool) -> a -> a
 
-> makeSort comp = (\ls -> qsort comp ls)
-> qsort _ [] = []
-> qsort comp (x:xs) = (qsort comp less) ++ [x] 
->                     ++ (qsort comp greater)
->      where less = [y | y <- xs, y `comp` x]
->            greater = [y | y <- xs, not (y `comp` x)]
-Use of makeSort:
+qsort _ [] = []
+qsort comp (x:xs) = (qsort comp less) ++ [x] ++ (qsort comp greater)
+  where less    = [y | y <- xs, y `comp` x]
+        greater = [y | y <- xs, not (y `comp` x)]
 
-> sortGT = makeSort (>)
+sortGT = qsort (>)
+sortLT = qsort (<)
 
-  sortGT list1
-  sortGT list2
-  ...
 ------------------------------------------
+
+!!! TO DO: work on the rest !!!
 
 ------------------------------------------
         AN EXAMPLE: COMPOSE

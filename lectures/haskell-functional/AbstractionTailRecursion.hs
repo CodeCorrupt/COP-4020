@@ -24,7 +24,14 @@ sumFromTo' i j = sumFromToIter' (j,0)
                                  (\(_,r) -> r)
                                  (\(j,r) -> (j-1,r+j))
 
-sqrt' x = sqrtIter' 1.0
-  where sqrtIter' = tailrec (\g -> abs(g*g - x) < 0.0001)
-                    id
-                    (\g -> (g + (x/g))/2.0)
+--this also works
+--sqrt' x = sqrtIter' 1.0
+--  where sqrtIter' = tailrec (\g -> abs(g*g - x) < 0.0001)
+--                    id
+--                    (\g -> (g + (x/g))/2.0)
+
+sqrt' x = tailrec (\g -> abs(g*g - x) < 0.0001)
+                  id
+                  (\g -> (g + (x/g))/2.0)
+                  1.0
+

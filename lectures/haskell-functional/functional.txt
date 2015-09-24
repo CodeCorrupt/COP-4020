@@ -204,13 +204,6 @@ snoc x xs = xs ++ [x]
 
 ------------------------------------------
 
-* Left and right fold
-
-!!!!
-
-
-------------------------------------------
-
 * For you to do
 
 Problems:
@@ -218,8 +211,8 @@ Problems:
 - Implement the function ins that is used
   in iSort (insertion sort).  What is its type?
   
-  >iSort :: [Integer] -> [Integer]
-  >iSort xs = foldr ins [] xs
+  iSort :: [Integer] -> [Integer]
+  iSort xs = foldr ins [] xs
 
 - Implement iSort' that uses left fold instead
   of a right fold 
@@ -250,7 +243,7 @@ foldr f z produces
  / \
 1   f
    / \
-  2   f            f 1 (f 2 (f 3 (f 4 (f 5 x)))))
+  2   f            f 1 (f 2 (f 3 (f 4 (f 5 z)))))
      / \
     3   f
        / \
