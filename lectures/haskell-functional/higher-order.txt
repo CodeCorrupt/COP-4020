@@ -1,18 +1,21 @@
 COP 4020 Lecture -*- Outline -*-
 
-> module HigherOrder where
+------------------------------------------
 
-* Higher-Order Programming
+* Higher-order programming
 
   Much of this is based on van Roy and Haridi's book 
   "Concepts, Techniques and Methods of Computer Programming", chapter 3
 
 ------------------------------------------
-  def: the *order* of a function f is 
-          1+(maximum order of f's arguments),
-       where the order of a non-function argument is 0.
 
-  def: A function is *higher-order* if its order is greater than 1.
+* Order
+
+def: The *order* of a function f is 
+     1 + (maximum order of f's arguments),
+     where the order of a non-function argument is 0.
+
+def: A function is *higher-order* if its order is greater than 1.
 
 Examples:
 
@@ -26,47 +29,48 @@ Examples:
 
 ------------------------------------------
 
-** Basic Operations (3.6.1)
+* Basic Operations (3.6.1)
 
-   Q: What are the 4 basic operations of higher-order programming?
-------------------------------------------
-   4 KINDS OF HIGHER-ORDER PROGRAMMING
+What are the 4 basic operations of higher-order programming?
 
-1. procedural abstraction: converting expressions to functions
+1. Procedural abstraction: converting expressions to functions
     (Liskov & Guttag's abstraction by parameterization)
 
-2. genericity: passing functions as arguments
+2. Genericity: passing functions as arguments
     (abstracting out expressions, not just data)
 
-3. instantiation: returning function values as results
+3. Instantiation: returning function values as results
     (creation of new functions)
 
-4. embedding: putting functions in data structures
+4. Embedding: putting functions in data structures
 
 ------------------------------------------
 
-*** procedural abstraction
+* Procedural abstraction
 
-    Q: How can you make an expression e into a function?
+Q: How can you make an expression e into a function?
 
-       (\() -> e)
+   (\() -> e)
 
-       this freezes execution (makes a closure, or thunk)
+   This freezes execution (makes a closure, or thunk)
 
-    Q: Suppose we want two variants of a function that are similar,
-       but differ a bit?
+Q: Suppose we want two variants of a function that are similar,
+   but differ a bit?
 
-       Use arguments
-
-*** genericity
-
-**** for tail recursion
-
-     We did this already for list recursions, as foldr
-     and for tree recursion
+   Use arguments
 
 ------------------------------------------
-     ABSTRACTION OF TAIL RECURSION
+
+* Genericity
+
+------------------------------------------
+
+!!! TODO: work on the rest
+
+* Abstraction of tail recursion
+
+We did this already for list recursions, as foldr
+and for tree recursion
 
 Consider
 
@@ -83,24 +87,10 @@ Consider
 
 What do the ...Iter functions have in common?
 
-
 How do they differ?
-
-
 
 Can we make the differences arguments?
 
-
-
-
-
-
-
-
-
-
-
-    
 ------------------------------------------
 
     ... general outline, returning part of state (R or Guess)
