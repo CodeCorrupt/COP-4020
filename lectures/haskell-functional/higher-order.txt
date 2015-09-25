@@ -4,8 +4,8 @@ COP 4020 Lecture -*- Outline -*-
 
 * Higher-order programming
 
-  Much of this is based on van Roy and Haridi's book 
-  "Concepts, Techniques and Methods of Computer Programming", chapter 3
+Much of this is based on van Roy and Haridi's book 
+"Concepts, Techniques and Models of Computer Programming", chapter 3
 
 ------------------------------------------
 
@@ -63,86 +63,68 @@ Q: Suppose we want two variants of a function that are similar,
 
 * Genericity
 
-------------------------------------------
+We explain this by abstracting tail recursion.
 
-!!! TODO: work on the rest
+------------------------------------------
 
 * Abstraction of tail recursion
 
-We did this already for list recursions, as foldr
-and for tree recursion
+Consider the two functions:
 
-Consider
+sumFromTo i j = sumFromToIter (j,0) 
+  where sumFromToIter (j,r) =
+          if i > j then r else sumFromToIter (j-1,r+j)
 
-> sumFromTo i j = sumFromToIter (j,0)
->    where sumFromToIter (j,r) =
->            if i > j then r else sumFromToIter (j-1,r+j)
+sqrt x = sqrtIter 1.0
+  where sqrtIter guess =
+          if goodEnough guess then guess
+          else sqrtIter (improve guess)
+          where goodEnough guess = abs(guess*guess - x) < 0.0001
+                improve guess = (guess+(x/guess))/2.0
 
-> sqrt x = sqrtIter 1.0
->    where sqrtIter guess =
->            if goodEnough guess then guess
->            else sqrtIter (improve guess)
->          goodEnough guess = abs(guess*guess - x) < 0.0001
->          improve guess = (guess+(x/guess))/2.0
+Q: What do their ...Iter functions have in common?
 
-What do the ...Iter functions have in common?
+Q: How do they differ?
 
-How do they differ?
-
-Can we make the differences arguments?
+Q: Can we make the differences arguments?
 
 ------------------------------------------
 
-    ... general outline, returning part of state (R or Guess)
-        Passing new value to state in recursion
+* Abstraction of tail recursion
 
-    ... test for being done i > j or GoodEnough,
-        how to extract the result from the state,
-        how to transform the state
-
-    ... yes
-
-> -- curried
-> tailrec :: (a -> Bool) -> (a -> b) -> (a -> a) -> a -> b
-> tailrec isDone extract transform s = loop s
->   where loop s = 
->           if (isDone s) then (extract s)
->           else loop (transform s)
-
-       
-      How would you write sqrtIter using tailrec? sumFromToIter?
-
-        sqrtIter' = tailrec goodEnough id improve
-        sumFromToIter' = tailrec (\(j,_) -> i > j)
-                         (\(_,r) -> r)
-                         (\(j,r) -> (j-1,r+j))
-
-
-*** instantiation (currying)
+tailrec :: (a -> Bool) -> (a -> b) -> (a -> a) -> a -> b
+tailrec isDone extract transform s = loop s
+  where loop s = 
+          if (isDone s) then (extract s)
+          else loop (transform s)
 
 ------------------------------------------
- INSTANTIATION or RULES THAT PRODUCE RULES
 
-Aka:
- factories, generators, curried functions
+* For you to do
 
-Examples:
+How would you write sumFromToIter and sqrtIter using tailrec? 
 
-> makeSort comp = (\ls -> qsort comp ls)
-> qsort _ [] = []
-> qsort comp (x:xs) = (qsort comp less) ++ [x] 
->                     ++ (qsort comp greater)
->      where less = [y | y <- xs, y `comp` x]
->            greater = [y | y <- xs, not (y `comp` x)]
+See AbstractionTailRecursion.hs
 
-Use of makeSort:
-
-> sortGT = makeSort (>)
-
-  sortGT list1
-  sortGT list2
-  ...
 ------------------------------------------
+
+* Instantiation (currying)
+
+Aka: factories, generators, curried functions
+
+qsort :: Ord a => (a -> a -> Bool) -> a -> a
+
+qsort _ [] = []
+qsort comp (x:xs) = (qsort comp less) ++ [x] ++ (qsort comp greater)
+  where less    = [y | y <- xs, y `comp` x]
+        greater = [y | y <- xs, not (y `comp` x)]
+
+sortGT = qsort (>)
+sortLT = qsort (<)
+
+------------------------------------------
+
+!!! TO DO: work on the rest !!!
 
 ------------------------------------------
         AN EXAMPLE: COMPOSE
