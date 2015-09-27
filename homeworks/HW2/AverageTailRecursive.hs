@@ -27,9 +27,8 @@ average (x:xs) = average_iter xs (x, 1)
 
 average_iter :: Fractional a => [a] -> (a, a) -> a
 
--- first case
+-- first case - Empty set
 average_iter []     (sum, len) = sum / len
 
--- second case
--- Put your implementation here
-
+-- second case - More in set
+average_iter (x:xs) (sum, len) = average_iter xs ((sum+x), (len+1))
