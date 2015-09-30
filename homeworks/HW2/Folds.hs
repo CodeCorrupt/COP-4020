@@ -20,9 +20,13 @@
 --    Put your solutions in Folds.hs and test them with FoldsTests.hs.
 
 module Folds where
+import Prelude
 
 count :: Eq a => a -> [a] -> Integer
 -- Put your implementation here
+count x = foldl (+) 0 . map (\a -> if a then 1 else 0) . map (==x)
+
 
 elem2 :: Eq a => a -> [a] -> Bool
 -- Put your implementation here
+elem2 x = foldr (||) False . map (==x)

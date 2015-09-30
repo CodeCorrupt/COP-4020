@@ -39,3 +39,17 @@ collapse (Node x t1 t2) = collapse t1 ++ [x] ++ collapse t2
 
 stratify :: Tree a -> [a]
 -- Put your implementation here
+-- I found a website with an example. 
+--          http://aryweb.nl/2013/10/28/haskell-tree-traversal/
+-- I don't see any other way to do it so I copied their
+--  implimentation since it made sense to me.
+stratify Nil            = []
+stratify tree = tbf [tree]
+    where
+        tbf [] = []
+        tbf xs = map nodeValue xs ++ tbf (concat (map leftAndRightNodes xs))
+        nodeValue (Node a _ _) = a
+        leftAndRightNodes (Node _ Nil Nil) = []
+        leftAndRightNodes (Node _ Nil b)     = [b]
+        leftAndRightNodes (Node _ a Nil)     = [a]
+        leftAndRightNodes (Node _ a b)         = [a,b]
