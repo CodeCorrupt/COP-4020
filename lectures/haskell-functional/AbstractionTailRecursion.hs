@@ -19,19 +19,19 @@ tailrec isDone extract transform s = loop s
           if (isDone s) then (extract s)
           else loop (transform s)
 
-sumFromTo' i j = sumFromToIter' (j,0) 
-  where sumFromToIter' = tailrec (\(j,_) -> i > j)
-                                 (\(_,r) -> r)
-                                 (\(j,r) -> (j-1,r+j))
-
---this also works
---sqrt' x = sqrtIter' 1.0
---  where sqrtIter' = tailrec (\g -> abs(g*g - x) < 0.0001)
---                    id
---                    (\g -> (g + (x/g))/2.0)
+sumFromTo' i j = tailrec (\(j,_) -> i > j)
+                         (\(_,r) -> r)
+                         (\(j,r) -> (j-1,r+j))
+                         (j,0)
 
 sqrt' x = tailrec (\g -> abs(g*g - x) < 0.0001)
                   id
                   (\g -> (g + (x/g))/2.0)
                   1.0
 
+maximum' []     = error "empty list"
+
+maximum' (x:xs) = tailrec (\(ys,_)   -> null ys) -- isDone
+                          (\(_,m)    -> m)
+                          (\(y:ys,m) -> (ys, max y m))
+                          (xs, x)

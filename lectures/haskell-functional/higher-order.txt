@@ -122,14 +122,13 @@ qsort comp (x:xs) = (qsort comp less) ++ [x] ++ (qsort comp greater)
 sortGT = qsort (>)
 sortLT = qsort (<)
 
-------------------------------------------
-
-!!! TO DO: work on the rest !!!
+see InstantiationQuickSort.hs
 
 ------------------------------------------
-        AN EXAMPLE: COMPOSE
 
-Write the function compose such that:
+* For you to do
+
+Problem: Write the function compose such that:
 
   ((compose head tail) [1,2,3])
         == head (tail [1,2,3])
@@ -140,42 +139,29 @@ Write the function compose such that:
 	== not (null [])
 	== False
 
-How to write this:
-
-
-
-
-
-
-
-
 ------------------------------------------
 
-        Show how to generalize these examples to get the answer.
+* Hints
 
-        First generalize the examples:
+First generalize the examples:
 
-        in general 
+In general, we have 
 
-            ((compose f g) x) == f (g x)
+  ((compose f g) x) == f (g x)
 
-        So
+So (compose f g) is a function of one argument 
 
-	(compose f g) is a function of one argument, x,
-		so it must be
+  (\x -> f (g x))
 
-			(\x -> f (g x))
+But compose itself is a function, of two arguments, f and g,
+and when called it returns this other procedure, so
 
-	But compose itself is a function, of two arguments, f and g,
-		and when called it returns this other procedure, so...
-
-             compose f g = (\x -> f (g x))
-
+   compose f g = (\x -> f (g x))
 
 ------------------------------------------
-        SUMMARY OF STEPS FOR 
-   MAKING A HIGHER-ORDER FUNCTION
-
+        
+* Summary of steps for making a higher-order function
+  
  1. Starting from examples, name the roles
  2. Generalize the result expression,
     using role names, write it down
@@ -184,42 +170,33 @@ How to write this:
 
 ------------------------------------------
 
-------------------------------------------
-	   FOR YOU TO DO
+* For you to do
 
-Write a function twice
+Problem: Write a function twice
 
   twice :: (a -> a) -> a -> a
 
-Examples:
+such that
 
    (twice not) True
 	== not (not True)
 	== True
+
    (twice (+1)) 3
 	== (+1) ((+1) 3)
 	== 5
 
-
-
-
-
-
-
-
-
-
-
-
 ------------------------------------------
 
-	Hints: What's the general formula?
+* Hints 
+
+What's the general formula?
+
         (twice f) x == f (f x)
-        
 
-*** embedding
 ------------------------------------------
-            EMBEDDING
+
+* Embedding
 
 Putting closures in data is useful for:
 
@@ -232,14 +209,13 @@ Putting closures in data is useful for:
   - manipulating actions as data
       (e.g., in testing)
 
-------------------------------------------
-
-        This is also the basic OO paradigm
+This is also the basic OO paradigm.
 
 ------------------------------------------
-         EXAMPLE: INFINITE SEQUENCES
 
-Write the following functions to implement (Seq a)
+* Example: infinite sequences
+
+Problem: Write the following functions to implement (Seq a)
 
 repeating :: (Num a) => a -> (Seq a)
 generate :: (Num a) => (Integer -> a) -> (Seq a)
@@ -259,17 +235,25 @@ halves = generate (\n -> 1.0/(2.0^(fromInteger n)))
 (nth halves 30) ~=~ 9.313225746154785e-10
 
 ------------------------------------------
-          See Seq.hs and SeqTests.hs
 
-    Q: How can we represent something infinite in a computer?
-    As a rule, i.e., as a function.
+* Example: infinite sequences          
 
-    Here we will use rules of type 
-       Integer -> a,    where (Num a)
-    to represent the type (Seq a)
+Q: How can we represent something infinite in a computer?
 
-    The idea is that, e.g.,
+As a rule, i.e., as a function.
 
-       (\n -> n*n)
+Here we will use rules of type 
 
-    represents the sequence 0, 1, 4, 9, 16, 25, ...
+  Integer -> a,    where (Num a)
+
+to represent the type (Seq a)
+
+The idea is that, e.g.,
+
+   (\n -> n*n)
+
+represents the sequence 0, 1, 4, 9, 16, 25, ...
+
+See Seq.hs and SeqTests.hs
+
+------------------------------------------

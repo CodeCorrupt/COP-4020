@@ -1,6 +1,6 @@
--- $Id: Fraction.hs,v 1.1 2013/02/08 15:00:20 leavens Exp $
 module Fraction (Fraction, mkFraction, num, denom, add, sub)
 where
+
 data Fraction = Integer :/ Integer
 
 mkFraction _ 0 = error "fractions with a denominator of 0 are undefined"
