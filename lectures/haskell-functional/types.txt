@@ -2,7 +2,7 @@ Lecture -*- Outline -*-
 
 * Types in Haskell (Ch 13 in Thompson, Ch 4 in Davie)
 
-Static type systems like can catch program errors
+Static type systems can catch program errors
 before the program is run.
 
 ------------------------------------------
@@ -10,7 +10,7 @@ before the program is run.
 * Terminology: static vs. dynamic type checking
 
 def: a *static* property is one that
-     can be checked 
+     can be checked before runtime
 
 def: a *dynamic* property must be checked
      (in general) at runtime
@@ -54,22 +54,17 @@ Type declarations
 
 Type operators
 
-	operator	meaning
-	=============================
-	_ -> _		function type
-	(_ , _)		product type
-	[ _ ]		list type
+  operator	meaning
+  =============================
+  _ -> _        function type
+  (_ , _)       product type
+  [ _ ]         list type
 
-Associativity of functions and types:
+Note that the function type is right associative:
 
-	b f g x     means  (((b f) g) x)
+  s -> t -> u  means  s -> (t -> u)
 
-       s -> t -> u  means  s -> (t -> u)
-
-       s->t->u->v   means  s->(t->(u->v))
-
-Note: Associtivity is different for applications
-      and for function types.
+  s->t->u->v   means  s->(t->(u->v))
 
 ------------------------------------------
 
@@ -77,15 +72,15 @@ Note: Associtivity is different for applications
 
 Monomorphic examples:
 
-	Integer
-	[Bool] -> Bool
-	[(Integer, Integer) -> Bool]
+  Integer
+  [Bool] -> Bool
+  [(Integer, Integer) -> Bool]
 
 Polymorphic examples:
 
-	[i]
-	[b] -> b
-	[(i,i) -> Bool]
+  [i]
+  [b] -> b
+  [(i,i) -> Bool]
 
 Can use any variable id for a type name (lower case: a, b, ..., z)
 
@@ -110,7 +105,7 @@ Q: Do these declaratiosn allow us to pass a (Stack Int)
 
 ------------------------------------------
 
-* Algebraic types (Thompson 14, Davie 4.4) 
+* Algebraic data types (Thompson 14, Davie 4.4) 
 
 Can simulate enumerations
 
@@ -132,16 +127,20 @@ Recall that the constructor names must start with upper case letter!
 
 * Abstract data types (Thompson 15, Davie 4.5, 4.9)
 
--- file Fraction.hs
+See file Fraction.hs
 
 module Fraction (Fraction, mkFraction,
                  num, denom, add, sub)
 where
+
 data Fraction = Integer :/ Integer
+
 mkFraction _ 0 = error "undefined"
 mkFraction n d = n :/ d
-num (n :/ d) = n
+
+num (n :/ d)   = n
 denom (n :/ d) = d
+
 add (n1 :/ d1) (n2 :/ d2) =
      mkFraction (n1 * d2 + n2 * d1)
                 (d1 * d2)
@@ -155,9 +154,9 @@ module Fraction (Fraction(:/), ...)
 
 then the constructor :/ would have been exported.
 
-Note: to show that :/ is hidden from clients, 
-you have to work from a client module,
-like FractionTests, not from the Fraction module itself
+Note: To show that :/ is hidden from clients, 
+      you have to work from a client module,
+      like FractionTests, not from the Fraction module itself.
 
 ------------------------------------------
 
@@ -175,8 +174,7 @@ def: a data type is *not free* (abstract)
 	
     e.g. Fraction, Set, PrimeNumber
 
-
-    Sometimes you have a choice of how to define the type
+    Sometimes you have a choice of how to define the type.
 
     e.g., NonEmptyList
 
@@ -194,38 +192,29 @@ Type inference: compiler infers type
 In Haskell don't need to declare types
 	(usually)
 
-Example
+Example:
 
 > mymap f [] = []
 > mymap f (x:xs) = (f x):(mymap f xs)
 
-do the inference (quickly, we'll see more later)
+The compiler infers mymap :: (a->b) -> [a] -> [b]
 
-mymap :: a = d -> b -> c, used with b = [e], c=[i]
-f :: d = e -> i 
-x :: e 
-xs :: g = [e]
-(:) :: h -> [h] -> [h], used with h = e
-etc.
-so get mymap :: (e->i) -> [e] -> [i]
-
-since the variables are unconstrained, this is polymorphic
+Since the variables are unconstrained, this is polymorphic
 
 ------------------------------------------
 
 * Ad hoc polymorphism and type classes (Thompson 12, Davie 4.8)
 
-parametric polymorphism:
+Parametric polymorphism:
 
-   map :: (a -> b) -> [a] -> [b]
+> map :: (a -> b) -> [a] -> [b]
 
-ad hoc polymorphism
+Ad hoc polymorphism:
 
 > square :: Num a => a -> a
 > square x = x * x
 
-
-The point is that square x only works on those x for which * is defined
+The point is that square x only works on those x for which * is defined.
 
 It's illuminating to make a parametric version of this:
 
@@ -235,19 +224,11 @@ squareP mult x = x `mult` x
 So what square needs to be polymorphic, is an additional "capability",
 the appropriate multiplication routine.
 
-Q: Why not require that you actually pass the multiplication yourself?
-   painful -- these requirements tend to accumulate
+The general idea is that we group types with related sets of
+operations into type classes.
 
-Q: What's done in OO programming?
-   lookup the method, based on the run-time type
-   this isn't the run-time type, but the static type
-   (note that there's no subtyping in Haskell,
-   we know exact type of everything)
-
-   But the idea is similar, we group types with related sets of
-   operations into type classes,
-   the type context (Num a =>) gives the name of the type class
-   required
+In the above example, (Num a =>) gives the name of the type class 
+required.
 
 ------------------------------------------
 
@@ -256,22 +237,22 @@ Q: What's done in OO programming?
 -- abbreviated Eq type class
 
 class Eq a where
-    (==), (/=) :: a -> a -> Bool
-    x /= y      = not (x==y)
+  (==), (/=) :: a -> a -> Bool
+  x /= y      = not (x==y)
 
 -- abbreviated Ord type class
 
 class (Eq a) => Ord a where
-    compare       :: a -> a -> Ordering
-    (<), (<=), (>=), (>) :: a -> a -> Bool
-    max, min             :: a -> a -> a
+  compare       :: a -> a -> Ordering
+  (<), (<=), (>=), (>) :: a -> a -> Bool
+  max, min             :: a -> a -> a
 
 There is a "default method" provided for /=, and the ordering stuff
 This is similar to an "abstract class" in OOP,
 but remember it's *static* overloading
 
   data Ordering = LT | EQ | GT
-                    deriving (Eq, Ord, Ix, Enum, Read, Show, Bounded)
+                    deriving (Bounded, Enum, Eq, Ord, Read, Show)
 
 The Ord type class is a *subclass* of Eq, it inherits defs from Eq,
 really if you think of these as requirements,
@@ -288,16 +269,16 @@ declaring type class instances
 
 > data Prod a b = a :* b
 
-> instance (Eq a, Eq b)
->                  => Eq (Prod a b) where
+> instance (Eq a, Eq b) => Eq (Prod a b) where
 >    (x :* y) == (x' :* y') =
 >      (x == x' && y == y')
+>
+>instance (Show a, Show b) => Show (Prod a b) where
+>  show (x :* y) = (show x) ++ " x " ++ (show y)
 
-or you can write:
+See TypeClassInstance.hs
 
-> data Cartesian a b = a :** b deriving Eq
-
-pitfall: apparently the "where" can't be at the same indentation level
+Pitfall: apparently the "where" can't be at the same indentation level
          as "instance" for the layout rules to work properly
 
 ------------------------------------------
