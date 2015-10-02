@@ -40,3 +40,11 @@ instance Num Fraction where
                EQ -> (mkFraction 0 1)
                LT -> (mkFraction (-1) 1)
   abs f = if f >= 0 then f else f * (mkFraction (-1) 1)
+
+
+
+
+--data Fraction = Fr Integer Integer
+
+--mkFraction _ 0 = error "undefined"
+--mkFraction n d = (Fr n d) 

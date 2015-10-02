@@ -1,0 +1,3 @@
+import Data.List
+
+compare 
