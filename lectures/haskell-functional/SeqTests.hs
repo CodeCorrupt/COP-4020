@@ -1,4 +1,3 @@
--- $Id: SeqTests.hs,v 1.1 2013/02/19 18:06:15 leavens Exp leavens $
 module SeqTests where
 import Seq
 import Testing

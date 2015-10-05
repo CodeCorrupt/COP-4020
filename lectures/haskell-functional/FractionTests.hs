@@ -1,4 +1,4 @@
--- $Id: FractionTests.hs,v 1.2 2013/02/09 03:12:34 leavens Exp leavens $
+
 module FractionTests where
 import Fraction
 import Testing
