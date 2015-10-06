@@ -1,3 +1,3 @@
 import Data.List
 
-compare 
+compare (_,lev1) (_,lev2) = 

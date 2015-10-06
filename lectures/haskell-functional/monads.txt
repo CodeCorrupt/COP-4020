@@ -2,6 +2,75 @@ Lecture -*- Outline -*-
 
 * monads (Thompson 18)
 
+---------------------------------------------------------
+
+* I/O Programming
+
+Something of the type IO t is a *program* which will perform I/O
+and return a value of type t. 
+
+Among the I/O primitives of Haskell are
+
+putStr :: String -> IO ()
+getLine :: IO String
+
+Programs are built using the do notation to *sequence statements* of
+type IO t.
+
+See Read.hs and SumInts.hs
+
+---------------------------------------------------------
+
+* Interaction at the terminal
+
+We have seen that we can read from the terminal - the standard input - 
+and write to the screen - the standard output.
+
+Terminal input can be configured to work in different ways, depending
+on the way that the input is buffered.
+
+The default is that input is unbuffered, and so each character is
+available to the IO program immediately as it is typed; a disadvantage
+of this mode is that it is impossible to use Ctrl-D to signal 
+'end of file' in the interactive input.
+
+See CopyInteract.hs 
+
+---------------------------------------------------------
+
+* File I/O
+
+The Haskell I/O model also provides for reading from and writing and
+appending to files, by means of the functions
+
+readFile   :: FilePath -> IO String
+writeFile  :: FilePath -> String -> IO ()
+appendFile :: FilePath -> String -> IO ()
+
+where FilePath = String
+
+See CopyFiles.hs
+
+See 
+https://hackage.haskell.org/package/base-4.8.1.0/docs/System-IO.html
+for more ways of dealing with files in Haskell.
+
+Haskell also provides try and catch to handle errors and exceptions.
+
+---------------------------------------------------------
+
+TO DO !!! Finish monads.txt
+
+
+
+---------------------------------------------------------
+
+---------------------------------------------------------
+
+---------------------------------------------------------
+
+---------------------------------------------------------
+
 > module Monads where
 > import Prelude hiding (sequence, putStrLn, getLine)
 
