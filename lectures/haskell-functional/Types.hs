@@ -1,4 +1,5 @@
 type Nat = Int
 
-test :: Nat -> Nat
-test x = x + 1
+inc :: Nat -> Nat
+inc x = x + 1
+

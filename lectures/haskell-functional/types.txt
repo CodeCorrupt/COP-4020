@@ -10,16 +10,16 @@ before the program is run.
 * Terminology: static vs. dynamic type checking
 
 def: a *static* property is one that
-     can be checked before runtime
+     can be checked before runtime.
 
 def: a *dynamic* property must be checked
-     (in general) at runtime
+     (in general) at runtime.
 
 def: a *type error* is a successful use 
-     a function outside of its domain
+     a function outside of its domain.
 
 def: a program is *type safe* if it cannot
-     have a type error at runtime
+     have a type error at runtime.
 
 ------------------------------------------
      
@@ -41,7 +41,7 @@ Q: What languages have dynamic type checking?
 
 * Type operators (Davie 4.1)
     
-Haskell's type system has several interesting features...
+Haskell's type system has several interesting features.
 
 ------------------------------------------
 
@@ -103,31 +103,41 @@ The semantics is that these are just abbreviations.
 Q: Do these declaratiosn allow us to pass a (Stack Int)
    to a function of type [Int] -> Int?
 
+Load Type.hs and compare types of by executing
+
+> let x = inc 10::Int
+> :type x
+x :: Int
+> let y = inc 10::Nat
+>:type y
+y :: Nat
+
 ------------------------------------------
 
 * Algebraic data types (Thompson 14, Davie 4.4) 
 
-Can simulate enumerations
+Can simulate enumerations:
 
-  data Font = Roman | Italic | Bold
+  data Font    = Roman | Italic | Bold
 
-  data Color = Red | Blue | Yellow 
+  data Color   = Red | Blue | Yellow 
 
   data Boolean = True | False 
 
-Can also be used to define recursive types
+Can also be used to define recursive types:
 
   data Tree a = Lf
               | Br (a, Tree a, Tree a)
                   deriving (Eq, Show)
 
-Recall that the constructor names must start with upper case letter!
+Recall that the constructor names must start with an upper case letter!
 
 ------------------------------------------
 
 * Abstract data types (Thompson 15, Davie 4.5, 4.9)
 
 See file Fraction.hs
+See also FractionAlternative for an alternative definition
 
 module Fraction (Fraction, mkFraction,
                  num, denom, add, sub)
@@ -138,45 +148,39 @@ data Fraction = Integer :/ Integer
 mkFraction _ 0 = error "undefined"
 mkFraction n d = n :/ d
 
-num (n :/ d)   = n
+num   (n :/ d) = n
 denom (n :/ d) = d
 
-add (n1 :/ d1) (n2 :/ d2) =
-     mkFraction (n1 * d2 + n2 * d1)
-                (d1 * d2)
-sub (n1 :/ d1) (n2 :/ d2) =
-     mkFraction (n1 * d2 - n2 * d1)
-                (d1 * d2)
+add (n1 :/ d1) (n2 :/ d2) = mkFraction (n1 * d2 + n2 * d1)
+                                       (d1 * d2)
 
-If we had written
-
-module Fraction (Fraction(:/), ...)
-
-then the constructor :/ would have been exported.
-
-Note: To show that :/ is hidden from clients, 
-      you have to work from a client module,
-      like FractionTests, not from the Fraction module itself.
+sub (n1 :/ d1) (n2 :/ d2) = mkFraction (n1 * d2 - n2 * d1)
+                                       (d1 * d2)
 
 ------------------------------------------
 
 * Free and not free data types
 
 def: a data type is *free* (*algebraic)
-     if any value manufactured using the constructor functions is legal
-     (according to your idea of what the type should be)
+     if any value manufactured using the constructor functions is legal.
 
-     e.g. Stack, [a], ...
+     e.g. Stack a, [a], ...
 
 def: a data type is *not free* (abstract)
     if some values manufactured using the constructor functions
-    are not legal
+    are not legal.
 	
     e.g. Fraction, Set, PrimeNumber
 
     Sometimes you have a choice of how to define the type.
 
     e.g., NonEmptyList
+
+------------------------------------------
+
+* Side note: Efficient implementation of a queue
+
+See Queue.hs
 
 ------------------------------------------
 
@@ -199,7 +203,22 @@ Example:
 
 The compiler infers mymap :: (a->b) -> [a] -> [b]
 
-Since the variables are unconstrained, this is polymorphic
+Since the variables are unconstrained, this is polymorphic.
+
+------------------------------------------
+
+* Polymorphism 
+
+A value is polymorphic if there is more than one type it can have. 
+Polymorphism is widespread in Haskell and is a key feature of its type 
+system.
+
+Most polymorphism in Haskell falls into one of two broad categories: 
+
+- parametric polymorphism and 
+- ad-hoc polymorphism.
+
+See https://wiki.haskell.org/Polymorphism
 
 ------------------------------------------
 
@@ -238,18 +257,18 @@ required.
 
 class Eq a where
   (==), (/=) :: a -> a -> Bool
-  x /= y      = not (x==y)
+  x /= y = not (x==y)
 
 -- abbreviated Ord type class
 
 class (Eq a) => Ord a where
-  compare       :: a -> a -> Ordering
+  compare              :: a -> a -> Ordering
   (<), (<=), (>=), (>) :: a -> a -> Bool
   max, min             :: a -> a -> a
 
-There is a "default method" provided for /=, and the ordering stuff
+There is a "default method" provided for /=, and the ordering stuff.
 This is similar to an "abstract class" in OOP,
-but remember it's *static* overloading
+but remember it's *static* overloading.
 
   data Ordering = LT | EQ | GT
                     deriving (Bounded, Enum, Eq, Ord, Read, Show)
@@ -261,31 +280,41 @@ it's a refinement (stronger requirement) on clients.
 There are also various ways to declare that a type you make up
 is an instance of a type class.
 
+See Thompson 13.4 for a summary of the built-in Haskell
+type classes.
+
+See also the note "Type classes and OO programming" on page 307 in
+Thompson 13.4.
+
 ------------------------------------------
 
 * Type class instances (Thompson 13.3)
 
-declaring type class instances
+Declaring type class instances; see TypeClassInstance.hs
 
-> data Prod a b = a :* b
+===========================================
+data Tree a =   Lf
+              | Br (a, Tree a, Tree a)
 
-> instance (Eq a, Eq b) => Eq (Prod a b) where
->    (x :* y) == (x' :* y') =
->      (x == x' && y == y')
->
->instance (Show a, Show b) => Show (Prod a b) where
->  show (x :* y) = (show x) ++ " x " ++ (show y)
+instance Show a => Show (Tree a) where
+  show t = show $ preorder t ""
 
-See TypeClassInstance.hs
+preorder :: Tree a -> String -> [(String, a)]
+preorder Lf            _    = []
+preorder (Br(v,t1,t2)) path =
+  [(path, v)] ++ 
+  (preorder t1 (path ++ "L")) ++ 
+  (preorder t2 (path ++ "R"))
+===========================================
 
 Pitfall: apparently the "where" can't be at the same indentation level
-         as "instance" for the layout rules to work properly
+         as "instance" for the layout rules to work properly.
 
 ------------------------------------------
 
 * Higher-order type classes
 
--- from the Prelude
+-- from Prelude
 
 >class Functor f where
 >    fmap :: (a -> b) -> (f a -> f b)
@@ -294,7 +323,7 @@ Pitfall: apparently the "where" can't be at the same indentation level
 >    fmap g []     = []
 >    fmap g (x:xs) = g x : fmap g xs
 
-Thus fmap has the type (a -> b) -> ([a] -> [b])
+Here fmap has the type (a -> b) -> ([a] -> [b]) 
 
 >data Maybe a = Nothing | Just a
 >            deriving (Eq, Ord, Read, Show)
@@ -303,57 +332,24 @@ Thus fmap has the type (a -> b) -> ([a] -> [b])
 >    fmap g Nothing  = Nothing
 >    fmap g (Just x) = Just (g x)
 
+Here fmap has the type (a -> b) -> (Maybe a -> Maybe b)
 
 The type Maybe a is often used with functions that would otherwise
 have errors.
 
 ------------------------------------------
 
-!!! TO DO: Fix this !!!
-
 * Higher-order type classes
 
-Other instances of Functor from the Prelude
-                
-instance Functor ((->) a) where
-fmap f g x = f (g x)
+>data Tree a =   Lf
+>              | Br (a, Tree a, Tree a)
+>
+>instance Functor Tree where
+>  fmap g Lf = Lf
+>  fmap g (Br (v, t1, t2)) = Br (g v, fmap g t1, fmap g t2)
 
-        (in the Prelude this is
-             instance Functor ((->) a) where
-                 fmap = (.)
+Here fmap has the type (a -> b) -> (Tree a -> Tree b)
 
-         these are equivalent due to the definition of (.))
+See TypeClassInstance.hs
 
-        How this works in practice:
-
-        Prelude> fmap not not
-        not . not :: Bool -> Bool
-        Prelude> fmap not not True
-        Bool_True :: Bool
-        Prelude> fmap (3+) ((-)4) 10
-        -3 :: Integer
-        
-        Note that we have
-        
-        Prelude> 3 + (4 - 10)
-        -3 :: Integer
-        
-        How does it type check?
-        We must have
-           fmap :: (c -> d) -> (((->) a) c) -> (((->) a) d)
-        or rather (changing to infix)
-           fmap :: (c -> d) -> (a -> c) -> (a -> d)
-        
-        But this is just the type of the composition operator (.); so it type
-        checks immediately.
-
-        Another example:
-
-> inc :: (Functor f, Num a) => f a -> f a
-> inc xs = fmap (+1) xs
-
-  With this, try the following:
-
-  inc (Just 3)
-
-  inc [3, 4]
+------------------------------------------
