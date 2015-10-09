@@ -1,0 +1,43 @@
+40 points
+4 problems
+- 2 problems multiple choice
+- 2 problems write code
+- each problem is worth 10 points
+
+[1,2]
+
+  :
+ / \
+1   :
+   / \
+  2  []
+
+foldl f 
+
+map = higher order function
+
+map f [1,2,3] ------> [f 1, f 2, f 3]
+
+--------------------------------------
+
+filter 
+
+filter p xs = [x | x <- xs, p x]
+
+filter _ []     = []
+filter p (x:xs) 
+  | p x       = x:filter p xs
+  | otherwise = filter p xs
+
+map
+
+foldl
+
+foldr
+
+.
+
+flip
+
+
+
