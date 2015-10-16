@@ -1,0 +1,91 @@
+4 Problems
+ - 2 of type
+    Determine the output of..
+        >head [1,2,3,4,5]
+        your answer: _________________
+ - 2 of type
+    Impliment tail recursive max/min
+
+
+** reimpliment filter and map
+** Syntax for foldl and foldr
+** Filter probably on test
+    not tail recursive implimentation of filter
+
+Files to look for:
+    Review .txt
+
+
+Tail recusion has no pending opperation after recursion returns
+
+
+****** In the first or second problem ***********
+$ - Used so that you don't require () 
+    - Application opperator
+    - head (tail [1,2,3,4]) == head $ tail [1,2,3,4]
+        == (head . tail) [1,2,3,4] == head . tail $ [1,2,3,4]
+*************************************************
+
+. - Dot opperator
+    - Function composition
+     - Executes the 2nd command then passes result to the first.
+     - (See above for example)
+
+(;) - Prepends element to list
+     - 1:2:3:[] == 1:[2,3] == [1,2,3]
+
+++ - Concat two lists.
+    ** MUST BE LISTS
+        NO-GO: [1,2,3] ++ 4
+           GO: [1,2,3] ++ [4]
+           GO: 1:2:3:[] ++ 4:[]
+
+flip - flips order of arguments
+        - (\x y -> x-y) 2 3
+            = -1
+        - flip (\x y -> x+y) 5 5
+            = 1
+        - flip expects binary function, then flips two following arguments
+        - flip (:) [2,3] 1
+        - foldl (flip (:)) [] [1,2,3]
+            = [3,2,1]
+
+filter - filter :: (a -> bool) -> [a] -> [a]
+        - See review.txt
+
+Change order - (`) = Backtick --> Puts prefix to infix
+        - div 6 2 == 6 `div` 2 == 6/2 == 3
+       (()) = Parenthesis --> Puts infix to prefix
+        - 4 + 5 == (+) 4 5 == 9
+
+data - impliment recustive data structure
+    ///////
+    data Nat = Zero | Succ NatoA
+    
+    eval :: Nat -> Integer
+    eval Zero = 0
+    eval (Succ n) = 1 + (eval n)
+    ///////
+
+    >eval Zero
+    0
+    >eval (Succ Zero)
+    1
+    >map eval [(Succ (Succ Zero)), Zero
+    [2,0]
+    
+    ///////
+    data Pair a = Pair a a
+
+
+Lambda functions (\)
+    - map (\x -> x+2) [1,2,3] == [3,4,5]
+    - [(1,2),(2,2),(4,4)] 
+    - EX: map (\(x,y) -> x+y) [(1,2),(2,2),(4,4)]
+    - Two imput lambda == 
+        - (\x -> \y -> x + 2 * y) 3 2
+            = 7
+        - (\x y -> x + 2 * y) 3 2
+            = 7
+foldl and foldr expect a starting value!
+
