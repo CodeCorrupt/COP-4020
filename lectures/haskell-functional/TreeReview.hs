@@ -16,4 +16,6 @@ tmap f (Tree (v, t1, t2)) =
 tmaximum :: Ord a => Tree a -> a
 tmaximum t = maximum (preorder t)
 
+
+
  
