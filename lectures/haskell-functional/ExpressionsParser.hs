@@ -4,26 +4,33 @@ import Expressions
 parser :: Parse Char Expr
 parser = litParse `alt` opExpParse
 
+opExpParse :: Parse Char Expr
 opExpParse
-  = (token '('  >*>
-     parser     >*>
-     spot  isOp >*>
-     parser     >*>
-     token ')')
-     `build` makeExpr
+  = (
+      token  '('  >*>
+      parser      >*>
+      spot   isOp >*>
+      parser      >*>
+      token  ')'
+    ) `build` makeExpr
 
+makeExpr :: (Char, (Expr, (Char, (Expr, Char)))) -> Expr
 makeExpr (_,(e1,(bop,(e2,_)))) = Op (charToOp bop) e1 e2
 
+litParse :: Parse Char Expr
 litParse 
-  = (neList (spot isDigit))
-    `build` charlistToExpr
-    --`build` ((charlistToExpr . uncurry (++))
+  = (
+      (optional (token '-')) >*>
+      (neList (spot isDigit))
+    ) `build` (charlistToExpr . uncurry (++))
 
+charToOp :: Char -> Ops
 charToOp '+' = Add
 charToOp '-' = Sub
 charToOp '*' = Mul
 charToOp '/' = Div
 
+isOp :: Char -> Bool
 isOp '+' = True
 isOp '-' = True
 isOp '*' = True
@@ -31,5 +38,5 @@ isOp '/' = True
 isOp _   = False
 
 charlistToExpr :: [Char] -> Expr
-charlistToExpr s = Lit (read s)
+charlistToExpr str = Lit (read str)
 

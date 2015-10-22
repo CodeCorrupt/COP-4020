@@ -1,3 +1,7 @@
+-- this is based on 17.5 "Case study: parsing expressions"
+-- of the book "Haskell - the craft of functional programming"
+-- (Third Edition) by Simon Thompson 
+
 module Parser where
 
 -- begin: major parsing function
@@ -37,9 +41,11 @@ list p = (succeed []) `alt` ((p >*> list p) `build` (uncurry (:)))
 -- end: major parsing functions
 
 -- begin: helper parsing functions
+-- this is the solution to Exercise 17.10 on page 437 
 
 neList :: Parse a b -> Parse a [b]
-neList p = (p >*> list p) `build` (\(x,xs) -> x:xs)
+neList p = (p >*> list p) `build` (\(x,xs) -> x:xs) -- could also use
+                                                    -- uncurry (:)
 
 optional :: Parse a b -> Parse a [b]
 optional p = (succeed []) `alt` (p `build` (\x -> [x])) 
@@ -49,3 +55,13 @@ optional p = (succeed []) `alt` (p `build` (\x -> [x]))
 bracket = token '('
 dig = spot isDigit
 isDigit c = c `elem` ['0'..'9']
+
+-- top-level parser
+
+topLevel :: Parse a b -> [a] -> b
+topLevel p inp 
+  = case results of 
+    [] -> error "parsing error"
+    _  -> head results
+    where
+    results = [ found | (found,[]) <- p inp] 
