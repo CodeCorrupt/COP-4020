@@ -1,8 +1,10 @@
+module ExpressionsParser where
+
 import Parser
 import Expressions
 
 parser :: Parse Char Expr
-parser = litParse `alt` opExpParse
+parser = litParse `alt` varParse `alt` opExpParse
 
 opExpParse :: Parse Char Expr
 opExpParse
@@ -23,6 +25,12 @@ litParse
       (optional (token '-')) >*>
       (neList (spot isDigit))
     ) `build` (charlistToExpr . uncurry (++))
+
+varParse :: Parse Char Expr
+varParse = spot isVar `build` Var
+
+isVar :: Char -> Bool
+isVar x = ('a' <= x && x <= 'z')
 
 charToOp :: Char -> Ops
 charToOp '+' = Add
