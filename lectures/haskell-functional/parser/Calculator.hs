@@ -1,4 +1,4 @@
-module CommandLine where
+module Calculator where
 
 import Store
 import Parser
