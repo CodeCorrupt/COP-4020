@@ -17,8 +17,10 @@ constructor m, with functions return, (>>=), (>>), and fail.
 (execute :info Monad)
 
 class Monad m where
+
   (>>=)  :: m a -> (a -> m b) -> m b
   return :: a -> m a
+
   (>>)   :: m a -> m b -> m b
   fail   :: String -> m a
 
@@ -98,7 +100,7 @@ See Example3.hs
 * Resemblance to imparative languages   
 
 The sequences of instructions in the above examples 
-near matches those in any imperative language. 
+nearly match those in any imperative language. 
 
 In the IO monad, we can chain actions such as 
 writing to a file, opening a network connection, or 
@@ -226,7 +228,7 @@ The three code lines
 
   concat (map (\x -> concat (map (\y -> [(x,y)]) [3,4])) [1,2])
 
-  do { x <- [1,2]; y <- [3,4]; return (x+y) }
+  do { x <- [1,2]; y <- [3,4]; return (x,y) }
 
 all produce
 
