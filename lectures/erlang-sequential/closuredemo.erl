@@ -9,9 +9,3 @@ cadd(N) ->
 	    N + M 
     end.
 
-% Can't do the following, as a closure can't refer to undetermined variables
-%% recurdemo() ->
-%%     Recur = fun() ->
-%% 		    Recur() 
-%% 	    end,
-%%     Recur().

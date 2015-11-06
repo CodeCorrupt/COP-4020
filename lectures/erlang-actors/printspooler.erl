@@ -1,4 +1,3 @@
-% $Id: printspooler.erl,v 1.1 2013/04/04 21:38:57 leavens Exp leavens $
 -module(printspooler).
 -export([start/0,init/0]).
 

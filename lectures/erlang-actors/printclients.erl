@@ -1,4 +1,3 @@
-% $Id: printclients.erl,v 1.1 2013/04/04 21:38:57 leavens Exp leavens $
 -module(printclients).
 -export([print/2, status/1]).
 

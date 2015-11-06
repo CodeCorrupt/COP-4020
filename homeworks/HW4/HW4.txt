@@ -34,8 +34,8 @@ whose parameter is a function which tests elements of the input type, and
 returns the longest initial part of the input, all of whose elements have
 the required property.  For instance,
 
-spotWhile digit "234abc" == [("234","abc")]
-spotWhile digit "abc234" == [([],"abc234")]
+spotWhile isDigit "234abc" == [("234","abc")]
+spotWhile isDigit "abc234" == [([],"abc234")]
 
 
 Problem 3:
@@ -87,7 +87,8 @@ You have to modify the three files:
   pre-processing function outside the modified parser function. 
 
 - Store.hs             (Problem 4)
-  Add your solution at the end of the file.
+  Add your solution at the end of the file and make sure that
+  you export the merge function.
 
 Zip the three modified files and upload them to Webcourses.
 

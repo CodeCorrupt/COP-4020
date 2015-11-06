@@ -15,7 +15,7 @@ server() ->
     end.
 
 dofor(I,F) ->
-    if I > 0 ->
+       if I > 0 ->
 	    F(),
 	    dofor(I-1,F);
        true -> done

@@ -2,10 +2,9 @@ COP 4020 Lecture -*- Outline -*-
 
 * Basics of Erlang
 
-** overview
-
 ------------------------------------------
-         ERLANG OVERVIEW
+
+* Erlang overview
 
 Erlang designed for:
 
@@ -16,31 +15,58 @@ Language Design:
  - mix of functional and logic programming influences
  - actor model for concurrency and distribution
 
+Q: Why this kind of design?
+
+ - immutable data allows concurrency without locking
+ - distribution allows for scalable systems, 
+   avoids single point failures
+
 ------------------------------------------
-        Q: Why this kind of design?
-           - immutable data allows concurrency without locking
-           - distribution allows for scalable systems, 
-             avoids single point failures
 
-** data types
+* Erlang shell
 
-*** primitive types
+See http://www.erlang.org/doc/man/shell.html
+
+$cat helloworld.erl
+-module(helloworld).
+-export([greeting/0]).
+
+greeting() ->
+     io:format("Hello, world!~n").
+
+$erl
+Eshell V5.10.4  (abort with ^G)
+1> c(mylength).
+{ok,mylength}
+2> helloworld:greeting().
+Hello, world!
+ok
+3>
+
+use c(File) to compile File
+
 ------------------------------------------
-      PRIMITIVE TYPES IN ERLANG
 
- any()
-  number
+* Data types in Erlang
+
+http://erlang.org/doc/reference_manual/typespec.html
+
+------------------------------------------
+
+* Primitive types
+
+  number()
     integer()    3, 7
     float()      3.14159, 2.7e-3
   atom()         stop, go
   port()
   pid()
   reference()
+  ...
 
 ------------------------------------------
-**** atoms
-------------------------------------------
-              ATOMS
+
+* Atoms
 
 symbols with a fast equality test
 
@@ -60,57 +86,30 @@ Note:
   Variables identifiers
   must start with an Upper Case letter 
   or an underscore (_)
-------------------------------------------
-        opposite, in a sense, to Haskell
 
-*** compound types
 ------------------------------------------
-       COMPOUND TYPES IN ERLANG
 
- any()
+* Compound types 
+
   binary()       <<1:1,0:1>>
   fun()          fun (X) -> X end, fun foo/1
   tuple()        {point,3,4}
-  T1 | T2        "union types"
+  list           "union types"
 
-Synonyms:
-
-  char() is a small integer()
-  [T]  = [] | [T|[T]]
-  string() = [char()]    "can be written so"
 ------------------------------------------
 
-        binaries are bit strings
-        funs are closures, with syntax 
+* Means of combination
 
-            fun (<Patterns>) -> <Expression> end
-              see closuredemo.erl
-
-            Also: in a module, 
-                functions have names that start with a lowercase letter;
-                to use such a named function as an expression use syntax:
-                        fun foo/1
-                which distinguishes them from symbols.
-
-        note strange (vs. Haskell) syntax on tuples
-        unions just happen, no special constructors
-
-        Note that closures close over values, 
-            can't have free variables that are undetermined (unbound).
-
-        Patterns can be used in function headings, as in Haskell.
-
-** means of combination
-*** pattern matching
 ------------------------------------------
-     PATTERN MATCHING
+
+* Pattern matching
 
 The = operator, unifies both sides:
 
    {point,X,Y} = {point,3,4}
    makes X be 3 and Y be 4.
 
-Pattern matching in function clauses :
+Pattern matching in function clauses:
 
     xcoord({point,X,_}) -> X.
     ycoord({point,_,Y}) -> Y.
@@ -126,10 +125,8 @@ Case expressions:
         end.
         
 ------------------------------------------
-        semantics is similar to Haskell
 
-------------------------------------------
- DIFFERENCES FROM HASKELL PATTERN MATCHES
+* Differences from Haskell pattern matching
 
 Multiple uses of the same variable:
 
@@ -144,7 +141,6 @@ can be thought of as sugar for:
         {point,X,Z} when X =:= Z -> same;
         _ -> different
      end
-
 
 Variables that are already determined
 stand for their value:
@@ -165,46 +161,46 @@ can be thought of as sugar for:
 
 ------------------------------------------
 
-           but same variable can appear twice (short for equality constraint)
+* Functions
+    
+parameters are passed by value (eagerly evaluated).
+see passing.erl
 
-           So defined variable is *not* redeclared in a case
-
-*** functions
-    parameters are passed by value (eagerly evaluated).
-       see passing.erl
-
-    overloading based on number of arguments
-
-**** full recursion
-------------------------------------------
-         FULLY RECURSIVE CODE
-
-mylength([]) ->
-    0;
-mylength([_|T]) ->
-    1+ mylength(T).
+overloading based on number of arguments
 
 ------------------------------------------
-        Note the semicolons and period
 
-**** tail recursion
+* Fully recursive and tail recursive code
+
+See mylength.erl
+
+lenFR([])    -> 0;
+lenFR([_|T]) -> 1 + lenFR(T).
+
+% note the semicolons and period.
+
+lenTR(Ls) -> lenTR(Ls,0).
+
+lenTR([],N)    -> N;
+lenTR([_|T],N) -> lenTR(T,N+1).
+
+% note that the helper has the same name 
+% but a different number of arguments
 
 ------------------------------------------
-             TAIL RECURSION
 
-len(Ls) ->
-    len(Ls,0).
-len([],N) -> N;
-len([_|T],N) -> len(T,N+1).
+* Programs
+    
+modules are sets of function definitions
+controled exports
+lexical scope 
+ - uses closures (see closuredemo.erl)
+ - but is restricted to functions
 
 ------------------------------------------
-    note that the helper has the same name but a different number of arguments
 
+* Examples
 
-*** programs
-    modules are sets of function definitions
-       controled exports
-    lexical scope 
-       - uses closures
-       - but is restricted to functions (no names other than functions
-           defined outside of functions).
+casedemo.erl      helloworld.erl  patterns.erl        quiz_tests.erl
+closuredemo.erl   mylength.erl    patterns_tests.erl  recursion.erl
+delete_first.erl  passing.erl     quiz.erl

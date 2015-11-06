@@ -1,4 +1,3 @@
-% $Id: printer.erl,v 1.1 2013/04/04 20:44:02 leavens Exp $
 -module(printer).
 -export([start/1, init/1]).
 
