@@ -8,10 +8,10 @@ type Var = Char
 data Expr =   Lit Integer 
             | Var Var     
             | Op Ops Expr Expr
-              deriving (Show)
+              deriving (Show,Eq)
 
 data Ops  = Add | Sub | Mul | Div
-              deriving (Show)
+              deriving (Show,Eq)
 
 eval :: Expr -> (Store Var Integer) -> Integer
 eval (Lit n)        _       = n
