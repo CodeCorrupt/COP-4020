@@ -90,5 +90,7 @@ You have to modify the three files:
   Add your solution at the end of the file and make sure that
   you export the merge function.
 
+Make sure that you run the tests.
+
 Zip the three modified files and upload them to Webcourses.
 
