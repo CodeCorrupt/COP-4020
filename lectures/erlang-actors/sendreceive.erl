@@ -3,7 +3,7 @@
 
 demo1() ->
     FS = spawn(fun factServer/0),
-    FS! {self(), fact, 7},
+    FS ! {self(), fact, 7},
     receive
 	{ok, M} -> M
     end.
@@ -18,6 +18,10 @@ factServer() ->
 
 factorial(0) -> 1;
 factorial(N) -> N*factorial(N-1).
+
+
+
+
     
 % Below, note the use of variables defined outside the scope of receive's
 demo2() ->
@@ -25,10 +29,10 @@ demo2() ->
     FS = spawn(
            fun () -> 
 		   receive {Me, fact, N,N} -> 
-			   Me!{self(), ok, factorial(N)} % can't use FS here
+			   Me ! {self(), ok, factorial(N)} % can't use FS here
 		   end
 	   end),
-    FS! {Me, fact, 7, 7},
+    FS ! {Me, fact, 7, 7},
     receive
 	{FS, ok, M} -> M
     end.

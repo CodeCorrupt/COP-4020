@@ -1,6 +1,5 @@
 COP 4020 Lecture -*- Outline -*-
 
-	lecture 1
 * model
      primitives: spawn, send(!), and receive
 
