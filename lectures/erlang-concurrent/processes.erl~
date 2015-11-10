@@ -1,0 +1,11 @@
+-module(processes).
+
+-export([max/1]).
+
+%% max(N)
+
+%%   Create N processes then destroy them
+%%   See how much time this take
+
+max(N) ->
+    Max = erlang:system_info(process_limit).
