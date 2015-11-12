@@ -25,6 +25,9 @@ spot p (x:xs)
   | otherwise = []
 spot p []     = []
 
+spotWhile :: (a -> Bool) -> Parse a [a]
+spotWhile f s = [span f s]
+
 alt :: Parse a b -> Parse a b -> Parse a b
 alt p1 p2 inp = p1 inp ++ p2 inp
 
