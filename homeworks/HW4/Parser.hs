@@ -25,9 +25,6 @@ spot p (x:xs)
   | otherwise = []
 spot p []     = []
 
-spotWhile :: (a -> Bool) -> Parse a [a]
-spotWhile f s = [span f s]
-
 alt :: Parse a b -> Parse a b -> Parse a b
 alt p1 p2 inp = p1 inp ++ p2 inp
 
@@ -68,3 +65,15 @@ topLevel p inp
     _  -> head results
     where
     results = [ found | (found,[]) <- p inp] 
+
+-- Problem 1
+nTimes :: Integer -> Parse a b -> Parse a [b]
+-- nTimes a p = (p >*> list p) `build` (\(x,xs) -> x:xs)
+-- nTimes n p = ((fromIntegral n) !!) . (list p)
+nTimes n p = \x -> if (fromIntegral n) >= (length (list p x))
+                    then []
+                    else (list p x !! (fromIntegral n)):[]
+
+-- Probelm 2
+spotWhile :: (a -> Bool) -> Parse a [a]
+spotWhile f s = [span f s]
