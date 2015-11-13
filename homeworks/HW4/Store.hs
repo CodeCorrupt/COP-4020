@@ -11,7 +11,6 @@ module Store
     initial, -- Store a b
     value,   -- Store a b -> a -> b
     update,  -- Store a b -> a -> b -> Store a b
--- DON'T FORGET TO EXPORT merge
     merge
   ) where
 
@@ -31,6 +30,8 @@ update (Store sto) key value
 
 store :: Store Char Integer
 store = update (update (update initial 'a' 1) 'b' 2) 'c' 3
+
+-- Merge two datastores into one
 
 merge :: Store a b -> Store a b -> Store a b
 merge (Store first) (Store second) = Store (\x -> case first x of

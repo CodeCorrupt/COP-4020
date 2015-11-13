@@ -3,11 +3,7 @@ module ExpressionsParser where
 import Parser
 import Expressions
 
--- parser :: Parse Char Expr
--- parser = litParse `alt` varParse `alt` opExpParse
-
 ws = ['\t', '\n', '\r', '\f', '\v', ' ']
-
 parser :: Parse Char Expr
 parser = (litParse `alt` varParse `alt` opExpParse) . (filter (\x -> not (x `elem` ws)))
 

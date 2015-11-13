@@ -68,8 +68,6 @@ topLevel p inp
 
 -- Problem 1
 nTimes :: Integer -> Parse a b -> Parse a [b]
--- nTimes a p = (p >*> list p) `build` (\(x,xs) -> x:xs)
--- nTimes n p = ((fromIntegral n) !!) . (list p)
 nTimes n p = \x -> if (fromIntegral n) >= (length (list p x))
                     then []
                     else (list p x !! (fromIntegral n)):[]
