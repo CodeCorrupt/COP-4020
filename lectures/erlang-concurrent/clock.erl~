@@ -1,4 +1,0 @@
--module(clock).
--export([start/2,stop/0]).
-
-%% finish up !!!

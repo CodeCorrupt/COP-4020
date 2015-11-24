@@ -1,6 +1,0 @@
-% Erlang provides a mechanism for processes to be given names
-% so that these names can be used as identities instead of pids.
-
-% This is important because processes that need to know each other 
-% are often started independently of each other.
-
