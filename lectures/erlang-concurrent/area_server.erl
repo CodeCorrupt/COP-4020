@@ -17,14 +17,15 @@ rpc(Pid, Request) ->
 loop() ->
     receive
 	{From, {rectangle, Width, Height}} ->
-	    From ! {self(), Width * Height},
-	    loop();
+	    From ! {self(), Width * Height};
+	    
 	{From, {circle, R}} ->
-	    From ! {self(), 3.14159 * R * R},
-	    loop();		
+	    From ! {self(), 3.14159 * R * R};
+	    
 	{From, Other} ->
-	    From ! {self(), {error, Other}}, 
-            loop()
-    end.
+	    From ! {self(), {error, Other}}
+            
+    end,
+    loop().    
 
 
