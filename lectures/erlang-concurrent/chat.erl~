@@ -1,9 +1,0 @@
--module(chat).
-
--export([input/0]).
-
-input() ->
-    io:fread("", "~s"),
-    input().
-
-    
