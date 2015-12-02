@@ -3,9 +3,9 @@
 
 start() ->
     register(db, spawn(fun() ->
-			  loop() 
-		  end)
-	    ),
+                loop(dict:new())
+                end)
+            ),
     {started}.
     
 
@@ -28,14 +28,21 @@ rpc(Request) ->
 	    Reply
     end.
 
-loop() ->
+loop(Dictionary) ->
     receive
         {Client, {insert, Key, Value}} ->
-            Client ! {db, write_error};
+            NewD = dict:store(Key, Value, Dictionary),
+            Client ! {db, done},
+            loop(NewD);
         {Client, {retrieve, Key}} ->
-            Client ! {db, read_error};
+            Value = dict:find(Key, Dictionary),
+            case Value of
+                {ok,Val} ->
+                    Client ! {db, Val};
+                error ->
+                    Client ! {db, undefined}
+            end,
+            loop(Dictionary);
         {Client, {stop}} ->
-            Client ! {db, stop};
-        {Client, Catch} ->
-            Client ! {db, 'the fuck did you enter?'}
+            Client ! {db, stopped}
     end.
