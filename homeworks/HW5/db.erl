@@ -26,8 +26,5 @@ rpc(Request) ->
     end.
 
 loop() ->
-    receive
-	% remove the line below; it is only here so the code compiles
-	_Anything -> _Anything
-	% after removing the above line, put your code here
+    receive  {Client, Any} ->  Client ! {db, Any}
     end.
