@@ -29,5 +29,13 @@ rpc(Request) ->
     end.
 
 loop() ->
-    receive  {Client, Any} ->  Client ! {db, Any}
+    receive
+        {Client, {insert, Key, Value}} ->
+            Client ! {db, write_error};
+        {Client, {retrieve, Key}} ->
+            Client ! {db, read_error};
+        {Client, {stop}} ->
+            Client ! {db, stop};
+        {Client, Catch} ->
+            Client ! {db, 'the fuck did you enter?'}
     end.
