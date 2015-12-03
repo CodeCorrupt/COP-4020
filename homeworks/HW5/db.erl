@@ -1,10 +1,10 @@
 -module(db).
--export([start/0,stop/0,retrieve/1,insert/2,custom/1]).
+-export([start/0,stop/0,retrieve/1,insert/2]).
 
 start() ->
     register(db, spawn(fun() ->
-                loop(dict:new())
-                end)
+                         loop()
+                 end)
             ),
     {started}.
     
@@ -18,15 +18,15 @@ retrieve(Key) ->
 stop() ->
     rpc({stop}).
 
-custom(Pul) ->
-    rpc(Pul).
-
 rpc(Request) ->
     db ! {self(), Request},
     receive
-	{db, Reply} ->
-	    Reply
+    {db, Reply} ->
+        Reply
     end.
+
+loop() ->
+    loop(dict:new()).
 
 loop(Dictionary) ->
     receive
