@@ -3,11 +3,11 @@
 
 start() ->
     register(db, spawn(fun() ->
-                         loop()
-                 end)
-            ),
+                    loop()
+            end)
+    ),
     {started}.
-    
+
 
 insert(Key, Value) ->
     rpc({insert, Key, Value}).
@@ -21,28 +21,19 @@ stop() ->
 rpc(Request) ->
     db ! {self(), Request},
     receive
-    {db, Reply} ->
-        Reply
+        {db, Reply} ->
+            Reply
     end.
 
 loop() ->
-    loop(dict:new()).
-
-loop(Dictionary) ->
     receive
         {Client, {insert, Key, Value}} ->
-            NewD = dict:store(Key, Value, Dictionary),
+            put(Key, Value),
             Client ! {db, done},
-            loop(NewD);
+            loop();
         {Client, {retrieve, Key}} ->
-            Value = dict:find(Key, Dictionary),
-            case Value of
-                {ok,Val} ->
-                    Client ! {db, Val};
-                error ->
-                    Client ! {db, undefined}
-            end,
-            loop(Dictionary);
+            Client ! {db, get(Key)},
+            loop();
         {Client, {stop}} ->
             Client ! {db, stopped}
     end.
