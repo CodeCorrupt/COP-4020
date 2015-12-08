@@ -1,0 +1,198 @@
+Midterm Exam
+COP 4020 Programming Languages - Fall 2015
+Instructor: Dr. Pawel Wocjan
+
+
+First name : ____________________
+
+Family name: ____________________
+
+PID        : ____________________
+
+
+
+Each of the 4 problems is worth 10 points.
+
+Problem 1: ____
+
+Problem 2: ____
+
+Problem 3: ____
+
+Problem 4: ____
+
+Total    : ____
+
+
+
+Problem 1: 
+----------
+
+Each of the 5 subproblems is worth 2 points.
+
+a) Determine the output of 
+
+> filter (even . (\x -> x + 1)) [2,3,4,5]
+
+
+Your answer: __________
+
+b) Determine the output of 
+
+> map (\(x,y) -> x + y) [(1,2),(3,4),(5,6)]
+
+
+Your answer: __________
+
+c) Determine the output of 
+
+> map odd [x | x <- [1..8], even x]
+
+
+Your answer: __________
+
+d) Determine the output of
+
+> filter even [y | y <- [1..10], odd y]
+
+
+Your answer: __________
+
+e) Determine the output of
+
+> map (\(a,b) -> (+) a b) $ zip [4,3,2,1] [1..]
+
+
+Your answer: __________
+
+
+Problem 2:
+----------
+
+Each of the 5 subproblems is worth 2 points; the total is 10 points.
+
+a) Determine the output of
+
+> foldr max 0 [2,9,3,8,7,5,6]
+
+
+Your answer: __________
+
+b) Determine the output of
+
+> foldr min 0 [2,9,3,8,7,5,6]
+
+
+Your answer: __________
+
+c) Determine the output of
+
+> foldr (:) [] [1,2,3,4,5]
+
+
+Your answer: __________
+
+d) Determine the output of
+
+> foldl (flip (:)) [] [1,2,3,4,5]
+
+
+Your answer: __________
+
+e) Determine the output of
+
+> foldr (\x -> (\y -> y)) 6 [1,2,3,4,5] 
+
+
+Your answer: __________
+
+
+
+Problem 3:
+----------
+
+a) (2 points) Implement the Haskell function 
+
+min :: Ord a => a -> a -> a
+
+
+
+
+
+
+
+
+
+In the subproblems (a), (b), and (c), you will reimplement the Haskell
+built-in function 
+
+  minimum :: Ord a => [a] -> a
+
+in three different ways.  If the input list is empty, then an error 
+message should be printed out.  
+
+b) (2 points) Implement it using min and recursively calling minimum (no other functions).
+
+
+
+
+
+
+
+
+
+
+c) (3 points) Implement it tail-recursively by calling an appropriate iterator function (no other functions than min, minimum, and the iterator).
+
+
+
+
+
+
+
+
+
+
+d) (3 points) Implement it using min and a fold function.  (You do not have to provide the implementation for the fold.)
+
+
+
+
+
+
+
+
+
+
+
+
+Problem 4:
+----------
+
+(10 points) You are given the following recursive
+definition of expressions:
+
+> data Expr =  Lit Integer 
+>            | Inc Expr  
+>            | Dec Expr  
+>            | Add Expr Expr 
+>            | Sub Expr Expr 
+>            | Mul Expr Expr 
+>            | Div Expr Expr 
+
+Implement the function 
+
+  eval :: Expr -> Integer
+
+that evaluates the corresponding expressions such that, 
+for instance:
+
+  eval (Lit 10) == 10
+  eval (Add (Inc (Lit 1)) (Dec (Lit 3))) == 4
+  eval (Add (Lit 1) (Mul (Lit 2) (Lit 3))) == 7 
+
+Add, Sub, Mul, Div correspond to the binary operations: 
+addition, subtraction, multiplication, and division. 
+
+Inc and Dec correspond to the unary operations: 
+increment by 1 and decrement by 1.
