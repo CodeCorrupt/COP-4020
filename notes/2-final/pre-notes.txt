@@ -1,0 +1,13 @@
+Erlang - look over homework and impliment in tail recursive way.
+    (Passing dict in to loop each time)
+
+
+HASKELLLLLLLLL
+Filther
+map
+function composition
+zip
+data structurs
+max
+parser
+
