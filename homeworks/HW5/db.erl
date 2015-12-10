@@ -1,39 +1,40 @@
 -module(db).
--export([start/0,stop/0,retrieve/1,insert/2]).
+-export([start/1,stop/1,retrieve/2,insert/3]).
 
-start() ->
-    register(db, spawn(fun() ->
-                    loop()
+start(Name) ->
+    register(Name, spawn(fun() ->
+                    loop(Name)
             end)
     ),
     {started}.
 
 
-insert(Key, Value) ->
-    rpc({insert, Key, Value}).
+insert(Name, Key, Value) ->
+    rpc(Name, {insert, Key, Value}).
 
-retrieve(Key) ->
-    rpc({retrieve, Key}).
+retrieve(Name, Key) ->
+    rpc(Name, {retrieve, Key}).
 
-stop() ->
-    rpc({stop}).
+stop(Name) ->
+    rpc(Name, {stop}).
 
-rpc(Request) ->
-    db ! {self(), Request},
+rpc(Name, Request) -> % Remote Procedure Call
+    
+   Name ! {self(), Request},
     receive
-        {db, Reply} ->
+        {Name, Reply} ->
             Reply
     end.
 
-loop() ->
+loop(Name) ->
     receive
         {Client, {insert, Key, Value}} ->
             put(Key, Value),
-            Client ! {db, done},
-            loop();
+            Client ! {Name, done},
+            loop(Name);
         {Client, {retrieve, Key}} ->
-            Client ! {db, get(Key)},
-            loop();
+            Client ! {Name, get(Key)},
+            loop(Name);
         {Client, {stop}} ->
-            Client ! {db, stopped}
+            Client ! {Name, stopped}
     end.
