@@ -33,6 +33,7 @@ Each of the 5 subproblems is worth 2 points.
 a) Determine the output of 
 
 > filter (even . (\x -> x + 1)) [2,3,4,5]
+    f(g(x)) == (f.g) x
 
 
 Your answer: __________

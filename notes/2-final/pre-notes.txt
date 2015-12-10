@@ -1,13 +1,18 @@
 Erlang - look over homework and impliment in tail recursive way.
-    (Passing dict in to loop each time)
 
+
+Tail recursion is any fucntion where the last command is to call itself
 
 HASKELLLLLLLLL
-Filther
+-------------
+Filter
 map
 function composition
 zip
 data structurs
 max
 parser
+make something not tail recursive into tail recursive
+fold l and r
 
+Binary trees
